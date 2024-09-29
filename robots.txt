@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /sd_admin/
+Disallow: /admin/
+Disallow: /login
+
+Sitemap: https://poddoja.com/sitemap.xml
