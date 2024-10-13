@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    function thankyou(){
+    function thankyou()
+    {
         return view('frontend.thankyou');
     }
 }

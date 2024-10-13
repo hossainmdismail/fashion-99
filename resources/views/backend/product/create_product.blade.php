@@ -118,6 +118,14 @@
 
                                         <div class="col-12">
                                             <div class="mb-4">
+                                                <label for="product_name" class="form-label">Short Description</label>
+                                                <textarea class="form-control  @error('short_description') is-invalid @enderror" name="short_description" id=""
+                                                    cols="30" rows="10" placeholder="Short details"> {{ old('short_description') }}</textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <div class="mb-4">
                                                 <label for="product_name"
                                                     class="form-label @error('description') text-danger @enderror">Description
                                                     @error('description')
@@ -131,11 +139,16 @@
 
                                         <div class="col-12">
                                             <div class="mb-4">
-                                                <label for="product_name" class="form-label">Short Description</label>
-                                                <textarea class="form-control  @error('short_description') is-invalid @enderror" name="short_description" id=""
-                                                    cols="30" rows="10" placeholder="Short details"> {{ old('short_description') }}</textarea>
+                                                <label for="product_name"
+                                                    class="form-label @error('description') text-danger @enderror">Additional
+                                                    Information
+                                                </label>
+                                                <textarea id="additional_info" class="form-control" name="additional_info" cols="30" rows="10"
+                                                    placeholder="Additional information">{{ old('additional_info') }}</textarea>
                                             </div>
                                         </div>
+
+
 
                                     </div>
                                 </div>
@@ -287,10 +300,26 @@
 
 @section('script')
     <script>
+        // Description editor with all features (including image and video)
         ClassicEditor
             .create(document.querySelector('#description'))
             .catch(error => {
-                console.error(error);
+                console.error('There was an error initializing the description editor:', error);
+            });
+
+        // Additional Info editor without image and video upload
+        ClassicEditor
+            .create(document.querySelector('#additional_info'), {
+                toolbar: {
+                    items: [
+                        'undo', 'redo', '|', 'heading', '|', 'bold', 'italic', 'link',
+                        'blockQuote', 'insertTable', 'numberedList', 'bulletedList',
+                        'outdent', 'indent', 'alignment', '|', 'removeFormat'
+                    ]
+                }
+            })
+            .catch(error => {
+                console.error('There was an error initializing the additional_info editor:', error);
             });
     </script>
     <script>

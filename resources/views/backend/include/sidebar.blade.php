@@ -238,10 +238,11 @@
                                 d="M15.5227 12C15.5227 13.6569 14.1694 15 12.4999 15C10.8304 15 9.47705 13.6569 9.47705 12C9.47705 10.3431 10.8304 9 12.4999 9C14.1694 9 15.5227 10.3431 15.5227 12Z"
                                 fill="#1C274C" />
                         </svg>
-                        <span class="text">Configuration</span>
+                        <span class="text">Settings</span>
                     </a>
                     <div class="submenu">
                         <a href="{{ route('config.index') }}">Site Setting</a>
+                        <a href="{{ route('themes.index') }}">Themes</a>
                         <a href="{{ route('customlink.index') }}">Custom Code</a>
                     </div>
                 </li>

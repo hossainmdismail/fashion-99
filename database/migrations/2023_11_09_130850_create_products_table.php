@@ -14,8 +14,9 @@ return new class extends Migration
             $table->string('name');
             $table->string('sku', 255)->unique()->nullable();
             $table->string('slugs')->unique();
-            $table->longText('short_description');
+            $table->text('short_description', 3000);
             $table->longText('description');
+            $table->longText('additional_info')->nullable();
             $table->string('video_link')->nullable();
             $table->decimal('stock_price', 10.0)->default(0);
             $table->decimal('price', 10.0)->default(0);
@@ -26,7 +27,7 @@ return new class extends Migration
             $table->integer('shipping_fee')->default(0);
             $table->enum('status', ['active', 'deactive']);
             $table->string('seo_title')->nullable();
-            $table->longText('seo_description')->nullable();
+            $table->text('seo_description', 1000)->nullable();
             $table->string('seo_tags')->nullable();
             $table->timestamps();
         });

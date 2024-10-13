@@ -27,7 +27,9 @@ use App\Http\Controllers\Admin\VariationController;
 use App\Http\Controllers\Backend\AttributeController;
 use App\Http\Controllers\ProductController as ControllersProductController;
 use App\Http\Controllers\CategoryController as ControllersCategoryController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\Frontend\ProfileController;
+use App\Http\Controllers\ThemesController;
 
 //Frontend
 Auth::routes();
@@ -46,6 +48,7 @@ Route::get('/about', [HomeController::class, 'aboutus'])->name('aboutus');
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 Route::get('/campaign/{id}', [HomeController::class, 'campaign'])->name('campaign.product.list');
 Route::get('/privacy-policy', [HomeController::class, 'privacy'])->name('privacy');
+Route::post('/comment', [CommentController::class, 'store'])->name('comment.post');
 Route::get('/sitemap', [SEOController::class, 'sitemap'])->name('sitemap');
 
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
@@ -83,6 +86,7 @@ Route::middleware(['admin'])->prefix('sd-admin')->group(function () {
     Route::resource('/attributes', AttributeController::class);
     Route::resource('/campaign-product', CampaignController::class);
     Route::resource('/employee', EmployeeController::class);
+    Route::resource('/themes', ThemesController::class);
 });
 
 //admin login

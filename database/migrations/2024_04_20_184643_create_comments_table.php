@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->integer('product_id');
             $table->string('name');
-            $table->string('email');
+            $table->string('email')->nullable();
             $table->string('number');
             $table->integer('rating')->nullable();
-            $table->longText('comment');
+            $table->text('comment', 1000);
             $table->timestamps();
         });
     }

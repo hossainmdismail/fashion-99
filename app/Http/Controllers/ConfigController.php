@@ -88,7 +88,34 @@ class ConfigController extends Controller
      */
     public function update(Request $request, Config $config)
     {
-        //
+        $request->validate([
+            'name'      => 'required',
+            'email'     => 'required',
+            'number'    => 'required',
+            'address'   => 'required',
+            'url'       => 'required',
+        ]);
+
+        $config->name       = $request->name;
+        $config->email      = $request->email;
+        $config->number     = $request->number;
+        $config->url        = $request->url;
+        $config->address    = $request->address;
+
+        if ($request->logo) {
+            Photo::delete('files/config', $config->logo);
+            Photo::upload($request->logo, 'files/config', 'CONFIG');
+            $config->logo   = Photo::$name;
+        }
+
+        if ($request->fav) {
+            Photo::delete('files/config', $config->fav);
+            Photo::upload($request->fav, 'files/config', 'CONFIG');
+            $config->fav   = Photo::$name;
+        }
+
+        $config->save();
+        return back()->with('succ', 'Successfully configure');
     }
 
     /**

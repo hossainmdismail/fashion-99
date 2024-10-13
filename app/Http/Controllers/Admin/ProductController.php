@@ -87,6 +87,7 @@ class ProductController extends Controller
             $product->slugs             = $slug;
             $product->short_description = $request->short_description;
             $product->description       = $request->description;
+            $product->additional_info   = $request->additional_info;
             $product->video_link        = $request->link;
             $product->status            = $request->btn;
             $product->featured          = $request->featured == 'on' ? 1 : 0;
@@ -160,7 +161,6 @@ class ProductController extends Controller
             'sku'               => 'required',
             'short_description' => 'required',
             'description'       => 'required',
-            //new
             'price'             => 'required|integer',
             'stock_price'       => 'required|integer',
             's_price'           => 'required|integer',
@@ -186,6 +186,7 @@ class ProductController extends Controller
             $product->slugs             = $slug;
             $product->short_description = $request->short_description;
             $product->description       = $request->description;
+            $product->additional_info   = $request->additional_info;
             // $product->video_link        = $request->link;
             $product->status            = $request->btn;
             $product->seo_title         = $request->seo_title;

@@ -25,7 +25,7 @@ class AdminController extends Controller
         $cat = ProductCategory::all()->count();
         $order = Order::all()->count();
         $camp = Campaign::all()->count();
-        return view('backend.home.home',[
+        return view('backend.home.home', [
             'total_product' => $product->count(),
             'total_price'   => $product->sum('price'),
             'total_cat'     => $cat,
@@ -49,11 +49,14 @@ class AdminController extends Controller
 
         $credentials = $request->only('email', 'password');
 
-        // dd($credentials);
-        if (Auth::guard('admin')->attempt($credentials)) {
+        $remember = $request->has('remember'); // Check if remember me is checked
+
+        if (Auth::guard('admin')->attempt($credentials, $remember)) {
             return redirect()->route('dashboard');
         } else {
-            return back();
+            return back()->withErrors([
+                'email' => 'Invalid credentials.',
+            ]);
         }
     }
 
@@ -64,7 +67,7 @@ class AdminController extends Controller
 
         if ($super_admin == 0 && !Auth::guard('admin')->check()) {
             return view('backend.include.admin_register', compact('super_admin'));
-        }else {
+        } else {
             return redirect('/');
         }
     }
@@ -118,7 +121,8 @@ class AdminController extends Controller
         return back();
     }
 
-    function admin_logout(Request $request){
+    function admin_logout(Request $request)
+    {
         Auth::guard('admin')->logout();
 
         $request->session()->invalidate();
