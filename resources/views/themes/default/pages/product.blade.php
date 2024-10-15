@@ -68,9 +68,9 @@
 
             table td::before {
                 /*
-                                                                                                                                                                                                                                                                        * aria-label has no advantage, it won't be read inside a table
-                                                                                                                                                                                                                                                                        content: attr(aria-label);
-                                                                                                                                                                                                                                                                        */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        * aria-label has no advantage, it won't be read inside a table
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        content: attr(aria-label);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        */
                 content: attr(data-label);
                 float: left;
                 font-weight: bold;
@@ -255,62 +255,53 @@
                             @endif
                         </ul>
                     </div>
-                    <div class="product-single__swatches">
-                        <div class="product-swatch text-swatches">
-                            <label>Sizes</label>
-                            <div class="swatch-list">
-                                <input type="radio" name="size" id="swatch-1">
-                                <label class="swatch js-swatch" for="swatch-1" aria-label="Extra Small"
-                                    data-bs-toggle="tooltip" data-bs-placement="top" title=""
-                                    data-bs-original-title="Extra Small">XS</label>
-                                <input type="radio" name="size" id="swatch-2" checked="">
-                                <label class="swatch js-swatch" for="swatch-2" aria-label="Small"
-                                    data-bs-toggle="tooltip" data-bs-placement="top" title=""
-                                    data-bs-original-title="Small">S</label>
-                                <input type="radio" name="size" id="swatch-3">
-                                <label class="swatch js-swatch" for="swatch-3" aria-label="Middle"
-                                    data-bs-toggle="tooltip" data-bs-placement="top" title=""
-                                    data-bs-original-title="Middle">M</label>
-                                <input type="radio" name="size" id="swatch-4">
-                                <label class="swatch js-swatch" for="swatch-4" aria-label="Large"
-                                    data-bs-toggle="tooltip" data-bs-placement="top" title=""
-                                    data-bs-original-title="Large">L</label>
-                                <input type="radio" name="size" id="swatch-5">
-                                <label class="swatch js-swatch" for="swatch-5" aria-label="Extra Large"
-                                    data-bs-toggle="tooltip" data-bs-placement="top" title=""
-                                    data-bs-original-title="Extra Large">XL</label>
+                    <form name="addtocart-form">
+                        @csrf
+                        <div class="product-single__swatches">
+
+                            <!-- Colors -->
+                            <div class="product-swatch color-swatches">
+                                <label>Color</label>
+                                <div class="swatch-list">
+                                    @foreach ($availableColors as $index => $color)
+                                        <input type="radio" name="color" id="color-{{ $color['id'] }}"
+                                            value="{{ $color['id'] }}" data-color-id="{{ $color['id'] }}"
+                                            {{ $index == 0 ? 'checked' : '' }}> <!-- Auto-select the first color -->
+                                        <label
+                                            class="swatch swatch-color js-swatch {{ $index == 0 ? 'color-active' : '' }}"
+                                            for="color-{{ $color['id'] }}"
+                                            style="background-color: {{ $color['code'] }};">
+                                            <img src="{{ asset('files/product/' . $color['image']) }}"
+                                                style="border-radius: .6rem;" alt="{{ $color['name'] }}">
+                                        </label>
+                                    @endforeach
+                                </div>
                             </div>
-                            {{-- <a href="#" class="sizeguide-link" data-bs-toggle="modal"
-                                data-bs-target="#sizeGuide">Size Guide</a> --}}
-                        </div>
-                        <div class="product-swatch color-swatches">
-                            <label>Color</label>
-                            <div class="swatch-list">
-                                <input type="radio" name="color" id="swatch-11">
-                                <label class="swatch swatch-color js-swatch" for="swatch-11" aria-label="Black"
-                                    data-bs-toggle="tooltip" data-bs-placement="top" title="" style="color: #222"
-                                    data-bs-original-title="Black"></label>
-                                <input type="radio" name="color" id="swatch-12" checked="">
-                                <label class="swatch swatch-color js-swatch" for="swatch-12" aria-label="Red"
-                                    data-bs-toggle="tooltip" data-bs-placement="top" title=""
-                                    style="color: #C93A3E" data-bs-original-title="Red"></label>
-                                <input type="radio" name="color" id="swatch-13">
-                                <label class="swatch swatch-color js-swatch" for="swatch-13" aria-label="White"
-                                    data-bs-toggle="tooltip" data-bs-placement="top" title="" style="color: #FFF"
-                                    data-bs-original-title="White"></label>
+
+                            <!-- Sizes (this will be updated based on the selected color) -->
+                            <div class="product-swatch text-swatches">
+                                <label>Sizes</label>
+                                <div class="swatch-list" id="sizeOptions">
+                                    <!-- Sizes for the selected color will be injected here -->
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <form name="addtocart-form" method="post">
+
+                        <!-- Quantity -->
                         <div class="product-single__addtocart">
                             <div class="qty-control position-relative">
                                 <input type="number" name="quantity" value="1" min="1"
                                     class="qty-control__number text-center">
-                                <div class="qty-control__reduce">-</div>
-                                <div class="qty-control__increase">+</div>
-                            </div><!-- .qty-control -->
-                            <button type="submit" class="btn btn-primary btn-addtocart js-open-aside"
-                                data-aside="cartDrawer">Add to Cart</button>
+                                <div class="qty-control__reduce" onclick="updateQuantity(-1)">-</div>
+                                <div class="qty-control__increase" onclick="updateQuantity(1)">+</div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-addtocart">
+                                Add to Cart
+                                <div class="spinner-border add-to-cart-loader" role="status" style="display:none;">
+                                    <span class="sr-only"></span>
+                                </div>
+                            </button>
                         </div>
                     </form>
                     <div class="product-single__addtolinks">
@@ -350,8 +341,8 @@
                                 </div>
                             </details>
                         </share-button>
-                        <script src="js/details-disclosure.js" defer="defer"></script>
-                        <script src="js/share.js" defer="defer"></script>
+                        <script src="{{ asset('themes/default') }}/js/details-disclosure.js" defer="defer"></script>
+                        <script src="{{ asset('themes/default') }}/js/share.js" defer="defer"></script>
                     </div>
                     <div class="product-single__meta-info">
                         <div class="meta-item">
@@ -436,31 +427,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                {{-- <div class="single-comment justify-content-between d-flex">
-                                    <div class="user justify-content-between d-flex">
-                                        <div class="thumb text-center">
-                                            <img src="{{ asset('avatar.webp') }}" alt="">
-                                            <h6><a href="#">{{ $comment->name }}</a></h6>
-                                            <p class="font-xxs">
-                                                {{ $product->created_at->format('M Y') }}</p>
-                                        </div>
-                                        <div class="desc">
-                                            <div class="product-rate d-inline-block">
-                                                <div class="product-rating" style="width:{{ $comment->getRating() }}%">
-                                                </div>
-                                            </div>
-                                            <p>{{ $comment->comment }}
-                                            </p>
-                                            <div class="d-flex justify-content-between">
-                                                <div class="d-flex align-items-center">
-                                                    <p class="font-xs mr-30">
-                                                        {{ $comment->created_at->format('F j, Y \a\t g:i a') }}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> --}}
                             @empty
                             @endforelse
                         </div>
@@ -631,4 +597,195 @@
 
         </section><!-- /.products-carousel container -->
     </main>
+@endsection
+@section('script')
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        var availableColors = @json($availableColors);
+
+        function updateSizes(colorId) {
+            var selectedColor = availableColors.find(color => color.id == colorId);
+            var sizeOptions = document.getElementById('sizeOptions');
+            sizeOptions.innerHTML = ''; // Clear existing sizes
+
+            if (selectedColor && selectedColor.sizes.length > 0) {
+                selectedColor.sizes.forEach(function(size, index) {
+                    var disabled = size.stock > 0 ? '' : 'disabled';
+                    var checked = index == 0 ? 'checked' : ''; // Select the first size by default
+
+                    sizeOptions.innerHTML += `
+                    <input type="radio" name="inventory_id" id="size-${size.size_id}" value="${size.inventory_id}" ${checked} ${disabled}>
+                    <label class="swatch js-swatch" for="size-${size.size_id}">
+                        ${size.size_name} (${size.stock > 0 ? 'In stock' : 'Out of stock'})
+                    </label>
+                `;
+                });
+            } else {
+                sizeOptions.innerHTML = '<p>No sizes available for this color.</p>';
+            }
+        }
+
+        function activateColor(colorId) {
+            document.querySelectorAll('.swatch-color').forEach(function(label) {
+                label.classList.remove('color-active');
+            });
+
+            var selectedLabel = document.querySelector(`label[for="color-${colorId}"]`);
+            if (selectedLabel) {
+                selectedLabel.classList.add('color-active');
+            }
+        }
+
+        document.querySelectorAll('input[name="color"]').forEach(function(colorInput) {
+            colorInput.addEventListener('change', function() {
+                activateColor(this.value); // Apply 'color-active' to the selected color
+                updateSizes(this.value); // Update sizes based on selected color
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var firstColorId = document.querySelector('input[name="color"]:checked').value;
+            updateSizes(firstColorId);
+        });
+
+        function updateQuantity(amount) {
+            var currentQuantity = parseInt(document.querySelector('input[name="quantity"]').value);
+            var newQuantity = currentQuantity + amount;
+            if (newQuantity > 0) {
+                document.querySelector('input[name="quantity"]').value = newQuantity;
+            }
+        }
+
+        $('form[name="addtocart-form"]').on('submit', function(e) {
+            e.preventDefault();
+
+            $('.add-to-cart-loader').show();
+
+            let formData = {
+                _token: $('input[name="_token"]').val(),
+                color: $('input[name="color"]:checked').val(),
+                inventory_id: $('input[name="inventory_id"]:checked').val(),
+                quantity: $('input[name="quantity"]').val(),
+            };
+
+            $.ajax({
+                url: '{{ route('addtocart') }}',
+                type: 'POST',
+                data: formData,
+                success: function(response) {
+                    loadCartData();
+                    console.log('Product added to cart successfully!');
+
+                    $('.alert-message').text('Product added to cart successfully!');
+
+                    $('#cookieConsentContainer').css('opacity', '1').fadeIn();
+
+                    setTimeout(function() {
+                        $('#cookieConsentContainer').fadeOut(); // Hide the div
+                    }, 3000);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error adding product to cart:', error);
+                    alert('There was an error adding the product to the cart.');
+                },
+                complete: function() {
+                    $('.add-to-cart-loader').hide();
+                }
+            });
+        });
+    </script>
+
+    {{-- <script>
+        var availableColors = @json($availableColors);
+
+        function updateSizes(colorId) {
+            var selectedColor = availableColors.find(color => color.id == colorId);
+            var sizeOptions = document.getElementById('sizeOptions');
+            sizeOptions.innerHTML = ''; // Clear existing sizes
+
+            if (selectedColor && selectedColor.sizes.length > 0) {
+                selectedColor.sizes.forEach(function(size, index) {
+                    var disabled = size.stock > 0 ? '' : 'disabled';
+                    var checked = index == 0 ? 'checked' : ''; // Select the first size by default
+
+                    // Insert size radio buttons with inventory_id as the value
+                    sizeOptions.innerHTML += `
+                <input type="radio" name="inventory_id" id="size-${size.size_id}" value="${size.inventory_id}" ${checked} ${disabled}>
+                <label class="swatch js-swatch" for="size-${size.size_id}">
+                    ${size.size_name} (${size.stock > 0 ? 'In stock' : 'Out of stock'})
+                </label>
+            `;
+                });
+            } else {
+                sizeOptions.innerHTML = '<p>No sizes available for this color.</p>';
+            }
+        }
+
+        function activateColor(colorId) {
+            document.querySelectorAll('.swatch-color').forEach(function(label) {
+                label.classList.remove('color-active');
+            });
+
+            var selectedLabel = document.querySelector(`label[for="color-${colorId}"]`);
+            if (selectedLabel) {
+                selectedLabel.classList.add('color-active');
+            }
+        }
+
+        document.querySelectorAll('input[name="color"]').forEach(function(colorInput) {
+            colorInput.addEventListener('change', function() {
+                activateColor(this.value); // Apply 'color-active' to the selected color
+                updateSizes(this.value); // Update sizes based on selected color
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var firstColorId = document.querySelector('input[name="color"]:checked').value;
+            updateSizes(firstColorId);
+        });
+
+        function updateQuantity(amount) {
+            var currentQuantity = parseInt(document.querySelector('input[name="quantity"]').value);
+            var newQuantity = currentQuantity + amount;
+            if (newQuantity > 0) {
+                document.querySelector('input[name="quantity"]').value = newQuantity;
+            }
+        }
+
+        $('form[name="addtocart-form"]').on('submit', function(e) {
+            e.preventDefault(); // Prevent the default form submission
+
+            // Get the form data
+            let formData = {
+                // _token: $('input[name="_token"]').val(), // CSRF token
+                color: $('input[name="color"]:checked').val(), // Selected color
+                size: $('input[name="size"]:checked').val(), // Selected size (if applicable)
+                quantity: $('input[name="quantity"]').val(), // Quantity
+            };
+
+            console.log('Form Data:', formData); // Debugging: log form data
+
+            // // AJAX request to submit the form
+            // $.ajax({
+            //     url: '{{ route('addtocart') }}', // Update to the correct route
+            //     type: 'POST',
+            //     data: formData,
+            //     success: function (response) {
+            //         // Handle success response
+            //         alert('Product added to cart successfully!');
+            //         // Optionally reload cart data or update cart UI
+            //     },
+            //     error: function (xhr, status, error) {
+            //         // Handle error
+            //         console.error('Error adding product to cart:', error);
+            //         alert('There was an error adding the product to the cart.');
+            //     }
+            // });
+        });
+    </script> --}}
 @endsection

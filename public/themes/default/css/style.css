@@ -41,6 +41,21 @@ body {
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
 
+  /* scroll */
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: #a4a4a4;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #222222;
+    border-radius: 10px;
+}
+
 [tabindex="-1"]:focus:not(:focus-visible) {
   outline: 0 !important; }
 
@@ -2333,14 +2348,15 @@ progress {
   to {
     transform: rotate(360deg) /* rtl:ignore */; } }
 .spinner-border {
-  display: inline-block;
-  width: 2rem;
-  height: 2rem;
-  vertical-align: text-bottom;
-  border: 0.25em solid currentColor;
-  border-right-color: transparent;
-  border-radius: 50%;
-  animation: 0.75s linear infinite spinner-border; }
+    display: inline-block;
+    width: .9rem;
+    height: .9rem;
+    vertical-align: text-bottom;
+    border: 0.17em solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: 0.75s linear infinite spinner-border;
+    margin-left: 6px; }
 
 .spinner-border-sm {
   width: 1rem;
@@ -7088,10 +7104,10 @@ main {
   margin-right: 1.25rem;
   width: .25rem;
   height: .25rem;
-  background-color: #eeeeee; }
+  background-color: #222222; }
 .scrollbar-gray ::-webkit-scrollbar-thumb {
   border-radius: .25rem;
-  background-color: #767676; }
+  background-color: #F0F0F0; }
 
 .sticky-content {
   position: sticky;
@@ -10149,15 +10165,24 @@ img {
 .swiper-pagination-bullets.theme-color .swiper-pagination-bullet-active {
   color: #C32929; }
 
+.color-active::after {
+    content: '';
+    position: absolute;
+    background: red;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    top: -4px;
+    right: -4px;}
 .swatch-color {
   display: block;
   position: relative;
-  width: 1.75rem;
-  height: 1.75rem;
+  width: 2.75rem;
+  height: 2.75rem;
   margin-right: .75rem;
   margin-bottom: .75rem;
-  border-radius: 50%; }
-  .swatch-color:after {
+  border-radius: .7rem; }
+  /* .swatch-color:after {
     display: block;
     position: absolute;
     top: 50%;
@@ -10169,7 +10194,7 @@ img {
     border-radius: 100%;
     background-color: currentColor;
     color: inherit;
-    content: ''; }
+    content: ''; } */
   .swatch-color.swatch_active {
     border: 2px solid #222222; }
   .hover-container .swatch-color {
@@ -11682,7 +11707,8 @@ textarea.form-control-lg {
     justify-content: center;
     cursor: pointer; }
   .cookieConsentContainer .cookieDesc p {
-    font-size: 0.8125rem; }
+    font-size: 0.8125rem;
+    margin-bottom: 0;}
 
 @-webkit-keyframes bounceIn {
   from,20%,40%,60%,80%,to {

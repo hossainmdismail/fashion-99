@@ -37,6 +37,7 @@ Auth::routes();
 Route::get('/', [FrontendController::class, 'home'])->name('index');
 Route::get('/products/{slugs}', [ControllersProductController::class, 'single'])->name('product.view');
 Route::post('/add/cart', [ControllersProductController::class, 'cart'])->name('addtocart');
+Route::get('/cart/items', [ControllersProductController::class, 'cartitems'])->name('cart.items');
 Route::get('/categories/{slugs}', [ControllersCategoryController::class, 'index'])->name('front.category');
 Route::get('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
 Route::get('/shop', [ShopController::class, 'shop'])->name('shop');

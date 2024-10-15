@@ -10,7 +10,7 @@
           <div class="cart-drawer-item d-flex position-relative">
               <div class="position-relative">
                   <a href="product1_simple.html">
-                      <img loading="lazy" class="cart-drawer-item__img" src="../images/cart-item-1.jpg" alt="">
+                      {{-- <img loading="lazy" class="cart-drawer-item__img" src="{{ asset('themes/default') }}/images/cart-item-1.jpg" alt=""> --}}
                   </a>
               </div>
               <div class="cart-drawer-item__info flex-grow-1">
@@ -36,7 +36,7 @@
           <div class="cart-drawer-item d-flex position-relative">
               <div class="position-relative">
                   <a href="product1_simple.html">
-                      <img loading="lazy" class="cart-drawer-item__img" src="../images/cart-item-2.jpg" alt="">
+                      {{-- <img loading="lazy" class="cart-drawer-item__img" src="../images/cart-item-2.jpg" alt=""> --}}
                   </a>
               </div>
               <div class="cart-drawer-item__info flex-grow-1">
@@ -62,7 +62,7 @@
           <div class="cart-drawer-item d-flex position-relative">
               <div class="position-relative">
                   <a href="product1_simple.html">
-                      <img loading="lazy" class="cart-drawer-item__img" src="../images/cart-item-3.jpg" alt="">
+                      {{-- <img loading="lazy" class="cart-drawer-item__img" src="../images/cart-item-3.jpg" alt=""> --}}
                   </a>
               </div>
               <div class="cart-drawer-item__info flex-grow-1">

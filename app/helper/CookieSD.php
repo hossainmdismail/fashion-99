@@ -21,6 +21,7 @@ class CookieSD
         return array_values($productData); // Reset array keys
     }
 
+
     public static function addToCookie(int $inventoryId, int $quantity): void
     {
         $productData = self::getProductData();
@@ -44,6 +45,7 @@ class CookieSD
         }
 
         $encodedProductData = json_encode(array_values($productData));
+        //dd($encodedProductData);
         Cookie::queue(Cookie::forever('product_data', $encodedProductData));
     }
 

@@ -35,6 +35,33 @@
     <script src="{{ asset('themes/default') }}/js/plugins/swiper.min.js"></script>
     <script src="{{ asset('themes/default') }}/js/plugins/countdown.js"></script>
     <script src="{{ asset('themes/default') }}/js/theme.js"></script>
+    <script>
+        function loadCartData() {
+            $.ajax({
+                url: '{{ route('cart.items') }}',
+                method: 'GET',
+                success: function(data) {
+                    updateCart(data.total, data.html, data.totalPrice);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error loading cart data:', error);
+                }
+            });
+        }
+
+        function updateCart(total, html, price) {
+            let priceConvert = price +
+                ' Tk';
+            $('.js-cart-items-count').text(total); // Try changing the value directly
+            $('.cart-drawer-items-list').html(html);
+            $('.cart-total-price').text(priceConvert);
+        }
+        $(document).ready(function() {
+
+            loadCartData();
+
+        });
+    </script>
     @yield('script')
 </body>
 

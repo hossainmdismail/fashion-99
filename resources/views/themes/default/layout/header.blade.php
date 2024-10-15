@@ -26,7 +26,7 @@
                     <path d="M9 6V5C9 3.34315 10.3431 2 12 2C13.6569 2 15 3.34315 15 5V6" stroke="#000000"
                         stroke-width="1.5" stroke-linecap="round" />
                 </svg>
-                <span class="cart-amount d-block position-absolute js-cart-items-count">3</span>
+                <span class="cart-amount d-block position-absolute js-cart-items-count" id="total-cart-item">0</span>
             </a>
         </div><!-- /.container -->
 
@@ -322,7 +322,8 @@
                         <path d="M9 6V5C9 3.34315 10.3431 2 12 2C13.6569 2 15 3.34315 15 5V6" stroke="#000000"
                             stroke-width="1.5" stroke-linecap="round" />
                     </svg>
-                    <span class="cart-amount d-block position-absolute js-cart-items-count">3</span>
+                    <span class="cart-amount d-block position-absolute js-cart-items-count"
+                        id="total-cart-item">0</span>
                 </a>
             </div><!-- /.header__tools -->
         </div><!-- /.header-desk header-desk_type_2 -->

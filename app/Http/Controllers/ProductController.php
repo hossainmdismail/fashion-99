@@ -22,13 +22,42 @@ class ProductController extends Controller
 
         $product = Product::where('slugs', $slugs)->first();
 
-        dd($product->uniqueAttributes());
         if ($product) {
             $config = Config::first();
             $relatedProduct = null;
             if ($product->category) {
                 $relatedProduct = Product::where('category_id', $product->category->id)->get();
             }
+
+            $availableColors = [];
+            if ($product->attributes->isNotEmpty()) {
+                $availableColors = $product->attributes->groupBy('color_id')->map(function ($items) {
+                    // Get the first item in the group to fetch color and image details
+                    $color = $items->first()->color;
+                    $colorImage = $items->first()->image ?? 'path_to_default_image.jpg'; // Provide default image if null
+
+                    return [
+                        'id' => $color->id,              // Color ID
+                        'name' => $color->name,          // Color name
+                        'code' => $color->code,          // Color code (for display)
+                        'image' => $colorImage,          // Image for the color
+                        'inventory_id' => $items->first()->id,  // Inventory ID for the first color-size combination
+                        'sizes' => $items->map(function ($item) {
+                            return [
+                                'inventory_id' => $item->id,       // Specific Inventory ID for this size
+                                'size_id' => $item->size->id ?? null,
+                                'size_name' => $item->size->name ?? 'N/A',
+                                'stock' => $item->qnt,            // Stock for this color-size combination
+                            ];
+                        }),
+                    ];
+                })->values(); // Use values() to get a numeric array
+
+                // Convert collection to array to ensure it's usable in JSON
+                $availableColors = $availableColors->toArray();
+            }
+
+
 
             if ($product) {
                 SEOMeta::setTitle('Product');
@@ -43,6 +72,7 @@ class ProductController extends Controller
             return view("themes.$themeSlug.pages.product", [
                 'product' => $product,
                 'related' => $relatedProduct,
+                'availableColors' => $availableColors,  // Pass colors and sizes to the view
                 'config'  => $config,
             ]);
         }
@@ -52,30 +82,30 @@ class ProductController extends Controller
 
     public function cart(Request $request)
     {
-        // dd($request->all());
+        //dd($request->all());
         $request->validate([
-            'qnt'   => 'required',
-            'id'    => 'required',
-            'btn'   => 'required',
+            'quantity'      => 'required',
+            'inventory_id'  => 'required',
         ]);
 
         try {
-            CookieSD::addToCookie($request->id, $request->qnt);
+            CookieSD::addToCookie($request->inventory_id, $request->quantity);
         } catch (\Exception $e) {
-            // Catch the exception and redirect back with a warning message
             return back()->with('err', 'Warning: ' . $e->getMessage());
         }
 
-        // Facebook Pixel events
-        if ($request->btn == 'cart' || $request->btn == 'buy') {
-            $product = Product::find($request->id);
+        return back()->with('succ', 'Product is added to your cart');
+    }
 
+    public function cartitems()
+    {
+        $cartData = CookieSD::data(); // Assuming CookieSD::data() retrieves cart data
+        $products = $cartData['products'] ?? [];
 
-            if ($request->btn == 'buy') {
-                return redirect()->route('checkout')->with(['add', $product]);
-            }
-
-            return back()->with(['add' => $product, 'qnt' => $request->qnt]);
-        }
+        return response()->json([
+            'html' => view('themes.default.component.cart-productlist', compact('products'))->render(), // Render the Blade template
+            'total' => $cartData['total'] ?? 0, // Pass the total items count for the cart
+            'totalPrice' => $cartData['price'], // Pass the total items count for the cart
+        ]);
     }
 }
