@@ -68,9 +68,9 @@
 
             table td::before {
                 /*
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        * aria-label has no advantage, it won't be read inside a table
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        content: attr(aria-label);
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        * aria-label has no advantage, it won't be read inside a table
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        content: attr(aria-label);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        */
                 content: attr(data-label);
                 float: left;
                 font-weight: bold;
@@ -193,7 +193,7 @@
                             <a href="{{ route('shop') }}" class="menu-link menu-link_us-s text-uppercase fw-medium">Shop</a>
                         </div><!-- /.breadcrumb -->
 
-                        <div
+                        {{-- <div
                             class="product-single__prev-next d-flex align-items-center justify-content-between justify-content-md-end flex-grow-1">
                             <a href="#" class="text-uppercase fw-medium disabled"><svg class="mb-1px" width="10"
                                     height="10" viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg">
@@ -204,7 +204,7 @@
                                     height="10" viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg">
                                     <use href="#icon_next_md" />
                                 </svg></a>
-                        </div><!-- /.shop-acs -->
+                        </div><!-- /.shop-acs --> --}}
                     </div>
                     <h1 class="product-single__name">{{ $product->name }}</h1>
                     <div class="product-single__rating">
@@ -600,11 +600,11 @@
 @endsection
 @section('script')
     <script>
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+        // $.ajaxSetup({
+        //     headers: {
+        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //     }
+        // });
 
         var availableColors = @json($availableColors);
 
@@ -679,7 +679,6 @@
                 data: formData,
                 success: function(response) {
                     loadCartData();
-                    console.log('Product added to cart successfully!');
 
                     $('.alert-message').text('Product added to cart successfully!');
 

@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ShippingController;
 use App\Http\Controllers\Admin\VariationController;
 use App\Http\Controllers\Backend\AttributeController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController as ControllersProductController;
 use App\Http\Controllers\CategoryController as ControllersCategoryController;
 use App\Http\Controllers\CommentController;
@@ -36,8 +37,13 @@ Auth::routes();
 
 Route::get('/', [FrontendController::class, 'home'])->name('index');
 Route::get('/products/{slugs}', [ControllersProductController::class, 'single'])->name('product.view');
+//Cart Route
 Route::post('/add/cart', [ControllersProductController::class, 'cart'])->name('addtocart');
 Route::get('/cart/items', [ControllersProductController::class, 'cartitems'])->name('cart.items');
+Route::get('/cart/item/remove/{inventory}', [CartController::class, 'remove'])->name('cart.item.remove');
+Route::get('/cart/item/increment/{inventory}', [CartController::class, 'increment'])->name('cart.item.increment');
+Route::get('/cart/item/decrement/{inventory}', [CartController::class, 'deccrement'])->name('cart.item.decrement');
+
 Route::get('/categories/{slugs}', [ControllersCategoryController::class, 'index'])->name('front.category');
 Route::get('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
 Route::get('/shop', [ShopController::class, 'shop'])->name('shop');

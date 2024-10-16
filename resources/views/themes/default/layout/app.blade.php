@@ -36,6 +36,12 @@
     <script src="{{ asset('themes/default') }}/js/plugins/countdown.js"></script>
     <script src="{{ asset('themes/default') }}/js/theme.js"></script>
     <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
         function loadCartData() {
             $.ajax({
                 url: '{{ route('cart.items') }}',
@@ -52,7 +58,7 @@
         function updateCart(total, html, price) {
             let priceConvert = price +
                 ' Tk';
-            $('.js-cart-items-count').text(total); // Try changing the value directly
+            $('.js-cart-items-count').text(total);
             $('.cart-drawer-items-list').html(html);
             $('.cart-total-price').text(priceConvert);
         }
@@ -60,6 +66,40 @@
 
             loadCartData();
 
+            $(document).on('click', '.cart-item-remove', function() {
+                var productId = $(this).data('cartremove');
+
+                var $button = $(this);
+                var $loader = $button.siblings('.add-to-cart-remove-loader');
+
+                $button.hide();
+                $loader.show();
+
+                $.ajax({
+                    url: '/cart/item/remove/' + productId,
+                    type: 'GET',
+                    success: function(response) {
+                        loadCartData();
+
+                        $('.alert-message').text('Cart item remove successfully!');
+
+                        $('#cookieConsentContainer').css('opacity', '1').fadeIn();
+
+                        setTimeout(function() {
+                            $('#cookieConsentContainer').fadeOut(); // Hide the div
+                        }, 3000);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error adding product to cart:', error);
+                        alert('There was an error adding the product to the cart.');
+                    },
+                    complete: function() {
+                        $button.show();
+                        $loader.hide();
+
+                    }
+                });
+            });
         });
     </script>
     @yield('script')

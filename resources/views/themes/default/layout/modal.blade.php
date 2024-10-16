@@ -7,21 +7,18 @@
       </div><!-- /.aside-header -->
 
       <div class="aside-content cart-drawer-items-list">
-          {{-- @include('themes.default.component.cart-product') --}}
-
-          {{-- <hr class="cart-drawer-divider"> --}}
-      </div><!-- /.aside-content -->
+      </div>
 
       <div class="cart-drawer-actions position-absolute start-0 bottom-0 w-100">
           <hr class="cart-drawer-divider">
           <div class="d-flex justify-content-between">
               <h6 class="fs-base fw-medium">SUBTOTAL:</h6>
               <span class="cart-subtotal fw-medium cart-total-price">0 TK</span>
-          </div><!-- /.d-flex justify-content-between -->
+          </div>
           <a href="shop_cart.html" class="btn btn-light mt-3 d-block">View Cart</a>
           <a href="shop_checkout.html" class="btn btn-primary mt-3 d-block">Checkout</a>
-      </div><!-- /.aside-content -->
-  </div><!-- /.aside -->
+      </div>
+  </div>
 
   <!-- Sitemap -->
   <div class="modal fade" id="siteMap" tabindex="-1">
