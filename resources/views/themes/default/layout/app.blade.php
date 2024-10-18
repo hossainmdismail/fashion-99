@@ -42,6 +42,7 @@
             }
         });
 
+        //Cart update
         function loadCartData() {
             $.ajax({
                 url: '{{ route('cart.items') }}',
@@ -62,6 +63,25 @@
             $('.cart-drawer-items-list').html(html);
             $('.cart-total-price').text(priceConvert);
         }
+
+        //Checkout cart update
+        function loadCheckoutData() {
+            $.ajax({
+                url: '{{ route('checkout.items') }}',
+                method: 'GET',
+                success: function(data) {
+                    updateCheckout(data.html, data.totalPrice);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error loading cart data:', error);
+                }
+            });
+        }
+
+        function updateCheckout(html, price) {
+            $('.checkout-product-list').html(html);
+            $('.checkout-total').text(price);
+        }
         $(document).ready(function() {
 
             loadCartData();
@@ -80,6 +100,7 @@
                     type: 'GET',
                     success: function(response) {
                         loadCartData();
+                        loadCheckoutData();
 
                         $('.alert-message').text('Cart item remove successfully!');
 

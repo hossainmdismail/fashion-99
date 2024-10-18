@@ -68,9 +68,9 @@
 
             table td::before {
                 /*
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        * aria-label has no advantage, it won't be read inside a table
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        content: attr(aria-label);
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        * aria-label has no advantage, it won't be read inside a table
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        content: attr(aria-label);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        */
                 content: attr(data-label);
                 float: left;
                 font-weight: bold;
@@ -192,19 +192,6 @@
                             <span class="breadcrumb-separator menu-link fw-medium ps-1 pe-1">/</span>
                             <a href="{{ route('shop') }}" class="menu-link menu-link_us-s text-uppercase fw-medium">Shop</a>
                         </div><!-- /.breadcrumb -->
-
-                        {{-- <div
-                            class="product-single__prev-next d-flex align-items-center justify-content-between justify-content-md-end flex-grow-1">
-                            <a href="#" class="text-uppercase fw-medium disabled"><svg class="mb-1px" width="10"
-                                    height="10" viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg">
-                                    <use href="#icon_prev_md" />
-                                </svg><span class="menu-link menu-link_us-s">Prev</span></a>
-                            <a href="product2_variable.html" class="text-uppercase fw-medium"><span
-                                    class="menu-link menu-link_us-s">Next</span><svg class="mb-1px" width="10"
-                                    height="10" viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg">
-                                    <use href="#icon_next_md" />
-                                </svg></a>
-                        </div><!-- /.shop-acs --> --}}
                     </div>
                     <h1 class="product-single__name">{{ $product->name }}</h1>
                     <div class="product-single__rating">
@@ -296,7 +283,7 @@
                                 <div class="qty-control__increase" onclick="updateQuantity(1)">+</div>
                             </div>
 
-                            <button type="submit" class="btn btn-primary btn-addtocart">
+                            <button type="submit" class="btn btn-primary btn-addtocart" data-aside="cartDrawer">
                                 Add to Cart
                                 <div class="spinner-border add-to-cart-loader" role="status" style="display:none;">
                                     <span class="sr-only"></span>
@@ -600,12 +587,6 @@
 @endsection
 @section('script')
     <script>
-        // $.ajaxSetup({
-        //     headers: {
-        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //     }
-        // });
-
         var availableColors = @json($availableColors);
 
         function updateSizes(colorId) {
@@ -687,6 +668,7 @@
                     setTimeout(function() {
                         $('#cookieConsentContainer').fadeOut(); // Hide the div
                     }, 3000);
+                    $('.js-open-aside[data-aside="cartDrawer"]').trigger('click');
                 },
                 error: function(xhr, status, error) {
                     console.error('Error adding product to cart:', error);

@@ -1,12 +1,12 @@
 <div class="cart-drawer-item d-flex position-relative">
     <div class="position-relative">
-        <a href="product1_simple.html">
+        <a>
             <img loading="lazy" class="cart-drawer-item__img" src="{{ asset('files/product/' . $product['image']) }}"
                 alt="">
         </a>
     </div>
     <div class="cart-drawer-item__info flex-grow-1">
-        <h6 class="cart-drawer-item__title fw-normal"><a href="product1_simple.html">{{ $product['name'] }}</a></h6>
+        <h6 class="cart-drawer-item__title fw-normal"><a>{{ $product['name'] }}</a></h6>
         <p class="cart-drawer-item__option text-secondary">Color: {{ $product['color'] }}</p>
         <p class="cart-drawer-item__option text-secondary">Size: {{ $product['size'] }}</p>
         <div class="d-flex align-items-center justify-content-between mt-1">

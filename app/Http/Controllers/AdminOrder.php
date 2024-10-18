@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\Config;
 use App\Models\Order;
-use App\Models\OrderPayment;
-use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Support\Facades\Response;
+use App\Models\Config;
 use League\Csv\Writer;
+use App\Models\OrderPayment;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Response;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class AdminOrder extends Controller
 {
@@ -73,28 +75,21 @@ class AdminOrder extends Controller
 
         $ids = $request->status;
 
-        // Check if $this->check is an array of order IDs
         if (!is_array($ids)) {
-            // Handle the case where $this->check is not an array
             return back()->with('error', 'Invalid input for order IDs');
         }
 
-        // Convert the order IDs to integers
         $orderIds = array_map('intval', $ids);
 
-        // Find orders based on the array of IDs
         $model = Order::whereIn('id', $ids)->get();
 
-        // Create a CSV file and add the header
         $csv = Writer::createFromFileObject(new \SplTempFileObject());
-        $csv->insertOne(['Order ID', 'Name', 'Number', 'Price', 'Date']);
+        $csv->insertOne(['Invoice', 'Name', 'Address', 'Phone', 'Amount', 'Note']);
 
-        // Add order data to the CSV
         foreach ($model as $order) {
-            $csv->insertOne([$order->order_id, $order->name, $order->number, $order->price, $order->created_at->format('D M y')]);
+            $csv->insertOne([$order->order_id, $order->user ? $order->user->name : '', $order->user ? $order->user->address : '', $order->user ? $order->user->number : '', $order->price, $order->admin_message]);
         }
 
-        // Set the HTTP headers for CSV download
         $headers = [
             'Content-Type' => 'text/csv',
             'Content-Disposition' => 'attachment; filename="orders.csv"',
@@ -132,5 +127,82 @@ class AdminOrder extends Controller
         $payment->transaction_id    = $request->transaction_id;
         $payment->save();
         return back()->with('succ', 'Payment added');
+    }
+
+    public function orderHistory($user_id)
+    {
+        $data = Order::where('user_id', $user_id)->orderBy('id', 'DESC')->get();
+
+        $totalCancelledOrders = Order::where('user_id', $user_id)
+            ->whereIn('order_status', ['cancel', 'damage', 'return'])
+            ->count();
+
+        $totalConfirmedOrders = Order::where('user_id', $user_id)
+            ->whereIn('order_status', ['processing', 'shipping', 'delieverd', 'pending'])
+            ->count();
+
+        return view('backend.order.history', [
+            'datas' => $data,
+            'purchase' => $data->sum('price'),
+            'green' => $totalConfirmedOrders,
+            'red' => $totalCancelledOrders,
+        ]);
+    }
+
+    public function xlsxDownload(Request $request)
+    {
+        $ids = $request->status;
+
+        if (!is_array($ids)) {
+            return back()->with('error', 'Invalid input for order IDs');
+        }
+
+        $orderIds = array_map('intval', $ids);
+        $orders = Order::whereIn('id', $orderIds)->get();
+
+        // Create new Spreadsheet object
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Set document properties
+        $spreadsheet->getProperties()->setCreator('Your Name')
+            ->setTitle('Orders Export')
+            ->setSubject('Orders Export')
+            ->setDescription('Export of order data.');
+
+        // Add headers
+        $sheet->setCellValue('A1', 'Invoice')
+            ->setCellValue('B1', 'Name')
+            ->setCellValue('C1', 'Address')
+            ->setCellValue('D1', 'Phone')
+            ->setCellValue('E1', 'Amount')
+            ->setCellValue('F1', 'Note');
+
+        // Add data rows
+        $row = 2;
+        foreach ($orders as $order) {
+            $sheet->setCellValue('A' . $row, $order->order_id)
+                ->setCellValue('B' . $row, $order->user ? $order->user->name : '')
+                ->setCellValue('C' . $row, $order->user ? $order->user->address : '')
+                ->setCellValue('D' . $row, $order->user ? $order->user->number : '')
+                ->setCellValue('E' . $row, $order->price)
+                ->setCellValue('F' . $row, $order->admin_message);
+            $row++;
+        }
+
+        // Write an .xlsx file
+        $writer = new Xlsx($spreadsheet);
+
+        // Create a temporary file in the system's temporary directory
+        $fileName = 'order-list.xlsx';
+        $temp_file = tempnam(sys_get_temp_dir(), $fileName);
+
+        // Save to file
+        $writer->save($temp_file);
+
+        // Return the file as a download response
+        return response()->download($temp_file, $fileName, [
+            'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        ])->deleteFileAfterSend(true);
     }
 }

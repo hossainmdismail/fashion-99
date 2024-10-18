@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('user_id')->nullable();
             $table->string('order_id')->unique();
-            $table->string('name');
-            $table->string('number');
-            $table->string('email')->nullable();
-            $table->string('address');
+            // $table->string('name');
+            // $table->string('number');
+            // $table->string('email')->nullable();
+            // $table->string('address');
             $table->decimal('shipping_charge', 10, 2)->nullable();
             $table->decimal('price', 10, 2)->default(0.00);
             $table->decimal('offer_price', 10, 2)->default(0.00);

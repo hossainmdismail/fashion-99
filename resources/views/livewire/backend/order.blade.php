@@ -51,7 +51,14 @@
                     </select>
                 </div>
                 <div class="col-lg-2 col-6 col-md-3">
-                    <button type="submit" class="btn btn-primary">CSV</button>
+                    <button type="submit" class="btn btn-primary">xlsx <svg style="margin-left: 6px" width="16px"
+                            height="16px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.5"
+                                d="M3 15C3 17.8284 3 19.2426 3.87868 20.1213C4.75736 21 6.17157 21 9 21H15C17.8284 21 19.2426 21 20.1213 20.1213C21 19.2426 21 17.8284 21 15"
+                                stroke="#F8F9FA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M12 3V16M12 16L16 11.625M12 16L8 11.625" stroke="#F8F9FA" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg></button>
                 </div>
             </div>
         </header> <!-- card-header end// -->
@@ -62,8 +69,9 @@
                         <tr>
                             <th><input class="form-check-input" id="checkAll" type="checkbox"></th>
                             <th scope="col">Name</th>
-                            <th scope="col">Number</th>
+                            <th scope="col">Contact</th>
                             <th scope="col">Total</th>
+                            <th scope="col">Health</th>
                             <th scope="col">Status</th>
                             <th scope="col">Date</th>
                             <th scope="col" class="text-end"> Action </th>
@@ -77,17 +85,47 @@
                                         value="{{ $order->id }}" wire:model="check">
                                 </td>
                                 <td><b>
-                                        {{ $order->name }} <br>
+                                        {{ $order->user ? $order->user->name : 'Unknown' }} <br>
                                         <span
                                             style="font-size: 12px; font-size: 10px; font-weight: 800;">#{{ $order->order_id }}</span>
                                     </b></td>
-                                <td>{{ $order->number }}</td>
-                                <td>৳ {{ $order->price }}</td>
+                                <td>
+                                    {{ $order->user ? $order->user->number : 'Null' }}
+                                    <br>
+                                    {{ $order->user ? $order->user->email : 'Null' }}
+
+
+                                </td>
+                                <td>{{ $order->price }} Tk</td>
+                                <td>
+                                    @php
+                                        // Calculate the health percentage for each order
+                                        $orderHealth = $order->health($order->user_id);
+
+                                        // Determine the color based on the health percentage
+                                        if ($orderHealth >= 80) {
+                                            $progressBarColor = 'bg-success'; // Green for 80% and above
+                                        } elseif ($orderHealth >= 50) {
+                                            $progressBarColor = 'bg-warning'; // Yellow for 50% to 79%
+                                        } else {
+                                            $progressBarColor = 'bg-danger'; // Red for below 50%
+                                        }
+                                    @endphp
+
+                                    <!-- Display the progress bar for each order -->
+                                    <div class="progress">
+                                        <div class="progress-bar {{ $progressBarColor }}" role="progressbar"
+                                            style="width: {{ $orderHealth }}%; font-size:10px;font:status-bar"
+                                            aria-valuenow="{{ $orderHealth }}" aria-valuemin="0" aria-valuemax="100">
+                                            {{ $orderHealth }}%
+                                        </div>
+                                    </div>
+                                </td>
                                 <td><span
                                         class="badge rounded-pill alert-{{ getStatusColor($order->order_status) }}">{{ $order->order_status }}</span>
                                 </td>
                                 <td>
-                                    {{ $order->created_at->format('D M y') }}
+                                    {{ $order->created_at->format('d-M-y') }}
                                     <br>
                                     <span
                                         style="font-size: 11px;background: #cbcbcb4f;padding: 2px 7px 2px 7px;border-radius: 10px;color:#00000091">{{ $order->created_at->format('g:i A') }}</span>

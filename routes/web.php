@@ -42,15 +42,20 @@ Route::post('/add/cart', [ControllersProductController::class, 'cart'])->name('a
 Route::get('/cart/items', [ControllersProductController::class, 'cartitems'])->name('cart.items');
 Route::get('/cart/item/remove/{inventory}', [CartController::class, 'remove'])->name('cart.item.remove');
 Route::get('/cart/item/increment/{inventory}', [CartController::class, 'increment'])->name('cart.item.increment');
-Route::get('/cart/item/decrement/{inventory}', [CartController::class, 'deccrement'])->name('cart.item.decrement');
+Route::get('/cart/item/decrement/{inventory}', [CartController::class, 'decrement'])->name('cart.item.decrement');
+
+
+Route::get('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
+Route::get('/checkout/data', [CheckoutController::class, 'checkoutitems'])->name('checkout.items');
+Route::post('/checkout/confirm', [CheckoutController::class, 'checkoutconfirm'])->name('checkout.confirm');
+
 
 Route::get('/categories/{slugs}', [ControllersCategoryController::class, 'index'])->name('front.category');
-Route::get('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
 Route::get('/shop', [ShopController::class, 'shop'])->name('shop');
 Route::get('/features', [FeaturesController::class, 'features'])->name('features');
 Route::get('/hot-deal', [FeaturesController::class, 'hot'])->name('hot');
 Route::post('/order', [OrderController::class, 'order'])->name('user.order');
-Route::get('/thankyou', [OrderController::class, 'thankyou'])->name('thankyou');
+Route::get('/thankyou/{order_id}', [OrderController::class, 'thankyou'])->name('thankyou');
 Route::get('/about', [HomeController::class, 'aboutus'])->name('aboutus');
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 Route::get('/campaign/{id}', [HomeController::class, 'campaign'])->name('campaign.product.list');
@@ -71,7 +76,10 @@ Route::middleware(['admin'])->prefix('sd-admin')->group(function () {
     Route::post('/order/payment', [AdminOrder::class, 'payment'])->name('add.payment');
     Route::get('/order/view/{id}', [AdminOrder::class, 'orderView'])->name('admin.order.view');
     Route::post('/order/view/modify', [AdminOrder::class, 'orderViewModify'])->name('admin.order.modify');
-    Route::post('/csv/download', [AdminOrder::class, 'csvDownload'])->name('csv.download');
+    Route::get('/order/history/{id}', [AdminOrder::class, 'orderHistory'])->name('admin.order.history');
+
+    // Route::post('/csv/download', [AdminOrder::class, 'csvDownload'])->name('csv.download');
+    Route::post('/csv/download', [AdminOrder::class, 'xlsxDownload'])->name('csv.download');
     Route::post('/campaign/product', [CampaignProduct::class, 'destroy'])->name('campaign.product');
     // attributes
     Route::group(['prefix' => 'attr'], function () {

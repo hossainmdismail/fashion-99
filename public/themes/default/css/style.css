@@ -15476,7 +15476,7 @@ button.js-add-wishlist.active .flaticon.flaticon-heart, a.add-to-wishlist.active
         color: #c32929; }
 
 .checkout__totals {
-  border: 1px solid #222;
+  border: 1px dashed #2222226e;
   margin-bottom: 1.25rem;
   padding: 2.5rem 2.5rem 0.5rem;
   width: 26.25rem; }

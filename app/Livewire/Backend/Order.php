@@ -62,9 +62,7 @@ class Order extends Component
     {
         $query = ModelsOrder::query()
             ->where(function ($query) {
-                $query->where('order_id', 'like', '%' . $this->search . '%')
-                    ->orWhere('name', 'like', '%' . $this->search . '%')
-                    ->orWhere('number', 'like', '%' . $this->search . '%');
+                $query->where('order_id', 'like', '%' . $this->search . '%');
             })
             ->when($this->date, function ($query) {
                 $query->whereDate('created_at', '>=', $this->date);

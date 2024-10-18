@@ -15,8 +15,8 @@
               <h6 class="fs-base fw-medium">SUBTOTAL:</h6>
               <span class="cart-subtotal fw-medium cart-total-price">0 TK</span>
           </div>
-          <a href="shop_cart.html" class="btn btn-light mt-3 d-block">View Cart</a>
-          <a href="shop_checkout.html" class="btn btn-primary mt-3 d-block">Checkout</a>
+          <a href="{{ route('checkout') }}" class="btn btn-light mt-3 d-block">View Cart</a>
+          <a href="{{ route('checkout') }}" class="btn btn-primary mt-3 d-block">Checkout</a>
       </div>
   </div>
 

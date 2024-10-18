@@ -82,7 +82,6 @@ class ProductController extends Controller
 
     public function cart(Request $request)
     {
-        //dd($request->all());
         $request->validate([
             'quantity'      => 'required',
             'inventory_id'  => 'required',
@@ -99,13 +98,19 @@ class ProductController extends Controller
 
     public function cartitems()
     {
-        $cartData = CookieSD::data(); // Assuming CookieSD::data() retrieves cart data
+        $slug = 'default';
+        $theme = Theme::where('default', true)->first();
+        if ($theme) {
+            $slug = $theme->slug;
+        }
+
+        $cartData = CookieSD::data();
         $products = $cartData['products'] ?? [];
 
         return response()->json([
-            'html' => view('themes.default.component.cart-productlist', compact('products'))->render(), // Render the Blade template
-            'total' => $cartData['total'] ?? 0, // Pass the total items count for the cart
-            'totalPrice' => $cartData['price'], // Pass the total items count for the cart
+            'html' => view("themes.$slug.component.cart-productlist", compact('products'))->render(),
+            'total' => $cartData['total'] ?? 0,
+            'totalPrice' => $cartData['price'],
         ]);
     }
 }

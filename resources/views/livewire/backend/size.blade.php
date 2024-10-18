@@ -127,15 +127,14 @@
                                         <i wire:loading.remove wire:target="edit({{ $size->id }})"
                                             class="material-icons md-edit"></i>
                                     </a>
-                                    <a wire:click="delete({{ $size->id }})"
+                                    {{-- <a wire:click="delete({{ $size->id }})"
                                         class="btn btn-sm font-sm btn-light rounded">
                                         <div class="spinner-border spinner-border-sm" wire:loading
                                             wire:target="delete({{ $size->id }})" role="status">
-                                            {{-- <span class="visually-hidden">Loading...</span> --}}
                                         </div>
                                         <i class="material-icons md-delete_forever" wire:loading.remove
                                             wire:target="delete({{ $size->id }})"></i>
-                                    </a>
+                                    </a> --}}
                                 </td>
                             </tr>
                         @empty

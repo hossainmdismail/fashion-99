@@ -20,9 +20,6 @@ return new class extends Migration
             $table->bigInteger('total_qnt')->default(0);
             $table->bigInteger('qnt')->default(0);
             $table->timestamps();
-
-            $table->foreign('color_id')->references('id')->on('colors')->onDelete('restrict');    // Restrict color deletion if it's in use
-            $table->foreign('size_id')->references('id')->on('sizes')->onDelete('restrict');
         });
     }
 

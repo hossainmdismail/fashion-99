@@ -158,7 +158,8 @@
                 <p>Details for Order ID: {{ $order->order_id }}</p>
             </div>
             <div>
-                <!-- Button trigger modal -->
+                <a href="{{ route('admin.order.history', $order->user_id) }}" type="submit" class="btn btn-secondary"
+                    name="btn" value="1">History</a>
                 <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Add payment
                 </button>
@@ -207,9 +208,10 @@
                         <div class="row printEnable" style="margin-bottom: 30px">
                             @if ($config)
                                 <div style="text-align: center" class="col-12 waterColor">
-                                    <h2>{{ $config->name }}</h2>
-                                    <p>{{ $config->address }}</p>
-                                    <p><span>Mobile:{{ $config->number }}</span> | <span>{{ $config->url }}</span></p>
+                                    <h2>{{ $configData->name }}</h2>
+                                    <p>{{ $configData->address }}</p>
+                                    <p><span>Mobile:{{ $configData->number }}</span> | <span>{{ $configData->url }}</span>
+                                    </p>
                                 </div>
                             @endif
                             <div class="col-12" style="margin-top: 30px">
@@ -222,16 +224,12 @@
                                 <article class="icontext align-items-start">
                                     <div class="text">
                                         <b style="font-weight: 600">Invoice No : {{ $order->order_id }}</b> <br>
-                                        <p class="mb-1">
-                                            {{ $order->name }} <br>
-                                            {{ $order->number }}<br>
-                                            @if ($order->email)
-                                                {{ $order->email }} <br>
-                                            @endif
-                                            @if ($order->address)
-                                                {{ $order->address }} <br>
-                                            @endif
-                                            <span style="font-size: 14px;font-style: italic" class="printDisable">
+                                        <p class="mb-1 mt-2">
+                                            {{ $order->user ? $order->user->name : 'Null' }} <br>
+                                            {{ $order->user ? $order->user->number : 'Null' }}<br>
+                                            {{ $order->user ? $order->user->email : 'email' }} <br>
+                                            {{ $order->user ? $order->user->address : 'Null' }} <br>
+                                            <span style="font-size: 14px;font-style: italic" class="printDisable mt-3">
                                                 {{ $order->client_message }}
                                             </span>
                                         </p>
