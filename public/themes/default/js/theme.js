@@ -345,7 +345,7 @@ function pureFadeOut(e) {
         const _this = this;
         $(document).on("click", this.selectors.activator, function(e) {
           e.preventDefault();
-          
+
           const targetElId = $(this).data("aside");
           const $targetAside = document.getElementById(targetElId);
 
@@ -967,7 +967,7 @@ function pureFadeOut(e) {
       $('.product-single__thumbnail .swiper-slide').css({height:'auto'});
           var currentSlide = that.activeIndex;
           var newHeight = $(that.slides[currentSlide]).height();
-  
+
           $('.product-single__thumbnail .swiper-wrapper, .product-single__thumbnail .swiper-slide').css({ height : newHeight })
           that.update();
      }
@@ -1109,14 +1109,14 @@ function pureFadeOut(e) {
             }
           })
         })
-      
+
         // Mouseover event
         star.addEventListener('mouseleave', (e) => {
           stars.forEach((item) => {
             item.classList.remove('is-overed');
           })
         })
-      
+
         // Click event
         star.addEventListener('click', (e) => {
           const selected_index = stars.indexOf(e.target);
@@ -1194,7 +1194,7 @@ function pureFadeOut(e) {
         }
       }
 
-      getCookie("purecookieDismiss") || (appendHtml(document.body, '<div class="cookieConsentContainer" id="cookieConsentContainer"><div class="cookieDesc"><p>' + purecookieDesc + '</p></div><div class="cookieButton"><a onClick="purecookieDismiss();">' + purecookieButton + "</a></div></div>"), pureFadeIn("cookieConsentContainer"))
+    //   getCookie("purecookieDismiss") || (appendHtml(document.body, '<div class="cookieConsentContainer" id="cookieConsentContainer"><div class="cookieDesc"><p>' + purecookieDesc + '</p></div><div class="cookieButton"><a onClick="purecookieDismiss();">' + purecookieButton + "</a></div></div>"), pureFadeIn("cookieConsentContainer"))
     }
 
     initAccessories() {
@@ -1401,7 +1401,7 @@ function pureFadeOut(e) {
       });
 
       const btn_player = $(this);
-  
+
       $($(this).data("video")).on("ended", function() {
         $(btn_player).removeClass("playing");
         this.currentTime = 0;

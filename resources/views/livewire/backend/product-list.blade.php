@@ -53,12 +53,19 @@
                                 </td>
                                 {{-- <td><b>{{ $request->category ? $request->category->category_name : 'Unknow' }}</b></td> --}}
                                 <td>
+                                    @if ($request->images)
+                                        @foreach ($request->images as $key => $image)
+                                            <img class="rounded" style="width: 30px; height: 30px;"
+                                                src="{{ asset('files/product/' . $image->image) }}" alt="">
+                                        @endforeach
+                                    @endif
                                     @if ($request->attributes != null)
                                         @foreach ($request->attributes as $img)
                                             <img class="rounded" style="width: 30px; height: 30px;"
                                                 src="{{ asset('files/product/' . $img->image) }}" alt="">
                                         @endforeach
                                     @endif
+
                                 </td>
                                 <td style="font-size: 16px">
                                     {{ number_format($request->getFinalPrice()) }}

@@ -218,7 +218,7 @@
                                                         <div class="spinner-border add-to-cart-remove-loader">
                                                             <span class="sr-only"></span>
                                                         </div>
-                                                    </span> Tk
+                                                    </span> {{ __('messages.currency') }}
                                                 </td>
                                             </tr>
                                             <tr>
@@ -227,7 +227,7 @@
                                             </tr>
                                             <tr>
                                                 <th>Discount</th>
-                                                <td>0 Tk</td>
+                                                <td>0 {{ __('messages.currency') }}</td>
                                             </tr>
                                             <tr>
                                                 <th>TOTAL</th>
@@ -248,7 +248,7 @@
                                             <label for="shipping-{{ $key + 1 }}">
                                                 <span class="frb-title">{{ $shipping->name }}</span>
                                                 <span class="frb-description shipping-price">{{ $shipping->price }}
-                                                    Tk</span>
+                                                    {{ __('messages.currency') }}</span>
                                             </label>
                                         </div>
                                     @endforeach

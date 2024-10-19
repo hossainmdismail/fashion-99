@@ -28,7 +28,7 @@
 </td>
 <td>
 
-    <span class="shopping-cart__subtotal">{{ $product['totalPrice'] }} Tk</span>
+    <span class="shopping-cart__subtotal">{{ $product['totalPrice'] }} {{ __('messages.currency') }}</span>
 </td>
 <td>
     <button type="button" class="btn-close-xs cart-item-remove" data-cartremove="{{ $product['id'] }}"></button>

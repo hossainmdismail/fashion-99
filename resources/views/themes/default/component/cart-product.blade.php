@@ -16,7 +16,8 @@
                 <div class="qty-control__reduce text-start">Q</div>
                 {{-- <div class="qty-control__increase text-end">+</div> --}}
             </div>
-            <span class="cart-drawer-item__price money price">{{ $product['totalPrice'] }} Tk</span>
+            <span class="cart-drawer-item__price money price">{{ $product['totalPrice'] }}
+                {{ __('messages.currency') }}</span>
         </div>
     </div>
 

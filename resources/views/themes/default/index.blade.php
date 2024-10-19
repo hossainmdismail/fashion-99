@@ -25,7 +25,7 @@
                                 class="fs-6 mb-4 pb-2 text-uppercase text-shadow-white animate animate_fade animate_btt animate_delay-5">
                                 {{ $banner->banner_description }}</p>
                             <a href="{{ route('front.category', $banner->category ? $banner->category->slugs : '') }}"
-                                class="btn btn-outline-primary border-0 fs-base text-uppercase fw-medium animate animate_fade animate_btt animate_delay-7 btn-55">
+                                class="btn btn-outline-primary border-0 fs-base text-uppercase fw-medium animate animate_fade animate_btt animate_delay-7">
                                 <span class="text_dash_half">Discover Now</span>
                             </a>
                         </div>
@@ -126,4 +126,69 @@
             @endforeach
         </div>
     </section><!-- /.products-grid -->
+    <section class="brands-carousel container py-5">
+        <h2 class="d-none">Brands</h2>
+        <div class="position-relative">
+            <div class="swiper-container js-swiper-slider"
+                data-settings='{
+              "autoplay": {
+                "delay": 5000
+              },
+              "slidesPerView": 7,
+              "slidesPerGroup": 7,
+              "effect": "none",
+              "loop": true,
+              "breakpoints": {
+                "320": {
+                  "slidesPerView": 2,
+                  "slidesPerGroup": 2,
+                  "spaceBetween": 14
+                },
+                "768": {
+                  "slidesPerView": 4,
+                  "slidesPerGroup": 4,
+                  "spaceBetween": 24
+                },
+                "992": {
+                  "slidesPerView": 7,
+                  "slidesPerGroup": 1,
+                  "spaceBetween": 30,
+                  "pagination": false
+                }
+              }
+            }'>
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img loading="lazy" src="{{ asset('themes/default/brands') }}/brand1.png" width="120"
+                            height="20" alt="">
+                    </div>
+                    <div class="swiper-slide">
+                        <img loading="lazy" src="{{ asset('themes/default/brands') }}/brand2.png" width="87"
+                            height="20" alt="">
+                    </div>
+                    <div class="swiper-slide">
+                        <img loading="lazy" src="{{ asset('themes/default/brands') }}/brand3.png" width="132"
+                            height="22" alt="">
+                    </div>
+                    <div class="swiper-slide">
+                        <img loading="lazy" src="{{ asset('themes/default/brands') }}/brand4.png" width="72"
+                            height="21" alt="">
+                    </div>
+                    <div class="swiper-slide">
+                        <img loading="lazy" src="{{ asset('themes/default/brands') }}/brand5.png" width="123"
+                            height="31" alt="">
+                    </div>
+                    <div class="swiper-slide">
+                        <img loading="lazy" src="{{ asset('themes/default/brands') }}/brand6.png" width="137"
+                            height="22" alt="">
+                    </div>
+                    <div class="swiper-slide">
+                        <img loading="lazy" src="{{ asset('themes/default/brands') }}/brand7.png" width="94"
+                            height="21" alt="">
+                    </div>
+                </div><!-- /.swiper-wrapper -->
+            </div><!-- /.swiper-container js-swiper-slider -->
+        </div><!-- /.position-relative -->
+
+    </section><!-- /.products-carousel container -->
 @endsection

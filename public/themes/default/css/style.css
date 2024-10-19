@@ -11118,10 +11118,12 @@ textarea.form-control-lg {
 .price-sale {
   color: #d6001c; }
 
-.price-old {
-  margin-right: .625rem;
-  color: #767676;
-  text-decoration: line-through; }
+  .price-old {
+    margin-left: .325rem;
+    color: #767676;
+    text-decoration: line-through;
+    font-size: 12px;
+}
 
 .review-star {
   width: 9px;
