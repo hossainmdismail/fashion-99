@@ -67,7 +67,7 @@ Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 Route::get('/profile/{id}', [ProfileController::class, 'editOrder'])->name('profile.order.edit');
 Route::post('/profile', [ProfileController::class, 'update'])->name('profile.order.update');
 
-Route::middleware(['admin'])->prefix('sd-admin')->group(function () {
+Route::middleware(['admin'])->prefix('euphoriadmin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
     Route::resource('/country', CountryController::class);
     Route::get('/create/admin', [AdminController::class, 'create_admin'])->name('create.admin');
@@ -105,7 +105,7 @@ Route::middleware(['admin'])->prefix('sd-admin')->group(function () {
 });
 
 //admin login
-Route::prefix('sd-admin')->group(function () {
+Route::prefix('euphoriadmin')->group(function () {
     Route::get('/register', [AdminController::class, 'admin_register'])->name('admin.register');
     Route::post('/store', [AdminController::class, 'admin_store'])->name('admin.store');
     Route::get('/login', [AdminController::class, 'admin_login'])->name('admin.login');
