@@ -20,7 +20,7 @@
         <div class="anim_appear-bottom position-absolute bottom-0 start-0 w-100 d-none d-sm-flex align-items-center">
             <a href="{{ route('product.view', $product->slugs) }}"
                 class="pc__atc btn anim_appear-bottom btn position-absolute border-0 text-uppercase fw-medium js-add-cart"
-                title="Add To Cart">Order Now</a>
+                title="Add To Cart">Buy Now</a>
         </div>
 
     </div>

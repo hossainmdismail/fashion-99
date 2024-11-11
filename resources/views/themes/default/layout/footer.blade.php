@@ -1,5 +1,5 @@
 <footer class="footer footer_type_2 dark">
-    <div class="footer-top container">
+    {{-- <div class="footer-top container">
         <div class="block-newsletter dark">
             <h3 class="block__title">Get 10% Off</h3>
             <p>Be the first to get the latest news about trends, promotions, and much more!</p>
@@ -8,7 +8,7 @@
                 <button class="btn btn-secondary fw-medium" type="submit">JOIN</button>
             </form>
         </div>
-    </div>
+    </div> --}}
 
     <div class="footer-middle container">
         <div class="row row-cols-lg-5 row-cols-2">
@@ -108,7 +108,7 @@
 </footer>
 
 <!-- Mobile Fixed Footer -->
-<footer class="footer-mobile container w-100 px-5 d-md-none bg-body">
+{{-- <footer class="footer-mobile container w-100 px-5 d-md-none bg-body">
     <div class="row text-center">
         <div class="col-4">
             <a href="{{ route('index') }}" class="footer-mobile__link d-flex flex-column align-items-center">
@@ -131,8 +131,7 @@
         </div><!-- /.col-3 -->
 
         <div class="col-4">
-            <a class="footer-mobile__link d-flex flex-column align-items-center js-open-aside"
-                data-aside="cartDrawer">
+            <a class="footer-mobile__link d-flex flex-column align-items-center js-open-aside" data-aside="cartDrawer">
                 <div class="position-relative">
                     <svg width="18px" height="18px" viewBox="0 0 24 24" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
@@ -149,4 +148,4 @@
             </a>
         </div>
     </div><!-- /.row -->
-</footer><!-- /.footer-mobile container position-fixed d-md-none bottom-0 -->
+</footer> --}}

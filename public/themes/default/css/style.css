@@ -21,8 +21,8 @@
   --bs-light: #e4e4e4;
   --bs-lighter: #faf9f8;
   --bs-dark: #222222;
-  --bs-red: #c32929;
-  --bs-beige: #b9a16b;
+  --bs-red: #a72020;
+  --bs-beige: #a72020;
   --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0)); }
@@ -2438,12 +2438,12 @@ progress {
     color: #1b1b1b; }
 
 .link-red {
-  color: #c32929; }
+  color: #a72020; }
   .link-red:hover, .link-red:focus {
     color: #9c2121; }
 
 .link-beige {
-  color: #b9a16b; }
+  color: #a72020; }
   .link-beige:hover, .link-beige:focus {
     color: #c7b489; }
 
@@ -2747,10 +2747,10 @@ progress {
   border-color: #222222 !important; }
 
 .border-red {
-  border-color: #c32929 !important; }
+  border-color: #a72020 !important; }
 
 .border-beige {
-  border-color: #b9a16b !important; }
+  border-color: #a72020 !important; }
 
 .border-white {
   border-color: #fff !important; }
@@ -3355,10 +3355,10 @@ progress {
   color: #222222 !important; }
 
 .text-red {
-  color: #c32929 !important; }
+  color: #a72020 !important; }
 
 .text-beige {
-  color: #b9a16b !important; }
+  color: #a72020 !important; }
 
 .text-white {
   color: #fff !important; }
@@ -3418,10 +3418,10 @@ progress {
   background-color: #222222 !important; }
 
 .bg-red {
-  background-color: #c32929 !important; }
+  background-color: #a72020 !important; }
 
 .bg-beige {
-  background-color: #b9a16b !important; }
+  background-color: #a72020 !important; }
 
 .bg-body {
   background-color: #ffffff !important; }
@@ -7274,16 +7274,16 @@ main {
   color: #767676 !important; }
 
 .theme-color {
-  color: #C32929 !important; }
+  color: #a72020 !important; }
 
 .theme-bg-color {
-  background-color: #C32929 !important; }
+  background-color: #a72020 !important; }
 
 .theme-color-secondary {
-  color: #B9A16B !important; }
+  color: #a72020 !important; }
 
 .theme-bg-color-secondary {
-  background-color: #B9A16B !important; }
+  background-color: #a72020 !important; }
 
 .theme-color-third {
   color: #86BC42 !important; }
@@ -7374,7 +7374,7 @@ h6,
   font-family: 'SofiaProBold'; }
 
 .third-color {
-  color: #b9a16b !important; }
+  color: #a72020 !important; }
 
 .white-color {
   color: #fff !important; }
@@ -9170,7 +9170,7 @@ img {
       .nav-link_underscore:after {
         transition: none; } }
   .nav-link_underscore.theme-color:after {
-    background-color: #C32929; }
+    background-color: #a72020; }
   .nav-link_underscore:hover, .nav-link_underscore:focus, .nav-link_underscore.active, .nav-item.show .nav-link_underscore {
     color: #222222; }
     .nav-link_underscore:hover:after, .nav-link_underscore:focus:after, .nav-link_underscore.active:after, .nav-item.show .nav-link_underscore:after {
@@ -9502,12 +9502,12 @@ img {
   display: inline-block;
   font-weight: 400;
   line-height: 1.5;
-  color: #222222;
+  color: #ffffff;
   text-align: center;
   vertical-align: middle;
   cursor: pointer;
   user-select: none;
-  background-color: #ffffff;
+  background-color: #222222;
   border: 1px solid transparent;
   padding: 0.375rem 3.125rem;
   font-size: 0.875rem;
@@ -9515,7 +9515,8 @@ img {
   transition: all 0.15s ease-in-out;
   font-size: 0.875rem;
   padding-top: 0.703125rem;
-  padding-bottom: 0.5625rem; }
+  padding-bottom: 0.5625rem;
+  border-radius: .49rem; }
   @media (prefers-reduced-motion: reduce) {
     .btn {
       transition: none; } }
@@ -9524,7 +9525,7 @@ img {
       padding-left: 1.125rem;
       padding-right: 1.125rem; } }
   .btn:hover {
-    color: #222222; }
+    color: #ffffff; }
   .btn-55 {
     height: 3.4375rem; }
   .btn-50 {
@@ -9888,8 +9889,8 @@ img {
 
 .btn-red {
   color: #fff;
-  background-color: #c32929;
-  border-color: #c32929;
+  background-color: #a72020;
+  border-color: #a72020;
   box-shadow: none; }
   .btn-red:hover {
     color: #fff;
@@ -9908,36 +9909,36 @@ img {
       box-shadow: 0 0 0 0 rgba(204, 73, 73, 0.5); }
   .btn-red:disabled, .btn-red.disabled {
     color: #fff;
-    background-color: #c32929;
-    border-color: #c32929; }
+    background-color: #a72020;
+    border-color: #a72020; }
 
 .btn-outline-red {
-  color: #c32929;
-  border-color: #c32929; }
+  color: #a72020;
+  border-color: #a72020; }
   .btn-outline-red:hover {
     color: #fff;
-    background-color: #c32929;
-    border-color: #c32929; }
+    background-color: #a72020;
+    border-color: #a72020; }
   .btn-check:focus + .btn-outline-red, .btn-outline-red:focus {
     box-shadow: 0 0 0 0 rgba(195, 41, 41, 0.5); }
   .btn-check:checked + .btn-outline-red, .btn-check:active + .btn-outline-red, .btn-outline-red:active, .btn-outline-red.active, .btn-outline-red.dropdown-toggle.show {
     color: #fff;
-    background-color: #c32929;
-    border-color: #c32929; }
+    background-color: #a72020;
+    border-color: #a72020; }
     .btn-check:checked + .btn-outline-red:focus, .btn-check:active + .btn-outline-red:focus, .btn-outline-red:active:focus, .btn-outline-red.active:focus, .btn-outline-red.dropdown-toggle.show:focus {
       box-shadow: 0 0 0 0 rgba(195, 41, 41, 0.5); }
   .btn-outline-red:disabled, .btn-outline-red.disabled {
-    color: #c32929;
+    color: #a72020;
     background-color: transparent; }
 
 .btn-hover-red:hover {
-  background-color: #c32929;
+  background-color: #a72020;
   color: #fff; }
 
 .btn-beige {
   color: #ffffff;
-  background-color: #b9a16b;
-  border-color: #b9a16b;
+  background-color: #a72020;
+  border-color: #a72020;
   box-shadow: none; }
   .btn-beige:hover {
     color: #ffffff;
@@ -9956,26 +9957,26 @@ img {
       box-shadow: 0 0 0 0 rgba(196, 175, 129, 0.5); }
   .btn-beige:disabled, .btn-beige.disabled {
     color: #000;
-    background-color: #b9a16b;
-    border-color: #b9a16b; }
+    background-color: #a72020;
+    border-color: #a72020; }
 
 .btn-outline-beige {
-  color: #b9a16b;
-  border-color: #b9a16b; }
+  color: #a72020;
+  border-color: #a72020; }
   .btn-outline-beige:hover {
     color: #ffffff;
-    background-color: #b9a16b;
-    border-color: #b9a16b; }
+    background-color: #a72020;
+    border-color: #a72020; }
   .btn-check:focus + .btn-outline-beige, .btn-outline-beige:focus {
     box-shadow: 0 0 0 0 rgba(185, 161, 107, 0.5); }
   .btn-check:checked + .btn-outline-beige, .btn-check:active + .btn-outline-beige, .btn-outline-beige:active, .btn-outline-beige.active, .btn-outline-beige.dropdown-toggle.show {
     color: #ffffff;
-    background-color: #b9a16b;
-    border-color: #b9a16b; }
+    background-color: #a72020;
+    border-color: #a72020; }
     .btn-check:checked + .btn-outline-beige:focus, .btn-check:active + .btn-outline-beige:focus, .btn-outline-beige:active:focus, .btn-outline-beige.active:focus, .btn-outline-beige.dropdown-toggle.show:focus {
       box-shadow: 0 0 0 0 rgba(185, 161, 107, 0.5); }
   .btn-outline-beige:disabled, .btn-outline-beige.disabled {
-    color: #b9a16b;
+    color: #a72020;
     background-color: transparent; }
 
 .btn-light {
@@ -10163,14 +10164,14 @@ img {
   color: #fff; }
 
 .swiper-pagination-bullets.theme-color .swiper-pagination-bullet-active {
-  color: #C32929; }
+  color: #a72020; }
 
 .color-active::after {
     content: '';
     position: absolute;
-    background: red;
-    width: 10px;
-    height: 10px;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath opacity='0.5' d='M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z' fill='%23000000'/%3E%3Cpath d='M16.0303 8.96967C16.3232 9.26256 16.3232 9.73744 16.0303 10.0303L11.0303 15.0303C10.7374 15.3232 10.2626 15.3232 9.96967 15.0303L7.96967 13.0303C7.67678 12.7374 7.67678 12.2626 7.96967 11.9697C8.26256 11.6768 8.73744 11.6768 9.03033 11.9697L10.5 13.4393L12.7348 11.2045L14.9697 8.96967C15.2626 8.67678 15.7374 8.67678 16.0303 8.96967Z' fill='%23000000'/%3E%3C/svg%3E");
+    width: 17px;
+    height: 17px;
     border-radius: 50%;
     top: -4px;
     right: -4px;}
@@ -10954,7 +10955,7 @@ textarea.form-control-lg {
   padding-left: 1.8rem;
   padding-right: 1.8rem;
   border-radius: 4px 4px 0 0;
-  background-color: #B9A16B;
+  background-color: #a72020;
   color: #ffffff;
   font-size: 0.875rem;
   line-height: 2em;
@@ -11010,7 +11011,8 @@ textarea.form-control-lg {
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover; }
+  object-fit: cover;
+  border-radius: .7rem; }
 
 .pc__img-wrapper {
   display: block;
@@ -11098,7 +11100,8 @@ textarea.form-control-lg {
   gap: 0.3125rem;
   padding: 0.1875rem 0.625rem;
   line-height: 1.5rem;
-  font-size: 0.875rem; }
+  font-size: 0.875rem;
+  border-radius: 0 .49rem .49rem 0; }
 
 .pc__category {
   margin: 0;
@@ -11136,22 +11139,22 @@ textarea.form-control-lg {
   color: #767676; }
 
 .js-add-wishlist.active {
-  color: #C32929 !important; }
+  color: #a72020 !important; }
   .js-add-wishlist.active.btn-hover-red {
     color: #fff !important;
-    background-color: #C32929 !important; }
+    background-color: #a72020 !important; }
   .js-add-wishlist.active.btn-hover-primary {
     color: #fff !important;
     background-color: #222222 !important; }
   .js-add-wishlist.active.theme-bg-color.text-white {
-    color: #C32929 !important;
+    color: #a72020 !important;
     background-color: #fff !important; }
   .js-add-wishlist.active.bg-transparent.text-white {
-    color: #C32929 !important;
+    color: #a72020 !important;
     background-color: #fff !important; }
   .js-add-wishlist.active.bg-black.text-white {
     color: #fff !important;
-    background-color: #C32929 !important; }
+    background-color: #a72020 !important; }
 
 .pc__btn-wl .flaticon,
 .btn-link .flaticon {
@@ -11321,7 +11324,7 @@ textarea.form-control-lg {
       text-overflow: initial;
       line-height: 1.5; }
       .product-card_style9.type2 .pc__title a {
-        color: #C32929; }
+        color: #a72020; }
     .product-card_style9.type2:hover {
       box-shadow: none; }
     .product-card_style9.type2 .js-add-wishlist,
@@ -11331,14 +11334,14 @@ textarea.form-control-lg {
       align-items: center;
       justify-content: center;
       background-color: #E4F5F2;
-      color: #C32929; }
+      color: #a72020; }
       .product-card_style9.type2 .js-add-wishlist:hover,
       .product-card_style9.type2 .js-add-cart:hover,
       .product-card_style9.type2 .js-quick-view:hover {
-        background-color: #C32929;
+        background-color: #a72020;
         color: #fff; }
     .product-card_style9.type2 .product-card__price {
-      color: #C32929;
+      color: #a72020;
       font-size: 1rem; }
 
 .product-card_style10 {
@@ -13087,7 +13090,7 @@ textarea.form-control-lg {
     width: 1rem;
     height: 1rem;
     border-radius: 100%;
-    background: #b9a16b;
+    background: #a72020;
     color: #ffffff;
     font-size: 0.625rem;
     line-height: 1rem;
@@ -13280,7 +13283,7 @@ textarea.form-control-lg {
     padding-left: 1.75rem;
     padding-right: 1.75rem; }
   .header-desk_type_6.style2 .header-bottom {
-    background-color: #C32929; }
+    background-color: #a72020; }
     .header-desk_type_6.style2 .header-bottom .navigation__list > .navigation__item > span {
       color: #ffffff; }
     .header-desk_type_6.style2 .header-bottom .navigation__list > .navigation__item > .navigation__link {
@@ -13291,7 +13294,7 @@ textarea.form-control-lg {
     padding-left: 0;
     padding-right: 0;
     cursor: pointer;
-    background-color: #C32929; }
+    background-color: #a72020; }
     .header-desk_type_6.style2 .categories-nav__title + .categories-nav__list {
       opacity: 0;
       visibility: hidden;
@@ -13616,7 +13619,7 @@ textarea.form-control-lg {
     width: 1rem;
     height: 1rem;
     border-radius: 100%;
-    background: #b9a16b;
+    background: #a72020;
     color: #ffffff;
     font-size: 0.625rem;
     line-height: 1rem;
@@ -14708,7 +14711,7 @@ textarea.form-control-lg {
     .product-single__addtolinks > a .flaticon, .product-single__addtolinks > .share-button > button .flaticon {
       font-size: 1rem; }
   .product-single__addtolinks > .add-to-wishlist.active svg {
-    color: #C32929; }
+    color: #a72020; }
 .product-single__meta-info {
   font-size: 0.8125rem;
   line-height: 1.5rem;
@@ -14843,15 +14846,14 @@ textarea.form-control-lg {
     align-items: center;
     justify-content: center;
     height: 1.875rem;
-    border: 1px solid #e4e4e4;
+    border: 2px solid #e4e4e4;
     padding: 0 0.8125rem; }
     .product-single__swatches .product-swatch.text-swatches .swatch.swatch_active, .product-single__swatches .product-swatch.text-swatches .swatch:hover {
       border-color: #222222; }
   .product-single__swatches .product-swatch.text-swatches input[type="radio"]:checked + label {
     border-color: #222222; }
   .product-single__swatches .product-swatch.color-swatches .swatch-color {
-    margin: 0;
-    border: 2px solid transparent; }
+    margin: 0; }
     .product-single__swatches .product-swatch.color-swatches .swatch-color.swatch_active, .product-single__swatches .product-swatch.color-swatches .swatch-color:hover {
       border-color: #222222; }
   .product-single__swatches .product-swatch.color-swatches input[type="radio"]:checked + label.swatch-color {
@@ -15475,7 +15477,7 @@ button.js-add-wishlist.active .flaticon.flaticon-heart, a.add-to-wishlist.active
       font-size: 0.75rem;
       line-height: 1.5rem; }
       .checkout-form .checkout__payment-methods .policy-text > a {
-        color: #c32929; }
+        color: #a72020; }
 
 .checkout__totals {
   border: 1px dashed #2222226e;
@@ -15585,7 +15587,7 @@ button.js-add-wishlist.active .flaticon.flaticon-heart, a.add-to-wishlist.active
   font-weight: 500; }
   .my-account .account-nav .menu-link.menu-link_active {
     pointer-events: none;
-    color: #c32929; }
+    color: #a72020; }
 .my-account .page-content {
   padding-top: 2.5rem; }
 .my-account__dashboard p {
@@ -16033,7 +16035,7 @@ button.js-add-wishlist.active .flaticon.flaticon-heart, a.add-to-wishlist.active
     width: 1.5rem;
     height: 1.5rem;
     border: 0.3rem solid #fff;
-    background-color: #b9a16b;
+    background-color: #a72020;
     border-radius: 1rem; }
   .popover-point.type2 {
     padding: 0.2rem; }

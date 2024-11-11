@@ -1,7 +1,7 @@
   <!-- Cart Drawer -->
   <div class="aside aside_right overflow-hidden cart-drawer" id="cartDrawer">
       <div class="aside-header d-flex align-items-center">
-          <h3 class="text-uppercase fs-6 mb-0">SHOPPING BAG ( <span class="cart-amount js-cart-items-count">1</span> )
+          <h3 class="text-uppercase fs-6 mb-0">SHOPPING ( <span class="cart-amount js-cart-items-count">1</span> )
           </h3>
           <button class="btn-close-lg js-close-aside btn-close-aside ms-auto"></button>
       </div><!-- /.aside-header -->
@@ -12,11 +12,10 @@
       <div class="cart-drawer-actions position-absolute start-0 bottom-0 w-100">
           <hr class="cart-drawer-divider">
           <div class="d-flex justify-content-between">
-              <h6 class="fs-base fw-medium">SUBTOTAL:</h6>
+              <h6 class="fs-base fw-medium">Total:</h6>
               <span class="cart-subtotal fw-medium cart-total-price">0 TK</span>
           </div>
-          <a href="{{ route('checkout') }}" class="btn btn-light mt-3 d-block">View Cart</a>
-          <a href="{{ route('checkout') }}" class="btn btn-primary mt-3 d-block">Checkout</a>
+          <a href="{{ route('checkout') }}" class="btn btn-primary mt-3 d-block">View Cart</a>
       </div>
   </div>
 

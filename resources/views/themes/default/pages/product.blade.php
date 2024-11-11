@@ -68,9 +68,9 @@
 
             table td::before {
                 /*
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        * aria-label has no advantage, it won't be read inside a table
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        content: attr(aria-label);
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        * aria-label has no advantage, it won't be read inside a table
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        content: attr(aria-label);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        */
                 content: attr(data-label);
                 float: left;
                 font-weight: bold;
@@ -359,11 +359,11 @@
                             href="#tab-additional-info" role="tab" aria-controls="tab-additional-info"
                             aria-selected="false">Additional Information</a>
                     </li>
-                    <li class="nav-item" role="presentation">
+                    {{-- <li class="nav-item" role="presentation">
                         <a class="nav-link nav-link_underscore" id="tab-reviews-tab" data-bs-toggle="tab"
                             href="#tab-reviews" role="tab" aria-controls="tab-reviews" aria-selected="false">Reviews
                             ({{ count($product->comments) }})</a>
-                    </li>
+                    </li> --}}
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="tab-description" role="tabpanel"
@@ -378,10 +378,9 @@
                             {!! $product->additional_info !!}
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="tab-reviews" role="tabpanel" aria-labelledby="tab-reviews-tab">
+                    {{-- <div class="tab-pane fade" id="tab-reviews" role="tabpanel" aria-labelledby="tab-reviews-tab">
                         <h2 class="product-single__reviews-title">Reviews</h2>
                         <div class="product-single__reviews-list">
-                            {{-- Service --}}
                             @forelse ($product->comments->take(5) as $comment)
                                 <div class="product-single__reviews-item">
                                     <div class="customer-avatar">
@@ -513,7 +512,7 @@
                             </form>
 
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </section>
@@ -592,19 +591,21 @@
         function updateSizes(colorId) {
             var selectedColor = availableColors.find(color => color.id == colorId);
             var sizeOptions = document.getElementById('sizeOptions');
-            sizeOptions.innerHTML = ''; // Clear existing sizes
+            sizeOptions.innerHTML = '';
 
             if (selectedColor && selectedColor.sizes.length > 0) {
                 selectedColor.sizes.forEach(function(size, index) {
                     var disabled = size.stock > 0 ? '' : 'disabled';
                     var checked = index == 0 ? 'checked' : ''; // Select the first size by default
+                    var outOfStockClass = size.stock > 0 ? '' :
+                        'out-of-stock'; // Add a class for out-of-stock items
 
                     sizeOptions.innerHTML += `
-                    <input type="radio" name="inventory_id" id="size-${size.size_id}" value="${size.inventory_id}" ${checked} ${disabled}>
-                    <label class="swatch js-swatch" for="size-${size.size_id}">
-                        ${size.size_name} (${size.stock > 0 ? 'In stock' : 'Out of stock'})
-                    </label>
-                `;
+                        <input type="radio" name="inventory_id" id="size-${size.size_id}" value="${size.inventory_id}" ${checked} ${disabled}>
+                        <label class="swatch js-swatch ${outOfStockClass}" for="size-${size.size_id}">
+                            ${size.size_name}
+                        </label>
+                        `;
                 });
             } else {
                 sizeOptions.innerHTML = '<p>No sizes available for this color.</p>';
@@ -663,11 +664,11 @@
 
                     $('.alert-message').text('Product added to cart successfully!');
 
-                    $('#cookieConsentContainer').css('opacity', '1').fadeIn();
+                    // $('#cookieConsentContainer').css('opacity', '1').fadeIn();
 
-                    setTimeout(function() {
-                        $('#cookieConsentContainer').fadeOut(); // Hide the div
-                    }, 3000);
+                    // setTimeout(function() {
+                    //     $('#cookieConsentContainer').fadeOut(); // Hide the div
+                    // }, 3000);
                     $('.js-open-aside[data-aside="cartDrawer"]').trigger('click');
                 },
                 error: function(xhr, status, error) {
@@ -680,93 +681,4 @@
             });
         });
     </script>
-
-    {{-- <script>
-        var availableColors = @json($availableColors);
-
-        function updateSizes(colorId) {
-            var selectedColor = availableColors.find(color => color.id == colorId);
-            var sizeOptions = document.getElementById('sizeOptions');
-            sizeOptions.innerHTML = ''; // Clear existing sizes
-
-            if (selectedColor && selectedColor.sizes.length > 0) {
-                selectedColor.sizes.forEach(function(size, index) {
-                    var disabled = size.stock > 0 ? '' : 'disabled';
-                    var checked = index == 0 ? 'checked' : ''; // Select the first size by default
-
-                    // Insert size radio buttons with inventory_id as the value
-                    sizeOptions.innerHTML += `
-                <input type="radio" name="inventory_id" id="size-${size.size_id}" value="${size.inventory_id}" ${checked} ${disabled}>
-                <label class="swatch js-swatch" for="size-${size.size_id}">
-                    ${size.size_name} (${size.stock > 0 ? 'In stock' : 'Out of stock'})
-                </label>
-            `;
-                });
-            } else {
-                sizeOptions.innerHTML = '<p>No sizes available for this color.</p>';
-            }
-        }
-
-        function activateColor(colorId) {
-            document.querySelectorAll('.swatch-color').forEach(function(label) {
-                label.classList.remove('color-active');
-            });
-
-            var selectedLabel = document.querySelector(`label[for="color-${colorId}"]`);
-            if (selectedLabel) {
-                selectedLabel.classList.add('color-active');
-            }
-        }
-
-        document.querySelectorAll('input[name="color"]').forEach(function(colorInput) {
-            colorInput.addEventListener('change', function() {
-                activateColor(this.value); // Apply 'color-active' to the selected color
-                updateSizes(this.value); // Update sizes based on selected color
-            });
-        });
-
-        document.addEventListener('DOMContentLoaded', function() {
-            var firstColorId = document.querySelector('input[name="color"]:checked').value;
-            updateSizes(firstColorId);
-        });
-
-        function updateQuantity(amount) {
-            var currentQuantity = parseInt(document.querySelector('input[name="quantity"]').value);
-            var newQuantity = currentQuantity + amount;
-            if (newQuantity > 0) {
-                document.querySelector('input[name="quantity"]').value = newQuantity;
-            }
-        }
-
-        $('form[name="addtocart-form"]').on('submit', function(e) {
-            e.preventDefault(); // Prevent the default form submission
-
-            // Get the form data
-            let formData = {
-                // _token: $('input[name="_token"]').val(), // CSRF token
-                color: $('input[name="color"]:checked').val(), // Selected color
-                size: $('input[name="size"]:checked').val(), // Selected size (if applicable)
-                quantity: $('input[name="quantity"]').val(), // Quantity
-            };
-
-            console.log('Form Data:', formData); // Debugging: log form data
-
-            // // AJAX request to submit the form
-            // $.ajax({
-            //     url: '{{ route('addtocart') }}', // Update to the correct route
-            //     type: 'POST',
-            //     data: formData,
-            //     success: function (response) {
-            //         // Handle success response
-            //         alert('Product added to cart successfully!');
-            //         // Optionally reload cart data or update cart UI
-            //     },
-            //     error: function (xhr, status, error) {
-            //         // Handle error
-            //         console.error('Error adding product to cart:', error);
-            //         alert('There was an error adding the product to the cart.');
-            //     }
-            // });
-        });
-    </script> --}}
 @endsection

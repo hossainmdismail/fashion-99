@@ -1,7 +1,7 @@
 <div class="cookieConsentContainer" id="cookieConsentContainer" style="opacity: -0.02; display: none;">
     <div class="cookieDesc">
         <p>
-            <svg fill="#FFFFFF" height="16px" width="16px" style="margin-right: 6px" version="1.1" id="Capa_1"
+            {{-- <svg fill="#FFFFFF" height="16px" width="16px" style="margin-right: 6px" version="1.1" id="Capa_1"
                 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512"
                 xml:space="preserve">
                 <g>
@@ -24,7 +24,7 @@
   c4.532,4.538,10.563,7.037,16.98,7.037c6.417,0,12.448-2.499,16.977-7.033l275.847-275.848c4.536-4.536,7.034-10.565,7.034-16.978
   S509.502,87.794,504.969,83.262z" />
                 </g>
-            </svg>
+            </svg> --}}
             <span class="alert-message"></span>
         </p>
     </div>

@@ -258,26 +258,6 @@
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-
-                                <div class="checkout__payment-methods">
-                                    <div class="form-check">
-                                        <input class="form-check-input form-check-input_fill" type="radio"
-                                            name="checkout_payment_method" id="checkout_payment_method_3" checked>
-                                        <label class="form-check-label" for="checkout_payment_method_3">
-                                            Cash on delivery
-                                            <span class="option-detail d-block">
-                                                Phasellus sed volutpat orci. Fusce eget lore mauris vehicula elementum
-                                                gravida nec dui. Aenean aliquam varius ipsum, non ultricies tellus sodales
-                                                eu. Donec dignissim viverra nunc, ut aliquet magna posuere eget.
-                                            </span>
-                                        </label>
-                                    </div>
-                                    <div class="policy-text">
-                                        Your personal data will be used to process your order, support your experience
-                                        throughout this website, and for other purposes described in our <a
-                                            href="{{ route('privacy') }}" target="_blank">privacy policy</a>.
-                                    </div>
-                                </div>
                                 <button type="submit" class="btn btn-primary btn-checkout">PLACE ORDER</button>
                             </div>
                         </div>

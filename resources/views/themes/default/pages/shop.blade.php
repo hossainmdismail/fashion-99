@@ -117,18 +117,16 @@
                         class="shop-acs d-flex align-items-center justify-content-between justify-content-md-end flex-grow-1">
                         <select class="shop-acs__select form-select w-auto border-0 py-0 order-1 order-md-0"
                             aria-label="Sort Items" name="sort" id="sort-products">
-                            <option value="0" selected>Default Sorting</option>
-                            <option value="1">Featured</option>
-                            <option value="2">Best selling</option>
-                            <option value="3">Alphabetically, A-Z</option>
-                            <option value="4">Alphabetically, Z-A</option>
-                            <option value="5">Price, low to high</option>
-                            <option value="6">Price, high to low</option>
+                            <option value="0" selected>Sorting</option>
+                            <option value="3">A-Z</option>
+                            <option value="4">Z-A</option>
+                            <option value="5">low to high</option>
+                            <option value="6">high to low</option>
                         </select>
 
-                        <div class="shop-asc__seprator mx-3 bg-light d-none d-md-block order-md-0"></div>
+                        {{-- <div class="shop-asc__seprator mx-3 bg-light d-none d-md-block order-md-0"></div> --}}
 
-                        <div class="col-size align-items-center order-1 d-none d-lg-flex">
+                        {{-- <div class="col-size align-items-center order-1 d-none d-lg-flex">
                             <span class="text-uppercase fw-medium me-2">View</span>
                             <button class="btn-link fw-medium me-2 js-cols-size" data-target="products-grid"
                                 data-cols="2">2</button>
@@ -136,7 +134,7 @@
                                 data-cols="3">3</button>
                             <button class="btn-link fw-medium js-cols-size" data-target="products-grid"
                                 data-cols="4">4</button>
-                        </div><!-- /.col-size -->
+                        </div><!-- /.col-size --> --}}
 
                         <div class="shop-filter d-flex align-items-center order-0 order-md-3 d-lg-none">
                             <button class="btn-link btn-link_f d-flex align-items-center ps-0 js-open-aside"
