@@ -68,9 +68,9 @@
 
             table td::before {
                 /*
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        * aria-label has no advantage, it won't be read inside a table
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        content: attr(aria-label);
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        * aria-label has no advantage, it won't be read inside a table
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        content: attr(aria-label);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        */
                 content: attr(data-label);
                 float: left;
                 font-weight: bold;
@@ -223,13 +223,15 @@
                             reviews</span>
                     </div>
                     <div class="product-single__price">
-                        <span class="current-price">BDT {{ $product->getFinalPrice() }}</span>
-                        <span>{{ $product->price }}
+                        <span class="current-price">{{ $product->getFinalPrice() }} Tk</span>
+                        @if ($product->s_price != 0)
+                            <span class="money price-old">{{ $product->price }}
+                            </span>
                             @if ($product->sp_type != 'Fixed')
                                 <span class="save-price  font-md color3 ml-15">
                                     {{ $product->sp_type == 'Fixed' ? '' : $product->s_price . '% Off' }}</span>
                             @endif
-                        </span>
+                        @endif
                     </div>
                     <div class="product-single__short-desc">
                         <p>{{ $product->short_description }}</p>
@@ -663,13 +665,15 @@
                     loadCartData();
 
                     $('.alert-message').text('Product added to cart successfully!');
-
-                    // $('#cookieConsentContainer').css('opacity', '1').fadeIn();
-
-                    // setTimeout(function() {
-                    //     $('#cookieConsentContainer').fadeOut(); // Hide the div
-                    // }, 3000);
                     $('.js-open-aside[data-aside="cartDrawer"]').trigger('click');
+                    // Trigger Meta Pixel Add to Cart event
+                    fbq('track', 'AddToCart', {
+                        content_ids: [formData.inventory_id], // Pass inventory ID
+                        content_type: 'product',
+                        value: response.price, // Ensure the backend returns the price
+                        currency: 'BDT',
+                        quantity: formData.quantity // Pass the quantity
+                    });
                 },
                 error: function(xhr, status, error) {
                     console.error('Error adding product to cart:', error);

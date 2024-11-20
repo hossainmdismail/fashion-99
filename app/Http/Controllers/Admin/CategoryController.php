@@ -31,7 +31,9 @@ class CategoryController extends Controller
             'category_name'     => 'required',
             'category_image'    => 'required',
         ]);
+
         Photo::upload($request->category_image, 'files/category', $request->category_name);
+
         ProductCategory::insert([
             'category_name'     => $request->category_name,
             'slugs'             => Str::slug($request->category_name),

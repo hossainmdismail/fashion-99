@@ -1,6 +1,83 @@
 @extends('themes.default.layout.app')
 @section('style')
     <style>
+        .custom-radio-card {
+            margin: 15px 0;
+            border: 1px solid #22222221;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .custom-radio-card:hover {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-color: #222222;
+        }
+
+        .custom-radio-card input[type="radio"] {
+            display: none;
+            /* Hide default radio button */
+        }
+
+        .custom-radio-card .custom-label {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .custom-radio-card .card-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .custom-radio-card .service-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #000;
+        }
+
+        /* .custom-radio-card .service-duration {
+                            font-size: 14px;
+                            color: #7a7a7a;
+                        } */
+
+        .custom-radio-card .service-price {
+            font-size: 14px;
+            color: #7a7a7a;
+        }
+
+        .custom-radio-card .checkmark {
+            background-color: #222222;
+            border-radius: 50%;
+            height: 24px;
+            width: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-size: 16px;
+            visibility: hidden;
+            /* Initially hidden */
+            transition: all 0.3s ease;
+        }
+
+        .custom-radio-card input[type="radio"]:checked+.custom-label .checkmark {
+            visibility: visible;
+            /* Visible only when selected */
+        }
+
+        .custom-radio-card input[type="radio"]:checked+.custom-label {
+            border-color: #8B3DFF;
+        }
+
         .frb-group {
             margin: 15px 0;
         }
@@ -238,7 +315,7 @@
                                 </div>
                                 <h5 class="pt-4">SHIPPING AREA</h5>
                                 <div class="frb-group">
-                                    @foreach ($shippings as $key => $shipping)
+                                    {{-- @foreach ($shippings as $key => $shipping)
                                         <div class="frb frb-primary">
                                             <input type="radio" id="shipping-{{ $key + 1 }}" name="shipping"
                                                 value="{{ $shipping->id }}" data-price="{{ $shipping->price }}"
@@ -251,7 +328,26 @@
                                                     {{ __('messages.currency') }}</span>
                                             </label>
                                         </div>
+                                    @endforeach --}}
+                                    @foreach ($shippings as $key => $shipping)
+                                        <div class="custom-radio-card">
+                                            <input type="radio" id="shipping-{{ $key + 1 }}" name="shipping"
+                                                value="{{ $shipping->id }}" data-price="{{ $shipping->price }}"
+                                                class="@error('shipping') is-invalid @enderror"
+                                                {{ old('shipping') == $shipping->id ? 'checked' : '' }}>
+                                            <label for="shipping-{{ $key + 1 }}" class="custom-label">
+                                                <div class="card-content">
+                                                    <div class="service-title">{{ $shipping->name }}</div>
+                                                    <div class="service-price">{{ $shipping->price }}
+                                                        {{ __('messages.currency') }}</div>
+                                                </div>
+                                                <div class="checkmark">
+                                                    <span>&#10003;</span>
+                                                </div>
+                                            </label>
+                                        </div>
                                     @endforeach
+
 
                                     <!-- Show error message -->
                                     @error('shipping')

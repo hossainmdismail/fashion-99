@@ -17,9 +17,9 @@
 </td>
 <td>
     <div class="qty-control position-relative">
-        <div class="spinner-border text-primary qty-spinner-main d-none" role="status">
+        {{-- <div class="spinner-border text-primary qty-spinner-main d-none" role="status">
             <span class="sr-only"></span>
-        </div>
+        </div> --}}
         <input type="number" name="quantity" value="{{ $product['quantity'] }}" min="1"
             class="qty-control__number text-center">
         <div class="qty-control__reduce" data-inventory-id="{{ $product['id'] }}">-</div>
@@ -27,7 +27,6 @@
     </div>
 </td>
 <td>
-
     <span class="shopping-cart__subtotal">{{ $product['totalPrice'] }} {{ __('messages.currency') }}</span>
 </td>
 <td>

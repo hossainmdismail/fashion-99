@@ -24,13 +24,32 @@ class CheckoutController extends Controller
         }
         $shipping = Shipping::get();
 
+        // Redirect to shop if no items in cart
         if (CookieSD::data()['total'] == 0) {
             return redirect()->route('shop');
         }
+
+        // Fetch cart details
+        $cartData = CookieSD::data(); // Assuming this fetches the cart details
+
+        // Prepare data for Meta Pixel
+        $fbEvent = [
+            'event' => 'InitiateCheckout',
+            'data' => [
+                'content_ids' => collect($cartData['products'])->pluck('id')->toArray(),
+                'content_type' => 'product',
+                'num_items' => $cartData['total'],
+                'value' => $cartData['price'],
+                'currency' => 'BDT',
+            ],
+        ];
+
         return view("themes.$slug.pages.checkout", [
-            'shippings' => $shipping
+            'shippings' => $shipping,
+            'fbEvent' => $fbEvent,
         ]);
     }
+
 
     public function checkoutitems()
     {
@@ -106,9 +125,24 @@ class CheckoutController extends Controller
                 $order_product->save();
             }
 
+
+            // Prepare data for Meta Pixel before clearing the cookie
+            $fbEvent = [
+                'event' => 'Purchase',
+                'data' => [
+                    'content_ids' => collect($cookieData['products'])->pluck('id')->toArray(),
+                    'content_type' => 'product_group',
+                    'value' => $cookieData['price'] + $shipping->price,
+                    'currency' => 'BDT',
+                ],
+            ];
+
             Cookie::queue(Cookie::forget('product_data'));
 
-            return redirect()->route('thankyou', $order->order_id)->with('order_id', $order->order_id);
+            return redirect()->route('thankyou', $order->order_id)->with([
+                'order_id' => $order->order_id,
+                'fbEvent' => $fbEvent,
+            ]);
         } catch (\Throwable $th) {
             return back()->with('err', "Try again latter: $th");
         }

@@ -69,11 +69,23 @@ class ProductController extends Controller
                 SEOMeta::setCanonical($config->url . request()->getPathInfo());
             }
 
+            // Prepare data for Meta Pixel
+            $fbEvent = [
+                'event' => 'ViewContent',
+                'data' => [
+                    'content_ids' => $product->id,
+                    'content_type' => $product->category ? $product->category->category_name : 'Unknown',
+                    'value' => $product->getFinalPrice(), // Total value of all products in view
+                    'currency' => 'BDT',
+                ],
+            ];
+
             return view("themes.$themeSlug.pages.product", [
                 'product' => $product,
                 'related' => $relatedProduct,
                 'availableColors' => $availableColors,  // Pass colors and sizes to the view
                 'config'  => $config,
+                'fbEvent' => $fbEvent,
             ]);
         }
 
