@@ -118,7 +118,7 @@
                     <a href="{{ route('category.create') }}">Create Category</a>
                 </div>
             </li>
-            <li class="menu-item has-submenu">
+            {{-- <li class="menu-item has-submenu">
                 <a class="menu-link" href="#">
                     <svg width="22px" height="22px" class="icon" viewBox="0 0 24 24" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
@@ -138,7 +138,7 @@
                     <a href="{{ route('campaign.index') }}">Campaign List</a>
                     <a href="{{ route('campaign.create') }}">Create Campaign</a>
                 </div>
-            </li>
+            </li> --}}
             <li class="menu-item has-submenu">
                 <a class="menu-link" href="#">
                     <svg width="22px" height="22px" class="icon" viewBox="0 0 24 24" fill="none"
@@ -160,7 +160,7 @@
                     <a href="{{ route('variation.create') }}">Create Service</a>
                 </div>
             </li>
-            <li class="menu-item has-submenu">
+            {{-- <li class="menu-item has-submenu">
                 <a class="menu-link" href="#">
                     <svg class="icon" width="22px" height="22px" viewBox="0 0 24 24" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
@@ -177,7 +177,7 @@
                     <a href="{{ route('coupon.index') }}">Coupon List</a>
                     <a href="{{ route('coupon.create') }}">Add coupon</a>
                 </div>
-            </li>
+            </li> --}}
             <li class="menu-item">
                 <a class="menu-link" href="{{ route('shipping.index') }}">
                     <svg width="22px" height="22px" class="icon" viewBox="0 0 24 24" fill="none"
