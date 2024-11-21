@@ -16,9 +16,39 @@
     <link rel="stylesheet" href="{{ asset('themes/default') }}/css/plugins/swiper.min.css" type="text/css">
     <link rel="stylesheet" href="{{ asset('themes/default') }}/css/plugins/jquery.fancybox.css" type="text/css">
     <link rel="stylesheet" href="{{ asset('themes/default') }}/css/style.css" type="text/css">
-
-    <!-- End Meta Pixel Code -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Meta Pixel Code -->
+    <script>
+        ! function(f, b, e, v, n, t, s) {
+            if (f.fbq) return;
+            n = f.fbq = function() {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n;
+            n.push = n;
+            n.loaded = !0;
+            n.version = '2.0';
+            n.queue = [];
+            t = b.createElement(e);
+            t.async = !0;
+            t.src = v;
+            s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '730073492259194');
+        fbq('track', 'PageView');
+        // Track AddToCart Event
+        fbq('track', 'AddToCart', {
+            content_ids: ['12345'], // Replace with your product ID
+            content_type: 'product',
+            value: 500, // Replace with your product price
+            currency: 'BDT'
+        });
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id=730073492259194&ev=PageView&noscript=1" /></noscript>
     <title>{{ $product->name }}</title>
     <style>
         blockquote {
@@ -1117,8 +1147,8 @@
                                 </div>
                             </details>
                         </share-button>
-                        <script src="js/details-disclosure.js" defer="defer"></script>
-                        <script src="js/share.js" defer="defer"></script>
+                        <script src="{{ asset('themes/default') }}/js/details-disclosure.js" defer="defer"></script>
+                        <script src="{{ asset('themes/default') }}/js/share.js" defer="defer"></script>
                     </div>
 
                     <div class="product-single__meta-info d-none d-md-block">
@@ -1531,6 +1561,7 @@
                 });
             @endif
         });
+
         var availableColors = @json($availableColors);
 
         function updateSizes(colorId) {
@@ -1544,12 +1575,12 @@
                     var checked = index == 0 ? 'checked' : ''; // Select the first size by default
 
                     sizeOptions.innerHTML += `
-    <input type="radio" name="inventory_id" id="size-${size.size_id}" value="${size.inventory_id}" ${checked}
-        ${disabled}>
-    <label class="swatch js-swatch ${size.stock > 0 ? '' : 'qnt-null'}" for="size-${size.size_id}">
-        ${size.size_name}
-    </label>
-    `;
+        <input type="radio" name="inventory_id" id="size-${size.size_id}" value="${size.inventory_id}" ${checked}
+            ${disabled}>
+        <label class="swatch js-swatch ${size.stock > 0 ? '' : 'qnt-null'}" for="size-${size.size_id}">
+            ${size.size_name}
+        </label>
+        `;
                 });
             } else {
                 sizeOptions.innerHTML = '<p>No sizes available for this color.</p>';
@@ -1582,14 +1613,11 @@
         function updateQuantity(amount) {
             var currentQuantity = parseInt(document.querySelector('input[name="quantity"]').value);
             var newQuantity = currentQuantity + amount;
-            document.getElementById('prd-qnt').textContent = newQuantity;
-
             if (newQuantity > 0) {
                 document.querySelector('input[name="quantity"]').value = newQuantity;
+                document.getElementById('prd-qnt').textContent = newQuantity;
 
                 var productPrice = parseFloat(document.querySelector('.checkout-total').getAttribute('data-price'));
-
-                console.log("Product Price:", productPrice);
 
                 if (!isNaN(productPrice)) {
                     var newSubtotal = productPrice * newQuantity;
@@ -1603,47 +1631,40 @@
 
         function updateGrandTotal() {
             var subtotal = parseFloat(document.querySelector('.checkout-total').textContent);
-
             var shippingPrice = parseFloat(document.querySelector('input[name="shipping"]:checked').getAttribute(
                 'data-price')) || 0;
+            var quantity = parseInt(document.querySelector('input[name="quantity"]').value);
+
+            // Set shipping charge to 0 if quantity is more than 2
+            if (quantity > 1) {
+                shippingPrice = 0;
+            }
 
             var grandTotal = subtotal + shippingPrice;
 
             document.querySelector('.checkout-grandtotal').textContent = grandTotal.toFixed(2) + ' ৳';
+            document.querySelector('.shipping-charge').textContent = shippingPrice.toFixed(2) + ' ৳';
         }
 
         $(document).ready(function() {
             document.querySelectorAll('input[name="shipping"]').forEach(function(radio) {
                 radio.addEventListener('change', function(event) {
-                    let selectedRadio = event.target;
-                    let shippingPrice = parseFloat(selectedRadio.getAttribute('data-price'));
+                    updateGrandTotal(); // Recalculate totals when shipping changes
+                });
+            });
 
-                    $('.shipping-charge').text(shippingPrice + '৳');
-                    let subtotalText = $('.checkout-total').text();
-
-                    let cleanedSubtotalText = subtotalText.replace(/[^\d.-]/g, '');
-
-                    let subtotal = parseFloat(cleanedSubtotalText);
-                    if (!isNaN(subtotal) && !isNaN(shippingPrice)) {
-                        let grandTotal = subtotal + shippingPrice;
-                        $('.checkout-grandtotal').text(grandTotal.toFixed(2) + ' Tk');
-                    } else {
-                        console.error(
-                            'Invalid subtotal or shipping price, unable to calculate total.');
-                    }
+            // Recalculate totals when quantity changes
+            document.querySelectorAll('.quantity-btn').forEach(function(button) {
+                button.addEventListener('click', function() {
+                    var amount = this.classList.contains('increase') ? 1 : -1;
+                    updateQuantity(amount);
+                    updateGrandTotal();
                 });
             });
         });
-        //fbq('track', 'InitiateCheckout', {
-        //    content_name: '{{ $product->name }}',
-        //    content_ids: ['{{ $product->slugs }}'],
-        //    content_type: 'product',
-        //    value: {{ $product->getFinalPrice() }},
-        //    currency: 'BDT'
-        //});
+
         document.getElementById('checkoutForm').addEventListener('submit', function() {
-            var formTotalValue = document.querySelector('.checkout-grandtotal').textContent.replace(/[^\d.-]/g,
-                '');
+            var formTotalValue = document.querySelector('.checkout-grandtotal').textContent.replace(/[^\d.-]/g, '');
             fbq('track', 'Lead', {
                 content_name: 'Checkout Form',
                 value: formTotalValue,
@@ -1651,6 +1672,7 @@
             });
         });
     </script>
+
 
 </body>
 

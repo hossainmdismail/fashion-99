@@ -144,7 +144,7 @@ class CheckoutController extends Controller
                 'fbEvent' => $fbEvent,
             ]);
         } catch (\Throwable $th) {
-            return back()->with('err', "Try again latter: $th");
+            return back()->with('err', "Try again latter");
         }
     }
 

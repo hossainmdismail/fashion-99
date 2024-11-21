@@ -104,10 +104,12 @@ class LandingController extends Controller
 
         //Checking in exists
         if ($inventory) {
-            $user = User::where('number', $request->number)->orWhere('email', $request->email)->first();
+            $user = User::where('number', $request->number)->first();
             $shipping = Shipping::find($request->shipping); //Finding Shipping
             $orderID = str_pad(Order::max('id') + 1, 5, '0', STR_PAD_LEFT); //Auto create Order id
             $userId = null; //User id that is important
+            $shippingPrice = null;
+            $totalPrice = null;
 
             //Create user if not exists
             if (!$user) {
@@ -125,29 +127,58 @@ class LandingController extends Controller
                 return back()->with('err', 'Shipping not created!');
             }
 
+
+            if ($request->quantity > 1) {
+                $shippingPrice = 0;
+                $totalPrice = $inventory->product->getFinalPrice() * $request->quantity;
+            } else {
+                $shippingPrice = $shipping->price;
+                $totalPrice = ($inventory->product->getFinalPrice() * $request->quantity) + $shipping->price;
+            }
+
             if ($inventory->product) {
-                //Create new order
-                $order = new Order();
-                $order->user_id            = $userId;
-                $order->order_id            = $orderID;
-                $order->client_message      = $request->message;
-                $order->shipping_charge     = $shipping->price;
-                $order->price               = ($inventory->product->getFinalPrice() * $request->quantity) + $shipping->price;
-                $order->order_status        = 'pending';
-                $order->payment_status      = 'processing';
-                $order->save();
+                // Prepare data for Meta Pixel before clearing the cookie
+                $fbEvent = [
+                    'event' => 'Purchase',
+                    'data' => [
+                        'content_ids' => $inventory->product->id,
+                        'content_type' => 'Landing Page Product',
+                        'value' => $totalPrice,
+                        'currency' => 'BDT',
+                    ],
+                ];
 
-                //Manage Inventory
-                $inventory->qnt = $inventory->qnt - $request->quantity;
-                $inventory->save();
+                try {
+                    //Create new order
+                    $order = new Order();
+                    $order->user_id            = $userId;
+                    $order->order_id            = $orderID;
+                    $order->client_message      = $request->message;
+                    $order->shipping_charge     = $shippingPrice;
+                    $order->price               = $totalPrice;
+                    $order->order_status        = 'pending';
+                    $order->payment_status      = 'processing';
+                    $order->save();
 
-                // Create order product and quantity
-                $order_product = new OrderProduct();
-                $order_product->order_id    = $order->id;
-                $order_product->product_id  = $inventory->product->id;
-                $order_product->price       = $inventory->product->getFinalPrice();
-                $order_product->qnt         = $request->quantity;
-                $order_product->save();
+                    //Manage Inventory
+                    $inventory->qnt = $inventory->qnt - $request->quantity;
+                    $inventory->save();
+
+                    // Create order product and quantity
+                    $order_product = new OrderProduct();
+                    $order_product->order_id    = $order->id;
+                    $order_product->product_id  = $inventory->product->id;
+                    $order_product->price       = $inventory->product->getFinalPrice();
+                    $order_product->qnt         = $request->quantity;
+                    $order_product->save();
+
+                    return redirect()->route('thankyou', $order->order_id)->with([
+                        'order_id' => $order->order_id,
+                        'fbEvent' => $fbEvent,
+                    ]);
+                } catch (\Throwable $th) {
+                    return back()->with('err', "Try again latter");
+                }
             }
         }
     }
