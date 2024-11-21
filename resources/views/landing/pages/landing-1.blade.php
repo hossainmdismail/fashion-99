@@ -1192,7 +1192,7 @@
             <div id="related_products" class="position-relative">
                 <div class="swiper-container js-swiper-slider"
                     data-settings='{
-                "autoplay": false,
+                "autoplay": true,
                 "slidesPerView": 4,
                 "slidesPerGroup": 4,
                 "effect": "none",
