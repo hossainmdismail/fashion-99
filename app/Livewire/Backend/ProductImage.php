@@ -27,7 +27,7 @@ class ProductImage extends Component
     public function store()
     {
         if ($this->image != null) {
-            Photo::upload($this->image, 'files/product',  $this->product_id . 'PRO', [440, 440]);
+            Photo::upload($this->image, 'files/product',  $this->product_id . 'PRO', [1100, 1100]);
             ProductPhoto::insert([
                 'product_id' => $this->product_id,
                 'image'      => Photo::$name,
