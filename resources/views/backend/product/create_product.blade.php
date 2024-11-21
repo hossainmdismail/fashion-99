@@ -83,6 +83,24 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="mb-4">
+                                                <label for="product_name" class="form-label">Product Name</label>
+                                                <input type="text" placeholder="Entire Name"
+                                                    class="form-control @error('product_name') is-invalid @enderror"
+                                                    name="product_name" value="{{ old('product_name') }}">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12">
+                                            <div class="mb-4">
+                                                <label for="slug" class="form-label">Slugs</label>
+                                                <input type="text" placeholder="Slugs"
+                                                    class="form-control @error('slug') is-invalid @enderror" name="slug"
+                                                    value="{{ old('slug') }}">
+                                            </div>
+                                        </div>
+
                                         <div class="col-lg-6">
                                             <div class="mb-4">
                                                 <label for="product_name" class="form-label">Select A Category</label>
@@ -96,14 +114,6 @@
                                                         </option>
                                                     @endforeach
                                                 </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="mb-4">
-                                                <label for="product_name" class="form-label">Product Name</label>
-                                                <input type="text" placeholder="Entire Name"
-                                                    class="form-control @error('product_name') is-invalid @enderror"
-                                                    name="product_name" value="{{ old('product_name') }}">
                                             </div>
                                         </div>
 

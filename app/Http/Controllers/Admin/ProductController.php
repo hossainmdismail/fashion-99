@@ -14,6 +14,7 @@ use App\Models\ProductCategory;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Livewire\Backend\ProductImage;
+use Illuminate\Validation\Rule;
 use App\Models\ProductPhoto;
 use Photo;
 
@@ -68,7 +69,7 @@ class ProductController extends Controller
             'sp_type'           => 'required',
         ]);
 
-        $slug = Str::slug($request->product_name);
+        $slug = $request->slug == '' ? Str::slug($request->product_name) : Str::slug($request->slug);
 
         // Check if the slug already exists, append numeric value if necessary
         $count = Product::where('slugs', $slug)->count();
@@ -153,12 +154,14 @@ class ProductController extends Controller
 
     public function update(Request $request, string $id)
     {
+        // dd($request->all());
 
         $request->validate([
             'btn'               => 'required',
             'category_id'       => 'required|integer',
             'product_name'      => 'required',
             'sku'               => 'required',
+            'slugs'             => ['required', Rule::unique('products')->ignore($id),],
             'short_description' => 'required',
             'description'       => 'required',
             'price'             => 'required|integer',
@@ -168,13 +171,7 @@ class ProductController extends Controller
 
         ]);
 
-        $slug = Str::slug($request->product_name);
-
-        // Check if the slug already exists, append numeric value if necessary
-        $count = Product::where('slugs', $slug)->count();
-        if ($count > 1) {
-            $slug = $slug . '-' . ($count + 1);
-        }
+        $slug = Str::slug($request->slugs);
 
         DB::beginTransaction();
 

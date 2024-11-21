@@ -29,6 +29,62 @@
         <div class="mb-4 pb-lg-3"></div>
 
         <section class="shop-main container d-flex">
+            <div class="shop-list flex-grow-1 mb-3 mb-md-4">
+                <div class="d-flex justify-content-between mb-4 pb-md-2">
+                    <div class="breadcrumb mb-0 d-none d-md-block flex-grow-1">
+                        <a href="{{ route('index') }}" class="menu-link menu-link_us-s text-uppercase fw-medium">Home</a>
+                        <span class="breadcrumb-separator menu-link fw-medium ps-1 pe-1">/</span>
+                        <a class="menu-link menu-link_us-s text-uppercase fw-medium">Shop</a>
+                    </div><!-- /.breadcrumb -->
+
+                    <div
+                        class="shop-acs d-flex align-items-center justify-content-between justify-content-md-end flex-grow-1">
+                        <select class="shop-acs__select form-select w-auto border-0 py-0 order-1 order-md-0"
+                            aria-label="Sort Items" name="sort" id="sort-products">
+                            <option value="0" selected>Sorting</option>
+                            <option value="3">A-Z</option>
+                            <option value="4">Z-A</option>
+                            <option value="5">low to high</option>
+                            <option value="6">high to low</option>
+                        </select>
+
+                        {{-- <div class="shop-asc__seprator mx-3 bg-light d-none d-md-block order-md-0"></div> --}}
+
+                        {{-- <div class="col-size align-items-center order-1 d-none d-lg-flex">
+                            <span class="text-uppercase fw-medium me-2">View</span>
+                            <button class="btn-link fw-medium me-2 js-cols-size" data-target="products-grid"
+                                data-cols="2">2</button>
+                            <button class="btn-link fw-medium me-2 js-cols-size" data-target="products-grid"
+                                data-cols="3">3</button>
+                            <button class="btn-link fw-medium js-cols-size" data-target="products-grid"
+                                data-cols="4">4</button>
+                        </div><!-- /.col-size --> --}}
+
+                        <div class="shop-filter d-flex align-items-center order-0 order-md-3 d-lg-none">
+                            <button class="btn-link btn-link_f d-flex align-items-center ps-0 js-open-aside"
+                                data-aside="shopFilter">
+                                <svg class="d-inline-block align-middle me-2" width="14" height="10"
+                                    viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <use href="#icon_filter" />
+                                </svg>
+                                <span class="text-uppercase fw-medium d-inline-block align-middle">Filter</span>
+                            </button>
+                        </div><!-- /.col-size d-flex align-items-center ms-auto ms-md-3 -->
+
+                    </div><!-- /.shop-acs -->
+                </div>
+                <div class="products-grid row row-cols-2 row-cols-md-3" id="products-grid">
+                    @foreach ($products as $product)
+                        <div class="product-card-wrapper">
+                            @include('themes.default.component.product', ['product' => $product])
+                        </div>
+                    @endforeach
+                </div>
+                <nav class="shop-pages d-flex justify-content-between mt-3" aria-label="Page navigation">
+                    {{ $products->links('pagination::bootstrap-4') }}
+                </nav>
+            </div>
+
             <div class="shop-sidebar side-sticky bg-body" id="shopFilter">
                 <div class="accordion" id="brand-filters">
                     <div class="accordion-item mb-4 pb-3">
@@ -103,62 +159,6 @@
                         </div><!-- /.accordion-item -->
                     </div><!-- /.accordion-item -->
                 </div>
-            </div>
-
-            <div class="shop-list flex-grow-1 mb-3 mb-md-4">
-                <div class="d-flex justify-content-between mb-4 pb-md-2">
-                    <div class="breadcrumb mb-0 d-none d-md-block flex-grow-1">
-                        <a href="{{ route('index') }}" class="menu-link menu-link_us-s text-uppercase fw-medium">Home</a>
-                        <span class="breadcrumb-separator menu-link fw-medium ps-1 pe-1">/</span>
-                        <a class="menu-link menu-link_us-s text-uppercase fw-medium">Shop</a>
-                    </div><!-- /.breadcrumb -->
-
-                    <div
-                        class="shop-acs d-flex align-items-center justify-content-between justify-content-md-end flex-grow-1">
-                        <select class="shop-acs__select form-select w-auto border-0 py-0 order-1 order-md-0"
-                            aria-label="Sort Items" name="sort" id="sort-products">
-                            <option value="0" selected>Sorting</option>
-                            <option value="3">A-Z</option>
-                            <option value="4">Z-A</option>
-                            <option value="5">low to high</option>
-                            <option value="6">high to low</option>
-                        </select>
-
-                        {{-- <div class="shop-asc__seprator mx-3 bg-light d-none d-md-block order-md-0"></div> --}}
-
-                        {{-- <div class="col-size align-items-center order-1 d-none d-lg-flex">
-                            <span class="text-uppercase fw-medium me-2">View</span>
-                            <button class="btn-link fw-medium me-2 js-cols-size" data-target="products-grid"
-                                data-cols="2">2</button>
-                            <button class="btn-link fw-medium me-2 js-cols-size" data-target="products-grid"
-                                data-cols="3">3</button>
-                            <button class="btn-link fw-medium js-cols-size" data-target="products-grid"
-                                data-cols="4">4</button>
-                        </div><!-- /.col-size --> --}}
-
-                        <div class="shop-filter d-flex align-items-center order-0 order-md-3 d-lg-none">
-                            <button class="btn-link btn-link_f d-flex align-items-center ps-0 js-open-aside"
-                                data-aside="shopFilter">
-                                <svg class="d-inline-block align-middle me-2" width="14" height="10"
-                                    viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <use href="#icon_filter" />
-                                </svg>
-                                <span class="text-uppercase fw-medium d-inline-block align-middle">Filter</span>
-                            </button>
-                        </div><!-- /.col-size d-flex align-items-center ms-auto ms-md-3 -->
-
-                    </div><!-- /.shop-acs -->
-                </div>
-                <div class="products-grid row row-cols-2 row-cols-md-3" id="products-grid">
-                    @foreach ($products as $product)
-                        <div class="product-card-wrapper">
-                            @include('themes.default.component.product', ['product' => $product])
-                        </div>
-                    @endforeach
-                </div>
-                <nav class="shop-pages d-flex justify-content-between mt-3" aria-label="Page navigation">
-                    {{ $products->links('pagination::bootstrap-4') }}
-                </nav>
             </div>
         </section><!-- /.shop-main container -->
     </main>

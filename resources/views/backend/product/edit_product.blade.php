@@ -189,6 +189,22 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="mb-4">
+                                                    <label for="product_name" class="form-label">Product Name</label>
+                                                    <input type="text" placeholder="Entire Name" class="form-control"
+                                                        name="product_name" value="{{ $request->name }}">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12">
+                                                <div class="mb-4">
+                                                    <label for="slugs" class="form-label">Slugs</label>
+                                                    <input type="text" placeholder="Slugs" class="form-control"
+                                                        name="slugs" value="{{ $request->slugs }}">
+                                                </div>
+                                            </div>
+
                                             <div class="col-lg-6">
                                                 <div class="mb-4">
                                                     <label for="product_name" class="form-label">Select A Category</label>
@@ -200,13 +216,6 @@
                                                             </option>
                                                         @endforeach
                                                     </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="mb-4">
-                                                    <label for="product_name" class="form-label">Product Name</label>
-                                                    <input type="text" placeholder="Entire Name" class="form-control"
-                                                        name="product_name" value="{{ $request->name }}">
                                                 </div>
                                             </div>
 

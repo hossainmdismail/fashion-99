@@ -125,7 +125,7 @@
                 <li><a href="{{ route('contact') }}" class="menu-link menu-link_us-s color-white">Contact</a></li>
                 <li><a href="#" class="menu-link menu-link_us-s color-white">Track Order</a></li>
             </ul>
-            <p class="mx-auto mb-0">FREE SHIPPING WORLDWIDE</p>
+            <p class="mx-auto mb-0">A SHADOW OF ART</p>
             <div class="heeader-top__right flex-1 d-flex gap-1 justify-content-end">
                 <ul class="social-links list-unstyled d-flex flex-wrap mb-0">
                     <li>
@@ -146,12 +146,12 @@
         </div>
         <div class="header-desk header-desk_type_2">
             <nav class="navigation d-flex">
-                <a class="navigation__item" href="#" data-bs-toggle="modal" data-bs-target="#siteMap">
+                {{-- <a class="navigation__item" href="#" data-bs-toggle="modal" data-bs-target="#siteMap">
                     <svg width="30" height="11" viewBox="0 0 30 11" xmlns="http://www.w3.org/2000/svg">
                         <rect width="30" height="2" />
                         <rect y="9" width="25" height="2" />
                     </svg>
-                </a>
+                </a> --}}
 
                 <ul class="navigation__list list-unstyled d-flex">
                     <li class="navigation__item">

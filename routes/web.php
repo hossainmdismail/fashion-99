@@ -30,6 +30,7 @@ use App\Http\Controllers\ProductController as ControllersProductController;
 use App\Http\Controllers\CategoryController as ControllersCategoryController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\Frontend\ProfileController;
+use App\Http\Controllers\LandingController;
 use App\Http\Controllers\ThemesController;
 
 //Frontend
@@ -49,6 +50,9 @@ Route::get('/checkout', [CheckoutController::class, 'checkout'])->name('checkout
 Route::get('/checkout/data', [CheckoutController::class, 'checkoutitems'])->name('checkout.items');
 Route::post('/checkout/confirm', [CheckoutController::class, 'checkoutconfirm'])->name('checkout.confirm');
 
+//Landing
+Route::get('/step/{slugs}', [LandingController::class, 'landingView'])->name('landing.view');
+Route::post('/checkout/landing/confirm', [LandingController::class, 'order'])->name('landing.order');
 
 Route::get('/categories/{slugs}', [ControllersCategoryController::class, 'index'])->name('front.category');
 Route::get('/shop', [ShopController::class, 'shop'])->name('shop');

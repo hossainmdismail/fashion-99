@@ -25,7 +25,7 @@
                                 class="fs-6 mb-4 pb-2 text-uppercase text-shadow-white animate animate_fade animate_btt animate_delay-5">
                                 {{ $banner->banner_description }}</p>
                             <a href="{{ route('front.category', $banner->category ? $banner->category->slugs : '') }}"
-                                class="btn btn-outline-primary border-0 fs-base text-uppercase fw-medium animate animate_fade animate_btt animate_delay-7">
+                                class="btn border-0 fs-base text-uppercase fw-medium animate animate_fade animate_btt animate_delay-7">
                                 <span class="text_dash_half">Discover Now</span>
                             </a>
                         </div>
