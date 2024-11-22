@@ -254,7 +254,21 @@
                 margin: 0rem auto 2.375rem;
                 max-width: 58.125rem;
             }
+
+            .zoom-out-button {
+                width: -webkit-fill-available;
+            }
         }
+
+        .zoom-out-button {
+            animation: pulse 2s infinite;
+        }
+
+        .zoom-out-button:hover {
+            transform: scale(0.9);
+            /* Zoom out effect */
+        }
+
 
         @keyframes blink-animation {
 
@@ -267,12 +281,26 @@
                 box-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
             }
         }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(.9);
+            }
+
+            50% {
+                transform: scale(1);
+            }
+
+            100% {
+                transform: scale(.9);
+            }
+        }
     </style>
 </head>
 
 <body>
     <div class="chat-icon">
-        <a href="https://wa.me/+8801964264728" target="_blank">
+        <a href="https://wa.me/+8801811994026" target="_blank">
             <svg width="39" height="39" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle class="color-element" cx="19.4395" cy="19.4395" r="19.4395" fill="#49E670"></circle>
                 <path
@@ -512,7 +540,7 @@
     <div class="header-mobile header_sticky">
         <div class="container d-flex align-items-center h-100">
             <div class="logo">
-                <a href="{{ route('index') }}">
+                <a>
                     @if ($config)
                         <img src="{{ asset('files/config/' . $config->logo) }}"
                             alt="{{ $config ? $config->name : 'Unknown' }}" class="logo__image d-block">
@@ -547,7 +575,8 @@
                 <div class="overflow-hidden">
                     <ul class="navigation__list list-unstyled position-relative">
                         <li class="navigation__item">
-                            <a href="#" class="navigation__link js-nav-right d-flex align-items-center">Home<svg
+                            <a href="{{ route('index') }}"
+                                class="navigation__link js-nav-right d-flex align-items-center">Home<svg
                                     class="ms-auto" width="7" height="11" viewBox="0 0 7 11"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <use href="#icon_next_sm" />
@@ -953,7 +982,7 @@
         <div class="container">
             <div class="header-desk header-desk_type_1">
                 <div class="logo">
-                    <a href="{{ route('index') }}">
+                    <a>
                         @if ($config)
                             <img src="{{ asset('files/config/' . $config->logo) }}"
                                 alt="{{ $config ? $config->name : 'Unknown' }}" width="135px"
@@ -1074,7 +1103,6 @@
                                 ১ পিসের রেগুলার মূল্য <span
                                     style="color: #565656;text-decoration: line-through;">{{ number_format($product->price, 0) }}</span>
                                 টাকা
-                                <br>
                                 <span style="color: #23b203">অফার মূল্য মাত্র <span
                                         style="color: #004EAB">{{ $product->getFinalPrice() }}</span> টাকা</span>
                             </h3>
@@ -1093,7 +1121,6 @@
                                 2 পিসের রেগুলার মূল্য <span
                                     style="color: #565656;text-decoration: line-through;">{{ number_format($product->price * 2, 0) }}</span>
                                 টাকা
-                                <br>
                                 <span style="color: #23b203">অফার মূল্য মাত্র <span style="color: #004EAB">1600</span>
                                     টাকা</span>
                             </h3>
@@ -1111,7 +1138,7 @@
                         </p>
                     </div>
                     <div class="product-single__addtocart">
-                        <a href="#payment" class="btn btn-primary font-bd" id="orderNowButton">অর্ডার
+                        <a href="#payment" class="btn btn-primary font-bd zoom-out-button" id="orderNowButton">অর্ডার
                             করতে এখানে ক্লিক করুন</a>
                     </div>
                     <div class="product-single__addtolinks d-none d-md-block">
@@ -1185,6 +1212,10 @@
         </section>
 
         <section class="products-carousel container">
+            <div class="product-single__addtocart mb-5">
+                <a href="#payment" class="btn btn-primary font-bd zoom-out-button" id="orderNowButton">অর্ডার
+                    করতে এখানে ক্লিক করুন</a>
+            </div>
             <h2 class="h3 text-uppercase mb-4 pb-xl-2 mb-xl-4" style="font-family:'Anek Bangla', sans-serif;">
                 কাস্টমার
                 <strong>রিভিউ</strong>
@@ -1234,27 +1265,27 @@
                         @endforeach --}}
                         <div class="swiper-slide product-card">
                             <div class="slide-image-custom">
-                                <img src="{{ asset('review/1.jpeg') }}" alt="">
+                                <img src="{{ asset('review/1.jpeg') }}" loading="lazy" alt="Euphoria review">
                             </div>
                         </div>
                         <div class="swiper-slide product-card">
                             <div class="slide-image-custom">
-                                <img src="{{ asset('review/2.jpeg') }}" alt="">
+                                <img src="{{ asset('review/2.jpeg') }}" loading="lazy" alt="Euphoria review">
                             </div>
                         </div>
                         <div class="swiper-slide product-card">
                             <div class="slide-image-custom">
-                                <img src="{{ asset('review/3.jpeg') }}" alt="">
+                                <img src="{{ asset('review/3.jpeg') }}" loading="lazy" alt="Euphoria review">
                             </div>
                         </div>
                         <div class="swiper-slide product-card">
                             <div class="slide-image-custom">
-                                <img src="{{ asset('review/4.jpeg') }}" alt="">
+                                <img src="{{ asset('review/4.jpeg') }}" loading="lazy" alt="Euphoria review">
                             </div>
                         </div>
                         <div class="swiper-slide product-card">
                             <div class="slide-image-custom">
-                                <img src="{{ asset('review/5.jpeg') }}" alt="">
+                                <img src="{{ asset('review/5.jpeg') }}" loading="lazy" alt="Euphoria review">
                             </div>
                         </div>
 
