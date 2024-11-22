@@ -298,6 +298,18 @@ input[type="radio"].is-invalid::after {
     font-family: 'ANEK BANGLA';
   }
 
+  .item {
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    border: 1px solid #fff;
+    font-size: 14px;
+    line-height: 1.5;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    height: 100%;
+}
   .custom-radio-option .price {
     margin-top: 5px;
   }

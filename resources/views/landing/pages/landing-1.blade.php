@@ -852,7 +852,7 @@
                         </div>
                         <span class="reviews-note text-lowercase text-secondary ms-1">8k+ reviews</span>
                     </div>
-                    <div class="product-single__price">
+                    <div class="product-single__price d-none d-md-block">
                         <div style="display: flex; padding-top: .6rem">
                             <svg width="22px" height="22px" style="margin-right: .6rem;margin-top: 2px;"
                                 viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -963,14 +963,143 @@
                         {{-- <h3 class="details-title" style="width: fit-content; margin-bottom: 1.5rem;">
                             Description</h3> --}}
                     </div>
-                    <div class="product-single__description"
+                    <div class="product-single__description mb-3"
                         style="font-family: 'Anek Bangla', sans-serif; font-size: 16px">
-                        {!! $product->description !!}
+                        {{-- {!! $product->description !!} --}}
+                        <h2 style="font-weight: 800;text-align: center;margin-bottom: 19px;" class="font-bd">কেনো
+                            আমাদের সেবায় আপনিও হ্যাপি থাকবেন?</h2>
+                        <div class="row g-2">
+                            <div class="col-6 col-md-6 col-lg-4">
+                                <div class="item"> দীর্ঘ ১১বছর পথচলার অভিজ্ঞতার আলোকে সকল কিছু করা সো নিঃসন্দেহে
+                                    আমাদের উপর আস্থা ও ভরসা রাখতে পারেন।</div>
+                            </div>
+                            <div class="col-6 col-md-6 col-lg-4">
+                                <div class="item">কয়েকদিন পরার পরেই কাপড়ে ফুসকুড়ি উঠে যায় সে সমস্যার সম্মুখীন
+                                    থেকে রক্ষা পাবেন ইনশাআল্লাহ্।</div>
+                            </div>
+                            <div class="col-6 col-md-6 col-lg-4">
+                                <div class="item" style="background: #d9d9d9;color: black;">কয়েকদিন নয় কয়েক বছর
+                                    পরার পরেও ফুসকুড়ি উঠবে না গ্র্যান্টেড।
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-6 col-lg-4">
+                                <div class="item" style="background: #d9d9d9;color: black;">পোশাক পরে শতভাগ কমফোর্ট
+                                    পাবেন ও সারাজীবনের জন্য কাস্টমার হবেন
+                                    ইন-শা-আল্লাহ্।</div>
+                            </div>
+                            <div class="col-6 col-md-6 col-lg-4">
+                                <div class="item" style="background: red;color: white;">১০০% কটন টেরী ফিলিস কাপড় যার
+                                    জিএসম ৩৩০+</div>
+                            </div>
+                            <div class="col-6 col-md-6 col-lg-4">
+                                <div class="item" style="background: red;color: white;">২/২ লেকরা কটন রিব যার জিএসএম
+                                    ৩৮০+</div>
+                            </div>
+                            <div class="col-6 col-md-6 col-lg-4">
+                                <div class="item" style="background: #d9d9d9;color: black;">দীর্ঘ দিন ব্যবহার করার
+                                    পরেও রিব ঝুলে পরবেনা গ্র্যান্টেড।</div>
+                            </div>
+                            <div class="col-6 col-md-6 col-lg-4">
+                                <div class="item" style="background: #d9d9d9;color: black;">প্লাস্টিক আফসান ও রাবার
+                                    এজো ফ্রি প্রিন্ট যা আপনার যেকোনো ধরনের
+                                    এলার্জি থাকলেও সুরক্ষিত থাকবে।</div>
+                            </div>
+                            <div class="col-6 col-md-6 col-lg-4">
+                                <div class="item">প্রতি ইঞ্চি সেলাইয়ে ১১/১২ টা স্টিজে তৈরি যা বিদেশি যেকোনো
+                                    ব্র্যান্ডকে বিড করতে সদা প্রস্তুত।</div>
+                            </div>
+                            <div class="col-6 col-md-6 col-lg-4">
+                                <div class="item">পন্য হাতে পেয়ে কথার সাথে মানের মিল না পেলে সাথে সাথে ডেলিভারি চার্জ
+                                    দিয়ে রিটার্ন করতে পারবেন।</div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div id="related_products" class="position-relative mt-3">
+                        <div class="swiper-container js-swiper-slider"
+                            data-settings='{
+                        "autoplay": true,
+                        "slidesPerView": 4,
+                        "slidesPerGroup": 4,
+                        "effect": "none",
+                        "loop": true,
+                        "pagination": {
+                          "el": "#related_products .products-pagination",
+                          "type": "bullets",
+                          "clickable": true
+                        },
+                        "navigation": {
+                          "nextEl": "#related_products .products-carousel__next",
+                          "prevEl": "#related_products .products-carousel__prev"
+                        },
+                        "breakpoints": {
+                          "320": {
+                            "slidesPerView": 2,
+                            "slidesPerGroup": 2,
+                            "spaceBetween": 14
+                          },
+                          "768": {
+                            "slidesPerView": 3,
+                            "slidesPerGroup": 3,
+                            "spaceBetween": 24
+                          },
+                          "992": {
+                            "slidesPerView": 4,
+                            "slidesPerGroup": 4,
+                            "spaceBetween": 30
+                          }
+                        }
+                      }'>
+                            <div class="swiper-wrapper">
+                                @foreach ($product->uniqueAttributes() as $key => $image)
+                                    <div class="swiper-slide product-card">
+                                        <div class="slide-image-custom">
+                                            <img src="{{ asset('files/product/' . $image->image) }}" loading="lazy"
+                                                alt="Euphoria review">
+                                        </div>
+                                    </div>
+                                @endforeach
+                                @if ($product->images)
+                                    @foreach ($product->images as $key => $image)
+                                        <div class="swiper-slide product-card">
+                                            <div class="slide-image-custom">
+                                                <img src="{{ asset('files/product/' . $image->image) }}"
+                                                    loading="lazy" alt="Euphoria review">
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                @endif
+                            </div><!-- /.swiper-wrapper -->
+                        </div><!-- /.swiper-container js-swiper-slider -->
+
+                        <div
+                            class="products-carousel__prev position-absolute top-50 d-flex align-items-center justify-content-center">
+                            <svg width="25" height="25" viewBox="0 0 25 25"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <use href="#icon_prev_md" />
+                            </svg>
+                        </div><!-- /.products-carousel__prev -->
+                        <div
+                            class="products-carousel__next position-absolute top-50 d-flex align-items-center justify-content-center">
+                            <svg width="25" height="25" viewBox="0 0 25 25"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <use href="#icon_next_md" />
+                            </svg>
+                        </div><!-- /.products-carousel__next -->
+
+                        <div class="products-pagination mt-4 mb-5 d-flex align-items-center justify-content-center">
+                        </div>
+                        <!-- /.products-pagination -->
                     </div>
 
                     <div style="text-align: center;"></div>
 
                     <div style="border: 1px solid #8c0d0d9c;padding: 15px;border-radius: .6rem;">
+                        <div class="w-full mb-3" style="display: flex;justify-content: center;">
+                            <img src="{{ asset('review/—Pngtree—free delivery service icon_6167997.png') }}"
+                                width="160px" alt="">
+                        </div>
                         <div style="display: flex; padding-top: .6rem">
                             <svg width="22px" height="22px" style="margin-right: .6rem;margin-top: 2px;"
                                 viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -981,7 +1110,8 @@
                             </svg>
                             <h3 class="font-bd"
                                 style="font-size: 18px;font-weight: 600;color: #000000;line-height: 26px;">
-                                ১পিসে ঢাকা সিটি ৬০টাকা, ঢাকার বাইরে <span>১২০</span>টাকা
+                                ১ পিসে ঢাকা সিটি <span style="color: #AB2C2C">৬০</span> টাকা, ঢাকার বাইরে <span
+                                    style="color: #AB2C2C">১২০</span>টাকা
                             </h3>
                         </div>
 
@@ -994,7 +1124,7 @@
                                     fill="#1C96E8" />
                             </svg>
                             <h3 class="font-bd"
-                                style="font-size: 18px;font-weight: 600;color: #000000;line-height: 26px;">
+                                style="font-size: 18px;font-weight: 600;color: #AB2C2C;line-height: 26px;">
                                 ২ পিসে ডেলিভারি চার্জ ফ্রি সারা বাংলাদেশ
                             </h3>
                         </div>
@@ -1015,11 +1145,14 @@
                     style="background: red;border: none;color: black;" id="orderNowButton">অর্ডার
                     করতে এখানে ক্লিক করুন</a>
             </div>
-            <h2 class="h3 text-uppercase mb-4 pb-xl-2 mb-xl-4" style="font-family:'Anek Bangla', sans-serif;">
+            <h2 class="h3 text-uppercase mb-3" style="font-family:'Anek Bangla', sans-serif;">
                 কাস্টমার
                 <strong>রিভিউ</strong>
             </h2>
-            <div id="related_products" class="position-relative">
+            <strong class="font-bd" style="margin-bottom: 10px">শতশত রিভিউর মাঝে কিছু রিভিউ আপনার আস্থা কে আরও মজবুত
+                করবে
+                ইন-শা-আল্লাহ্</strong>
+            <div id="related_products" class="position-relative mt-3">
                 <div class="swiper-container js-swiper-slider"
                     data-settings='{
                 "autoplay": true,
@@ -1087,6 +1220,56 @@
                                 <img src="{{ asset('review/5.jpeg') }}" loading="lazy" alt="Euphoria review">
                             </div>
                         </div>
+                        <div class="swiper-slide product-card">
+                            <div class="slide-image-custom">
+                                <img src="{{ asset('review/6.jpeg') }}" loading="lazy" alt="Euphoria review">
+                            </div>
+                        </div>
+                        <div class="swiper-slide product-card">
+                            <div class="slide-image-custom">
+                                <img src="{{ asset('review/7.jpeg') }}" loading="lazy" alt="Euphoria review">
+                            </div>
+                        </div>
+                        <div class="swiper-slide product-card">
+                            <div class="slide-image-custom">
+                                <img src="{{ asset('review/8.jpeg') }}" loading="lazy" alt="Euphoria review">
+                            </div>
+                        </div>
+                        <div class="swiper-slide product-card">
+                            <div class="slide-image-custom">
+                                <img src="{{ asset('review/9.jpeg') }}" loading="lazy" alt="Euphoria review">
+                            </div>
+                        </div>
+                        <div class="swiper-slide product-card">
+                            <div class="slide-image-custom">
+                                <img src="{{ asset('review/10.jpeg') }}" loading="lazy" alt="Euphoria review">
+                            </div>
+                        </div>
+                        <div class="swiper-slide product-card">
+                            <div class="slide-image-custom">
+                                <img src="{{ asset('review/11.jpeg') }}" loading="lazy" alt="Euphoria review">
+                            </div>
+                        </div>
+                        <div class="swiper-slide product-card">
+                            <div class="slide-image-custom">
+                                <img src="{{ asset('review/12.jpeg') }}" loading="lazy" alt="Euphoria review">
+                            </div>
+                        </div>
+                        <div class="swiper-slide product-card">
+                            <div class="slide-image-custom">
+                                <img src="{{ asset('review/13.jpeg') }}" loading="lazy" alt="Euphoria review">
+                            </div>
+                        </div>
+                        <div class="swiper-slide product-card">
+                            <div class="slide-image-custom">
+                                <img src="{{ asset('review/14.jpeg') }}" loading="lazy" alt="Euphoria review">
+                            </div>
+                        </div>
+                        <div class="swiper-slide product-card">
+                            <div class="slide-image-custom">
+                                <img src="{{ asset('review/15.jpeg') }}" loading="lazy" alt="Euphoria review">
+                            </div>
+                        </div>
 
                     </div><!-- /.swiper-wrapper -->
                 </div><!-- /.swiper-container js-swiper-slider -->
@@ -1115,7 +1298,8 @@
 
         <section id="payment">
             <div class="container">
-                <form name="checkout-form" id="checkoutForm" action="{{ route('landing.order') }}" method="POST">
+                <form name="checkout-form" id="checkoutForm" action="{{ route('landing.order') }}"
+                    method="POST">
                     @csrf
                     <div class="checkout-form">
                         <div class="billing-info__wrapper">
@@ -1161,8 +1345,9 @@
                                         <label>Color</label>
                                         <div class="swatch-list">
                                             @foreach ($availableColors as $index => $color)
-                                                <input type="radio" name="color" id="color-{{ $color['id'] }}"
-                                                    value="{{ $color['id'] }}" data-color-id="{{ $color['id'] }}"
+                                                <input type="radio" name="color"
+                                                    id="color-{{ $color['id'] }}" value="{{ $color['id'] }}"
+                                                    data-color-id="{{ $color['id'] }}"
                                                     {{ $index == 0 ? 'checked' : '' }}>
                                                 <!-- Auto-select the first color -->
                                                 <label
@@ -1233,7 +1418,7 @@
                                             placeholder="আপনার ঠিকানা">
                                         <label for="checkout_phone" class="font-bd">Address - হাউস নং, রোড নং/গ্রাম,
                                             থানা,
-                                            জেলা</label>
+                                            জেলা *</label>
                                     </div>
                                     @error('address')
                                         <div class="text-danger font-bd">{{ $message }}</div>
@@ -1428,6 +1613,7 @@
                 // Get the current quantity
                 const currentQuantity = parseInt(document.querySelector('input[name="quantity"]').value) || 1;
 
+
                 // Calculate the new total based on quantity
                 const newSubtotal = packagePrice * currentQuantity;
 
@@ -1446,9 +1632,15 @@
 
 
         // Add change event listener to all package radio buttons
+        // document.querySelectorAll('input[name="package"]').forEach(function(radio) {
+        //     radio.addEventListener('change', function() {
+        //         updatePackageGrandTotal(); // Call the function when a package is selected
+        //     });
+        // });
         document.querySelectorAll('input[name="package"]').forEach(function(radio) {
             radio.addEventListener('change', function() {
-                updatePackageGrandTotal(); // Call the function when a package is selected
+                updatePackageGrandTotal(); // Update subtotal
+                updateGrandTotal(); // Recalculate grand total including shipping logic
             });
         });
 
@@ -1513,25 +1705,6 @@
             updateSizes(firstColorId);
         });
 
-
-        // function updateQuantity(amount) {
-        //     var currentQuantity = parseInt(document.querySelector('input[name="quantity"]').value);
-        //     var newQuantity = currentQuantity + amount;
-        //     if (newQuantity > 0) {
-        //         document.querySelector('input[name="quantity"]').value = newQuantity;
-        //         document.getElementById('prd-qnt').textContent = newQuantity;
-
-        //         var productPrice = parseFloat(document.querySelector('.checkout-total').getAttribute('data-price'));
-
-        //         if (!isNaN(productPrice)) {
-        //             var newSubtotal = productPrice * newQuantity;
-        //             document.querySelector('.checkout-total').textContent = newSubtotal.toFixed(2);
-        //             updateGrandTotal();
-        //         } else {
-        //             console.error("Invalid product price.");
-        //         }
-        //     }
-        // }
         function updateQuantity(amount) {
             var currentQuantity = parseInt(document.querySelector('input[name="quantity"]').value);
             var newQuantity = currentQuantity + amount;
@@ -1555,22 +1728,47 @@
         }
 
 
-        function updateGrandTotal() {
-            var subtotal = parseFloat(document.querySelector('.checkout-total').textContent);
-            var shippingPrice = parseFloat(document.querySelector('input[name="shipping"]:checked').getAttribute(
-                'data-price')) || 0;
-            var quantity = parseInt(document.querySelector('input[name="quantity"]').value);
+        // function updateGrandTotal() {
+        //     var subtotal = parseFloat(document.querySelector('.checkout-total').textContent);
+        //     var shippingPrice = parseFloat(document.querySelector('input[name="shipping"]:checked').getAttribute(
+        //         'data-price')) || 0;
+        //     var quantity = parseInt(document.querySelector('input[name="quantity"]').value);
 
-            // Set shipping charge to 0 if quantity is more than 2
-            if (quantity > 1) {
+        //     // Set shipping charge to 0 if quantity is more than 2
+        //     if (quantity > 1) {
+        //         shippingPrice = 0;
+        //     }
+
+        //     var grandTotal = subtotal + shippingPrice;
+
+        //     document.querySelector('.checkout-grandtotal').textContent = grandTotal.toFixed(2) + ' ৳';
+        //     document.querySelector('.shipping-charge').textContent = shippingPrice.toFixed(2) + ' ৳';
+        // }
+        function updateGrandTotal() {
+            // Get the subtotal from the checkout total
+            var subtotal = parseFloat(document.querySelector('.checkout-total').textContent) || 0;
+
+            // Get the selected shipping price
+            var shippingPrice = parseFloat(document.querySelector('input[name="shipping"]:checked')?.getAttribute(
+                'data-price')) || 0;
+
+            // Get the selected package and its price
+            var selectedPackage = document.querySelector('input[name="package"]:checked');
+            var packagePrice = selectedPackage ? parseFloat(selectedPackage.dataset.price) : 0;
+
+            // Set shipping to 0 if package price is more than 1000
+            if (packagePrice > 1000) {
                 shippingPrice = 0;
             }
 
+            // Calculate the grand total
             var grandTotal = subtotal + shippingPrice;
 
+            // Update the grand total and shipping charge in the UI
             document.querySelector('.checkout-grandtotal').textContent = grandTotal.toFixed(2) + ' ৳';
             document.querySelector('.shipping-charge').textContent = shippingPrice.toFixed(2) + ' ৳';
         }
+
 
         $(document).ready(function() {
             document.querySelectorAll('input[name="shipping"]').forEach(function(radio) {
