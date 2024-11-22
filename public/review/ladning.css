@@ -175,7 +175,7 @@ input[type="radio"].is-invalid::after {
 .chat-icon {
     position: fixed;
     right: 9px;
-    bottom: 27px;
+    bottom: 330px;
     width: 39px;
     height: 38px;
     border-radius: 50%;
