@@ -901,7 +901,8 @@
                     </div>
                     <div class="product-single__addtocart">
                         <a href="#payment" class="btn btn-primary font-bd zoom-out-button"
-                            style="background: red;border: none;color: black;" id="orderNowButton">অর্ডার
+                            style="background: red;border: none;color: rgb(255, 255, 255); font-weight: 700"
+                            id="orderNowButton">অর্ডার
                             করতে এখানে ক্লিক করুন</a>
                     </div>
                     <div class="product-single__addtolinks d-none d-md-block">
@@ -992,26 +993,26 @@
                                     জিএসম ৩৩০+</div>
                             </div>
                             <div class="col-6 col-md-6 col-lg-4">
-                                <div class="item" style="background: red;color: white;">২/২ লেকরা কটন রিব যার জিএসএম
-                                    ৩৮০+</div>
+                                <div class="item" style="background: red;color: white;">২/২ লেকরা কটন রিব যার
+                                    জিএসএম
+                                    ৩৮০+ দীর্ঘ দিন ব্যবহার করার
+                                    পরেও রিব ঝুলে পরবেনা গ্র্যান্টেড। </div>
                             </div>
-                            <div class="col-6 col-md-6 col-lg-4">
-                                <div class="item" style="background: #d9d9d9;color: black;">দীর্ঘ দিন ব্যবহার করার
-                                    পরেও রিব ঝুলে পরবেনা গ্র্যান্টেড।</div>
+                            {{-- <div class="col-6 col-md-6 col-lg-4">
+                                <div class="item" style="background: #d9d9d9;color: black;"></div>
                             </div>
                             <div class="col-6 col-md-6 col-lg-4">
                                 <div class="item" style="background: #d9d9d9;color: black;">প্লাস্টিক আফসান ও রাবার
-                                    এজো ফ্রি প্রিন্ট যা আপনার যেকোনো ধরনের
-                                    এলার্জি থাকলেও সুরক্ষিত থাকবে।</div>
-                            </div>
-                            <div class="col-6 col-md-6 col-lg-4">
+                                    প্রিন্ট যা আপনার যেকোনো ধরনের এলার্জি থেকে সুরক্ষা দিবে ইন-শা-আল্লাহ্</div>
+                            </div> --}}
+                            {{-- <div class="col-6 col-md-6 col-lg-4">
                                 <div class="item">প্রতি ইঞ্চি সেলাইয়ে ১১/১২ টা স্টিজে তৈরি যা বিদেশি যেকোনো
                                     ব্র্যান্ডকে বিড করতে সদা প্রস্তুত।</div>
                             </div>
                             <div class="col-6 col-md-6 col-lg-4">
                                 <div class="item">পন্য হাতে পেয়ে কথার সাথে মানের মিল না পেলে সাথে সাথে ডেলিভারি চার্জ
                                     দিয়ে রিটার্ন করতে পারবেন।</div>
-                            </div>
+                            </div> --}}
 
                         </div>
                     </div>
@@ -1142,7 +1143,8 @@
         <section class="products-carousel container">
             <div class="product-single__addtocart mb-5 text-center" style="justify-content: center;">
                 <a href="#payment" class="btn btn-primary font-bd zoom-out-button"
-                    style="background: red;border: none;color: black;" id="orderNowButton">অর্ডার
+                    style="background: red;border: none;color: rgb(255, 255, 255);font-weight: 800"
+                    id="orderNowButton">অর্ডার
                     করতে এখানে ক্লিক করুন</a>
             </div>
             <h2 class="h3 text-uppercase mb-3" style="font-family:'Anek Bangla', sans-serif;">
@@ -1287,7 +1289,7 @@
                     </svg>
                 </div><!-- /.products-carousel__next -->
 
-                <div class="products-pagination mt-4 mb-5 d-flex align-items-center justify-content-center"></div>
+                {{-- <div class="products-pagination mt-4 mb-5 d-flex align-items-center justify-content-center"></div> --}}
                 <!-- /.products-pagination -->
             </div>
         </section>
@@ -1303,6 +1305,12 @@
                     @csrf
                     <div class="checkout-form">
                         <div class="billing-info__wrapper">
+
+                            <div
+                                style="display: flex;justify-content: center;margin-bottom: 20px;flex-direction: column;text-align: center">
+                                <strong class="font-bd">সাইজ মেসারমেন্ট</strong>
+                                <img src="{{ asset('review/table.png') }}" style="85%" alt="">
+                            </div>
                             <h4 class="font-bd" style="font-weight: 700">প্যাকেজ সিলেক্ট করুন</h4>
                             <div class="row custom-radio-group">
                                 @forelse ($packages as $key => $package)
