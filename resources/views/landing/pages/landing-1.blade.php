@@ -1212,7 +1212,7 @@
         </section>
 
         <section class="products-carousel container">
-            <div class="product-single__addtocart mb-5">
+            <div class="product-single__addtocart mb-5 text-center" style="justify-content: center;">
                 <a href="#payment" class="btn btn-primary font-bd zoom-out-button" id="orderNowButton">অর্ডার
                     করতে এখানে ক্লিক করুন</a>
             </div>
