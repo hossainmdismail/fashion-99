@@ -1447,7 +1447,7 @@
                                             value="{{ $shipping->id }}" data-price="{{ $shipping->price }}"
                                             class="@error('shipping') is-invalid @enderror"
                                             {{ old('shipping') == $shipping->id ? 'checked' : '' }}
-                                            {{ $key == 0 ? 'checked' : '' }}>
+                                            {{ $key == 1 ? 'checked' : '' }}>
                                         <label for="shipping-{{ $key + 1 }}" class="custom-label">
                                             <div class="card-content">
                                                 <div class="service-title">{{ $shipping->name }}</div>

@@ -45,7 +45,7 @@
                             <thead>
                                 <tr>
                                     <th>PRODUCT</th>
-                                    <th>ATTRIBUTES</th>
+                                    <th>ATT</th>
                                     <th>SUBTOTAL</th>
                                 </tr>
                             </thead>
