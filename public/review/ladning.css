@@ -1,0 +1,314 @@
+
+blockquote {
+    background: #f2f2f2;
+    padding: 10px;
+    border-radius: .5rem;
+    border-left: 5px solid #cccccc;
+}
+
+blockquote p {
+    margin: 0;
+    line-height: 21px !important;
+    font-size: 14px;
+}
+
+.product-single__description strong {
+    font-family: 'Anek bangla';
+}
+
+.checkout__totals {
+    border: 1px dashed #2222226e;
+    margin-bottom: 1.25rem;
+    padding: 0.5rem 2.5rem 0.5rem;
+    border-radius: .59rem;
+}
+
+.header-desk {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slide-image-custom {
+    border: 2px solid #dcdcdc;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.qnt-control__increase {
+    width: 28px;
+    text-align: center;
+    cursor: pointer;
+}
+
+input.qnt-control__number.text-center {
+    border: none;
+}
+
+.qnt-control.position-relative {
+    display: flex;
+    border: 2px solid #d7d7d7;
+    padding: .7rem .5rem;
+    border-radius: .59rem;
+}
+
+.qnt-control__reduce {
+    width: 31px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.qnt-null {
+    border-color: red !important;
+}
+
+.custom-radio-card {
+    margin: 15px 0;
+    border: 1px solid #22222221;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+}
+
+.custom-radio-card:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-color: #222222;
+}
+
+.custom-radio-card input[type="radio"] {
+    display: none;
+    /* Hide default radio button */
+}
+
+.custom-radio-card .custom-label {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.custom-radio-card .card-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.custom-radio-card .service-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+}
+
+/* .custom-radio-card .service-duration {
+                    font-size: 14px;
+                    color: #7a7a7a;
+                } */
+
+.custom-radio-card .service-price {
+    font-size: 14px;
+    color: #7a7a7a;
+}
+
+.custom-radio-card .checkmark {
+    background-color: #222222;
+    border-radius: 50%;
+    height: 24px;
+    width: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 16px;
+    visibility: hidden;
+    /* Initially hidden */
+    transition: all 0.3s ease;
+}
+
+.custom-radio-card input[type="radio"]:checked+.custom-label .checkmark {
+    visibility: visible;
+    /* Visible only when selected */
+}
+
+.custom-radio-card input[type="radio"]:checked+.custom-label {
+    border-color: #8B3DFF;
+}
+
+.qty-spinner-main {
+    position: absolute;
+    top: 18px;
+    left: 45px;
+}
+
+/* Style for invalid radio buttons */
+input[type="radio"].is-invalid {
+    border: 2px solid red;
+    appearance: none;
+    /* Custom appearance to match the custom style */
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    position: relative;
+}
+
+/* Add the exclamation mark */
+input[type="radio"].is-invalid::after {
+    content: '\26A0';
+    /* Unicode for warning/exclamation icon */
+    color: red;
+    position: absolute;
+    right: -25px;
+    top: -5px;
+    font-size: 20px;
+}
+
+/* Red text for the error message */
+.text-danger {
+    color: #d82121 !important;
+}
+
+.chat-icon {
+    position: fixed;
+    right: 9px;
+    bottom: 27px;
+    width: 39px;
+    height: 38px;
+    border-radius: 50%;
+    background-color: #25D366;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    z-index: 99;
+    animation: blink-animation 2s infinite;
+}
+
+@media (max-width: 576px) {
+    .checkout-form .checkout__totals-wrapper .sticky-content {
+        padding-top: 0px !important;
+    }
+
+    .checkout-form {
+        gap: 0;
+    }
+
+    .product-single__details-tab {
+        margin: 0rem auto 2.375rem;
+        max-width: 58.125rem;
+    }
+
+    .zoom-out-button {
+        width: -webkit-fill-available;
+    }
+}
+
+.zoom-out-button {
+    animation: pulse 2s infinite;
+}
+
+.zoom-out-button:hover {
+    transform: scale(0.9);
+    /* Zoom out effect */
+}
+
+
+@keyframes blink-animation {
+
+    0%,
+    100% {
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(.9);
+    }
+
+    50% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(.9);
+    }
+}
+/* Scoped styles for the custom radio button */
+.custom-radio-group {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    margin: 10px 0;
+  }
+
+  .custom-radio-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: .6rem 1.5rem;
+    border: 1px solid #a3a3a3;
+    border-radius: .59rem;
+}
+
+  .custom-radio-option input[type="radio"] {
+    display: none;
+  }
+
+  .custom-radio-option .custom-radio {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #D10000;
+    border-radius: 50%;
+    position: relative;
+  }
+
+  .custom-radio-option input[type="radio"]:checked + .custom-radio::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: #D10000;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .custom-radio-option .product-info {
+    color: #000;
+  }
+
+  .custom-radio-option .product-title {
+    color: #D10000;
+    font-weight: bold;
+    font-size: 17px;
+  }
+
+  .custom-radio-option .product-color {
+    color: #656565;
+    font-family: 'ANEK BANGLA';
+  }
+
+  .custom-radio-option .price {
+    margin-top: 5px;
+  }
+
+  .custom-radio-option .old-price {
+    text-decoration: line-through;
+    color: gray;
+    font-size: 12px;
+  }
+
+  .custom-radio-option .new-price {
+    color: #D10000;
+    font-weight: bold;
+  }

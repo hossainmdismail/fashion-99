@@ -1,3 +1,6 @@
+@php
+    $packageGrandTotal = 0;
+@endphp
 <!DOCTYPE html>
 <html dir="ltr" lang="zxx">
 
@@ -50,252 +53,7 @@
     <noscript><img height="1" width="1" style="display:none"
             src="https://www.facebook.com/tr?id=730073492259194&ev=PageView&noscript=1" /></noscript>
     <title>{{ $product->name }}</title>
-    <style>
-        blockquote {
-            background: #f2f2f2;
-            padding: 10px;
-            border-radius: .5rem;
-            border-left: 5px solid #cccccc;
-        }
-
-        blockquote p {
-            margin: 0;
-            line-height: 21px !important;
-            font-size: 14px;
-        }
-
-        .product-single__description strong {
-            font-family: 'Anek bangla';
-        }
-
-        .checkout__totals {
-            border: 1px dashed #2222226e;
-            margin-bottom: 1.25rem;
-            padding: 0.5rem 2.5rem 0.5rem;
-            border-radius: .59rem;
-        }
-
-        .header-desk {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .slide-image-custom {
-            border: 2px solid #dcdcdc;
-            border-radius: 1rem;
-            overflow: hidden;
-        }
-
-        .qnt-control__increase {
-            width: 28px;
-            text-align: center;
-            cursor: pointer;
-        }
-
-        input.qnt-control__number.text-center {
-            border: none;
-        }
-
-        .qnt-control.position-relative {
-            display: flex;
-            border: 2px solid #d7d7d7;
-            padding: .7rem .5rem;
-            border-radius: .59rem;
-        }
-
-        .qnt-control__reduce {
-            width: 31px;
-            text-align: center;
-            cursor: pointer;
-        }
-
-        .qnt-null {
-            border-color: red !important;
-        }
-
-        .custom-radio-card {
-            margin: 15px 0;
-            border: 1px solid #22222221;
-            border-radius: 8px;
-            background-color: #f9f9f9;
-            padding: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .custom-radio-card:hover {
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            border-color: #222222;
-        }
-
-        .custom-radio-card input[type="radio"] {
-            display: none;
-            /* Hide default radio button */
-        }
-
-        .custom-radio-card .custom-label {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-        }
-
-        .custom-radio-card .card-content {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .custom-radio-card .service-title {
-            font-size: 16px;
-            font-weight: bold;
-            color: #000;
-        }
-
-        /* .custom-radio-card .service-duration {
-                            font-size: 14px;
-                            color: #7a7a7a;
-                        } */
-
-        .custom-radio-card .service-price {
-            font-size: 14px;
-            color: #7a7a7a;
-        }
-
-        .custom-radio-card .checkmark {
-            background-color: #222222;
-            border-radius: 50%;
-            height: 24px;
-            width: 24px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #fff;
-            font-size: 16px;
-            visibility: hidden;
-            /* Initially hidden */
-            transition: all 0.3s ease;
-        }
-
-        .custom-radio-card input[type="radio"]:checked+.custom-label .checkmark {
-            visibility: visible;
-            /* Visible only when selected */
-        }
-
-        .custom-radio-card input[type="radio"]:checked+.custom-label {
-            border-color: #8B3DFF;
-        }
-
-        .qty-spinner-main {
-            position: absolute;
-            top: 18px;
-            left: 45px;
-        }
-
-        /* Style for invalid radio buttons */
-        input[type="radio"].is-invalid {
-            border: 2px solid red;
-            appearance: none;
-            /* Custom appearance to match the custom style */
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            position: relative;
-        }
-
-        /* Add the exclamation mark */
-        input[type="radio"].is-invalid::after {
-            content: '\26A0';
-            /* Unicode for warning/exclamation icon */
-            color: red;
-            position: absolute;
-            right: -25px;
-            top: -5px;
-            font-size: 20px;
-        }
-
-        /* Red text for the error message */
-        .text-danger {
-            color: #d82121 !important;
-        }
-
-        .chat-icon {
-            position: fixed;
-            right: 9px;
-            bottom: 27px;
-            width: 39px;
-            height: 38px;
-            border-radius: 50%;
-            background-color: #25D366;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-            z-index: 99;
-            animation: blink-animation 2s infinite;
-        }
-
-        @media (max-width: 576px) {
-            .checkout-form .checkout__totals-wrapper .sticky-content {
-                padding-top: 0px !important;
-            }
-
-            .checkout-form {
-                gap: 0;
-            }
-
-            .product-single__details-tab {
-                margin: 0rem auto 2.375rem;
-                max-width: 58.125rem;
-            }
-
-            .zoom-out-button {
-                width: -webkit-fill-available;
-            }
-        }
-
-        .zoom-out-button {
-            animation: pulse 2s infinite;
-        }
-
-        .zoom-out-button:hover {
-            transform: scale(0.9);
-            /* Zoom out effect */
-        }
-
-
-        @keyframes blink-animation {
-
-            0%,
-            100% {
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-            }
-
-            50% {
-                box-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
-            }
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(.9);
-            }
-
-            50% {
-                transform: scale(1);
-            }
-
-            100% {
-                transform: scale(.9);
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset('review/ladning.css') }}">
 </head>
 
 <body>
@@ -996,6 +754,11 @@
 
     <main>
         <section class="product-single container">
+            {{-- Bredcm --}}
+            <div style="padding: .6rem 0px;color: #4c4c4c">Home / Hoodies / <span
+                    style="font-weight: 800;color: #bb2323">This Is
+                    Semi
+                    Hoodie</span></div>
             <div class="row">
                 <div class="col-lg-7">
                     <div class="product-single__media" data-media-type="vertical-thumbnail">
@@ -1101,10 +864,10 @@
                             <h3 class="font-bd"
                                 style="font-size: 18px;font-weight: 600;color: #004EAB;line-height: 26px;">
                                 ১ পিসের রেগুলার মূল্য <span
-                                    style="color: #565656;text-decoration: line-through;">{{ number_format($product->price, 0) }}</span>
+                                    style="color: #565656;text-decoration: line-through;">990</span>
                                 টাকা
-                                <span style="color: #23b203">অফার মূল্য মাত্র <span
-                                        style="color: #004EAB">{{ $product->getFinalPrice() }}</span> টাকা</span>
+                                <span style="color: #a82c2c">অফার মূল্য মাত্র <span style="color: #b81d1d">850</span>
+                                    টাকা</span>
                             </h3>
                         </div>
 
@@ -1119,13 +882,12 @@
                             <h3 class="font-bd"
                                 style="font-size: 18px;font-weight: 600;color: #004EAB;line-height: 26px;">
                                 2 পিসের রেগুলার মূল্য <span
-                                    style="color: #565656;text-decoration: line-through;">{{ number_format($product->price * 2, 0) }}</span>
+                                    style="color: #565656;text-decoration: line-through;">1980</span>
                                 টাকা
-                                <span style="color: #23b203">অফার মূল্য মাত্র <span style="color: #004EAB">1600</span>
+                                <span style="color: #a82c2c">অফার মূল্য মাত্র <span style="color: #b81d1d">1599</span>
                                     টাকা</span>
                             </h3>
                         </div>
-
                         {{-- <span class="current-price"><s
                                 style="font-size: 16px; color: #39353575 !important;">{{ $product->price }}<span
                                     class="font-bd">৳</span></s></span>
@@ -1138,7 +900,8 @@
                         </p>
                     </div>
                     <div class="product-single__addtocart">
-                        <a href="#payment" class="btn btn-primary font-bd zoom-out-button" id="orderNowButton">অর্ডার
+                        <a href="#payment" class="btn btn-primary font-bd zoom-out-button"
+                            style="background: red;border: none;color: black;" id="orderNowButton">অর্ডার
                             করতে এখানে ক্লিক করুন</a>
                     </div>
                     <div class="product-single__addtolinks d-none d-md-block">
@@ -1206,6 +969,41 @@
                     </div>
 
                     <div style="text-align: center;"></div>
+
+                    <div style="border: 1px solid #8c0d0d9c;padding: 15px;border-radius: .6rem;">
+                        <div style="display: flex; padding-top: .6rem">
+                            <svg width="22px" height="22px" style="margin-right: .6rem;margin-top: 2px;"
+                                viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="24" height="24" fill="white" />
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M9.55879 3.6972C10.7552 2.02216 13.2447 2.02216 14.4412 3.6972L14.6317 3.96387C14.8422 4.25867 15.1958 4.41652 15.5558 4.37652L16.4048 4.28218C18.3156 4.06988 19.9301 5.68439 19.7178 7.59513L19.6235 8.44415C19.5835 8.8042 19.7413 9.15774 20.0361 9.36831L20.3028 9.55879C21.9778 10.7552 21.9778 13.2447 20.3028 14.4412L20.0361 14.6317C19.7413 14.8422 19.5835 15.1958 19.6235 15.5558L19.7178 16.4048C19.9301 18.3156 18.3156 19.9301 16.4048 19.7178L15.5558 19.6235C15.1958 19.5835 14.8422 19.7413 14.6317 20.0361L14.4412 20.3028C13.2447 21.9778 10.7553 21.9778 9.55879 20.3028L9.36831 20.0361C9.15774 19.7413 8.8042 19.5835 8.44414 19.6235L7.59513 19.7178C5.68439 19.9301 4.06988 18.3156 4.28218 16.4048L4.37652 15.5558C4.41652 15.1958 4.25867 14.8422 3.96387 14.6317L3.6972 14.4412C2.02216 13.2447 2.02216 10.7553 3.6972 9.55879L3.96387 9.36831C4.25867 9.15774 4.41652 8.8042 4.37652 8.44414L4.28218 7.59513C4.06988 5.68439 5.68439 4.06988 7.59513 4.28218L8.44415 4.37652C8.8042 4.41652 9.15774 4.25867 9.36831 3.96387L9.55879 3.6972ZM15.7071 9.29289C16.0976 9.68342 16.0976 10.3166 15.7071 10.7071L11.8882 14.526C11.3977 15.0166 10.6023 15.0166 10.1118 14.526L8.29289 12.7071C7.90237 12.3166 7.90237 11.6834 8.29289 11.2929C8.68342 10.9024 9.31658 10.9024 9.70711 11.2929L11 12.5858L14.2929 9.29289C14.6834 8.90237 15.3166 8.90237 15.7071 9.29289Z"
+                                    fill="#1C96E8" />
+                            </svg>
+                            <h3 class="font-bd"
+                                style="font-size: 18px;font-weight: 600;color: #000000;line-height: 26px;">
+                                ১পিসে ঢাকা সিটি ৬০টাকা, ঢাকার বাইরে <span>১২০</span>টাকা
+                            </h3>
+                        </div>
+
+                        <div style="display: flex; padding-top: .6rem">
+                            <svg width="22px" height="22px" style="margin-right: .6rem;margin-top: 2px;"
+                                viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="24" height="24" fill="white" />
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M9.55879 3.6972C10.7552 2.02216 13.2447 2.02216 14.4412 3.6972L14.6317 3.96387C14.8422 4.25867 15.1958 4.41652 15.5558 4.37652L16.4048 4.28218C18.3156 4.06988 19.9301 5.68439 19.7178 7.59513L19.6235 8.44415C19.5835 8.8042 19.7413 9.15774 20.0361 9.36831L20.3028 9.55879C21.9778 10.7552 21.9778 13.2447 20.3028 14.4412L20.0361 14.6317C19.7413 14.8422 19.5835 15.1958 19.6235 15.5558L19.7178 16.4048C19.9301 18.3156 18.3156 19.9301 16.4048 19.7178L15.5558 19.6235C15.1958 19.5835 14.8422 19.7413 14.6317 20.0361L14.4412 20.3028C13.2447 21.9778 10.7553 21.9778 9.55879 20.3028L9.36831 20.0361C9.15774 19.7413 8.8042 19.5835 8.44414 19.6235L7.59513 19.7178C5.68439 19.9301 4.06988 18.3156 4.28218 16.4048L4.37652 15.5558C4.41652 15.1958 4.25867 14.8422 3.96387 14.6317L3.6972 14.4412C2.02216 13.2447 2.02216 10.7553 3.6972 9.55879L3.96387 9.36831C4.25867 9.15774 4.41652 8.8042 4.37652 8.44414L4.28218 7.59513C4.06988 5.68439 5.68439 4.06988 7.59513 4.28218L8.44415 4.37652C8.8042 4.41652 9.15774 4.25867 9.36831 3.96387L9.55879 3.6972ZM15.7071 9.29289C16.0976 9.68342 16.0976 10.3166 15.7071 10.7071L11.8882 14.526C11.3977 15.0166 10.6023 15.0166 10.1118 14.526L8.29289 12.7071C7.90237 12.3166 7.90237 11.6834 8.29289 11.2929C8.68342 10.9024 9.31658 10.9024 9.70711 11.2929L11 12.5858L14.2929 9.29289C14.6834 8.90237 15.3166 8.90237 15.7071 9.29289Z"
+                                    fill="#1C96E8" />
+                            </svg>
+                            <h3 class="font-bd"
+                                style="font-size: 18px;font-weight: 600;color: #000000;line-height: 26px;">
+                                ২ পিসে ডেলিভারি চার্জ ফ্রি সারা বাংলাদেশ
+                            </h3>
+                        </div>
+                    </div>
+
+                    <div style="border: 1px solid #8c0d0d9c;padding: 15px;border-radius: .6rem;" class="mt-4">
+                        <h3 class="font-bd" style="font-weight: 900;color: #d10000;">যোগাযোগঃ</h3>
+                        <p style="font-size: 18px;font-weight: 800;margin-bottom: 0">01965340536, 01912096479</p>
+                    </div>
                 </div>
             </div>
             </div>
@@ -1213,7 +1011,8 @@
 
         <section class="products-carousel container">
             <div class="product-single__addtocart mb-5 text-center" style="justify-content: center;">
-                <a href="#payment" class="btn btn-primary font-bd zoom-out-button" id="orderNowButton">অর্ডার
+                <a href="#payment" class="btn btn-primary font-bd zoom-out-button"
+                    style="background: red;border: none;color: black;" id="orderNowButton">অর্ডার
                     করতে এখানে ক্লিক করুন</a>
             </div>
             <h2 class="h3 text-uppercase mb-4 pb-xl-2 mb-xl-4" style="font-family:'Anek Bangla', sans-serif;">
@@ -1320,6 +1119,40 @@
                     @csrf
                     <div class="checkout-form">
                         <div class="billing-info__wrapper">
+                            <h4 class="font-bd" style="font-weight: 700">প্যাকেজ সিলেক্ট করুন</h4>
+                            <div class="row custom-radio-group">
+                                @forelse ($packages as $key => $package)
+                                    @if ($key == 0)
+                                        @php
+                                            $packageGrandTotal = $package['price'];
+                                        @endphp
+                                    @endif
+                                    <div class="col-md-6 mb-3">
+                                        <label class="custom-radio-option d-flex align-items-center">
+                                            <input type="radio" name="package" class="package-radio"
+                                                data-price="{{ $package['price'] }}" value="{{ $package['id'] }}"
+                                                {{ $key == 0 ? 'checked' : '' }}>
+                                            <span class="custom-radio"></span>
+                                            <span class="product-info ms-3">
+                                                <span class="product-title font-bd">{{ $package['name'] }}</span><br>
+                                                @if ($package['note'])
+                                                    <span class="product-color">{{ $package['note'] }}</span><br>
+                                                @endif
+                                                <span class="price">
+                                                    <span class="new-price">{{ $package['price'] }}Tk</span>
+                                                    @if ($package['oldprice'])
+                                                        <span class="old-price">{{ $package['oldprice'] }}Tk</span>
+                                                    @endif
+                                                </span>
+                                            </span>
+                                        </label>
+                                    </div>
+
+                                @empty
+                                @endforelse
+                            </div>
+
+
                             <h4>BILLING DETAILS</h4>
                             <div class="mt-4">
                                 <div class="product-single__swatches">
@@ -1410,8 +1243,8 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="mt-3">
-                                    <textarea class="form-control form-control_gray" name="message" placeholder="Order Notes (optional)" cols="30"
-                                        rows="4">{{ old('message') }}</textarea>
+                                    <textarea class="form-control form-control_gray" name="message" placeholder="Order Notes (optional)"
+                                        cols="30" rows="4">{{ old('message') }}</textarea>
                                 </div>
                             </div>
                             <h5 class="mt-3">Shipping Area</h5>
@@ -1468,8 +1301,8 @@
                                                 <td class="font-bd">
                                                     {{ $product->name }} x <span id="prd-qnt">1</span>
                                                 </td>
-                                                <td class="text-end font-bd">
-                                                    {{ $product->getFinalPrice() }}৳
+                                                <td class="text-end font-bd packageGrandTotal">
+                                                    {{ $packageGrandTotal }}৳
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -1479,9 +1312,9 @@
                                             <tr>
                                                 <th>SUBTOTAL</th>
                                                 <td class="text-end font-bd fb-bold">
-                                                    <div class="checkout-total"
-                                                        data-price="{{ $product->getFinalPrice() }}">
-                                                        {{ $product->getFinalPrice() }}</div>৳
+                                                    <div class="checkout-total packageGrandTotal"
+                                                        data-price="{{ $packageGrandTotal }}">
+                                                        {{ $packageGrandTotal }}</div>৳
                                                 </td>
                                             </tr>
                                             <tr>
@@ -1585,6 +1418,45 @@
         </script>
     @endif
     <script>
+        function updatePackageGrandTotal() {
+            // Get the selected package radio button
+            const selectedPackage = document.querySelector('input[name="package"]:checked');
+            if (selectedPackage) {
+                // Get the price from the selected package
+                const packagePrice = parseFloat(selectedPackage.dataset.price) || 0;
+
+                // Get the current quantity
+                const currentQuantity = parseInt(document.querySelector('input[name="quantity"]').value) || 1;
+
+                // Calculate the new total based on quantity
+                const newSubtotal = packagePrice * currentQuantity;
+
+                // Update all elements with the packageGrandTotal class
+                document.querySelectorAll('.packageGrandTotal').forEach(function(element) {
+                    element.textContent = packagePrice.toFixed(2) + ' Tk';
+                });
+
+                // Update checkout total
+                document.querySelector('.checkout-total').textContent = newSubtotal.toFixed(2);
+
+                // Trigger necessary functions (e.g., updateGrandTotal)
+                updateGrandTotal();
+            }
+        }
+
+
+        // Add change event listener to all package radio buttons
+        document.querySelectorAll('input[name="package"]').forEach(function(radio) {
+            radio.addEventListener('change', function() {
+                updatePackageGrandTotal(); // Call the function when a package is selected
+            });
+        });
+
+        // Initialize packageGrandTotal on page load
+        const firstPackage = document.querySelector('input[name="package"]:checked');
+        if (firstPackage) {
+            updatePackageGrandTotal();
+        }
         document.addEventListener("DOMContentLoaded", function() {
             @if ($errors->any()) // If there are validation errors
                 document.querySelector('#payment').scrollIntoView({
@@ -1641,24 +1513,47 @@
             updateSizes(firstColorId);
         });
 
+
+        // function updateQuantity(amount) {
+        //     var currentQuantity = parseInt(document.querySelector('input[name="quantity"]').value);
+        //     var newQuantity = currentQuantity + amount;
+        //     if (newQuantity > 0) {
+        //         document.querySelector('input[name="quantity"]').value = newQuantity;
+        //         document.getElementById('prd-qnt').textContent = newQuantity;
+
+        //         var productPrice = parseFloat(document.querySelector('.checkout-total').getAttribute('data-price'));
+
+        //         if (!isNaN(productPrice)) {
+        //             var newSubtotal = productPrice * newQuantity;
+        //             document.querySelector('.checkout-total').textContent = newSubtotal.toFixed(2);
+        //             updateGrandTotal();
+        //         } else {
+        //             console.error("Invalid product price.");
+        //         }
+        //     }
+        // }
         function updateQuantity(amount) {
             var currentQuantity = parseInt(document.querySelector('input[name="quantity"]').value);
             var newQuantity = currentQuantity + amount;
+
             if (newQuantity > 0) {
                 document.querySelector('input[name="quantity"]').value = newQuantity;
                 document.getElementById('prd-qnt').textContent = newQuantity;
 
-                var productPrice = parseFloat(document.querySelector('.checkout-total').getAttribute('data-price'));
+                // Dynamically get the latest package price
+                var selectedPackage = document.querySelector('input[name="package"]:checked');
+                var productPrice = selectedPackage ? parseFloat(selectedPackage.dataset.price) : 0;
 
-                if (!isNaN(productPrice)) {
+                if (!isNaN(productPrice) && productPrice > 0) {
                     var newSubtotal = productPrice * newQuantity;
                     document.querySelector('.checkout-total').textContent = newSubtotal.toFixed(2);
                     updateGrandTotal();
                 } else {
-                    console.error("Invalid product price.");
+                    console.error("Invalid product price or no package selected.");
                 }
             }
         }
+
 
         function updateGrandTotal() {
             var subtotal = parseFloat(document.querySelector('.checkout-total').textContent);

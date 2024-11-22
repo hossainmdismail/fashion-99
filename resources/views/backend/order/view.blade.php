@@ -230,7 +230,7 @@
                                             {{ $order->user ? $order->user->email : 'email' }} <br>
                                             {{ $order->user ? $order->user->address : 'Null' }} <br>
                                             <span style="font-size: 14px;font-style: italic" class="printDisable mt-3">
-                                                {{ $order->client_message }}
+                                                {!! $order->client_message !!}
                                             </span>
                                         </p>
                                         {{-- <a href="#">View profile</a> --}}

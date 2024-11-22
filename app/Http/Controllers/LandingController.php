@@ -13,6 +13,23 @@ use Illuminate\Http\Request;
 
 class LandingController extends Controller
 {
+    private $package = [
+        [
+            'id' => 1,
+            'name' => '১পিস সেমি হুডি ',
+            'oldprice' => 990,
+            'note' => '',
+            'price' => 850
+        ],
+        [
+            'id' => 2,
+            'name' => '২পিস কম্বো সেমি হুডি',
+            'oldprice' => 1980,
+            'note' => 'নিজের মতো রঙ বাছাই করতে নোটে লিখে দিন',
+            'price' => 1599
+        ]
+    ];
+
     public function landingView($slug)
     {
         $product = Product::where('slugs', $slug)->first();
@@ -65,12 +82,28 @@ class LandingController extends Controller
                 ],
             ];
 
+            // $package = [
+            //     [
+            //         'name' => 'সেমি হুডি সিঙ্গেল',
+            //         'oldprice' => 990,
+            //         'note' => '850',
+            //         'price' => 850
+            //     ],
+            //     [
+            //         'name' => 'সেমি হুডি সিঙ্গেল',
+            //         'oldprice' => 1980,
+            //         'note' => 'নিজের মতো রঙ বাছাই করতে নোটে লিখে দিন',
+            //         'price' => 1600
+            //     ]
+            // ];
+
             return view('landing.pages.landing-1', [
                 'product' => $product,
                 'related' => $relatedProduct,
                 'availableColors' => $availableColors,  // Pass colors and sizes to the view
                 'config'  => $config,
                 'shippings' => $shipping,
+                'packages' => $this->package,
                 'fbEvent' => $fbEvent,
             ]);
         }
@@ -80,14 +113,13 @@ class LandingController extends Controller
 
     public function order(Request $request)
     {
-        // dd($request->all());
-
         $request->validate([
-            'name'      => 'required|string|max:255',
-            'number'    => ['required', 'regex:/^01[3-9]\d{8}$/'],
-            'shipping'  => 'required',
-            'address'   => 'required',
-            'email'     => 'nullable|email',
+            'name'          => 'required|string|max:255',
+            'number'        => ['required', 'regex:/^01[3-9]\d{8}$/'],
+            'shipping'      => 'required',
+            'address'       => 'required',
+            'package' => 'required',
+            'email'         => 'nullable|email',
         ], [
             'name.required'     => 'নাম অবশ্যই প্রদান করতে হবে।',
             'name.string'       => 'নাম অবশ্যই একটি স্ট্রিং হতে হবে।',
@@ -128,12 +160,18 @@ class LandingController extends Controller
             }
 
 
+            $packageGrandTotal = collect($this->package)->firstWhere('id', $request->package);
+            if (!$packageGrandTotal) {
+                return back();
+            }
+            $message = ($packageGrandTotal['id'] == 2 ? '<apan style="color:red"> Combo </span>' : '') . $request->message;
+
             if ($request->quantity > 1) {
                 $shippingPrice = 0;
-                $totalPrice = $inventory->product->getFinalPrice() * $request->quantity;
+                $totalPrice = $packageGrandTotal['price'] * $request->quantity;
             } else {
                 $shippingPrice = $shipping->price;
-                $totalPrice = ($inventory->product->getFinalPrice() * $request->quantity) + $shipping->price;
+                $totalPrice = ($packageGrandTotal['price'] * $request->quantity) + $shipping->price;
             }
 
             if ($inventory->product) {
@@ -148,12 +186,13 @@ class LandingController extends Controller
                     ],
                 ];
 
+
                 try {
                     //Create new order
                     $order = new Order();
-                    $order->user_id            = $userId;
+                    $order->user_id             = $userId;
                     $order->order_id            = $orderID;
-                    $order->client_message      = $request->message;
+                    $order->client_message      = $message;
                     $order->shipping_charge     = $shippingPrice;
                     $order->price               = $totalPrice;
                     $order->order_status        = 'pending';
@@ -168,7 +207,7 @@ class LandingController extends Controller
                     $order_product = new OrderProduct();
                     $order_product->order_id    = $order->id;
                     $order_product->product_id  = $inventory->product->id;
-                    $order_product->price       = $inventory->product->getFinalPrice();
+                    $order_product->price       = $packageGrandTotal['price'];
                     $order_product->qnt         = $request->quantity;
                     $order_product->save();
 
