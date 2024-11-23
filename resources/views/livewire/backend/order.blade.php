@@ -47,7 +47,7 @@
                         <option value="return" {{ $status == 'return' ? 'selected' : '' }}>Return</option>
                         <option value="cancel" {{ $status == 'cancel' ? 'selected' : '' }}>cancel</option>
                         <option value="damage" {{ $status == 'damage' ? 'selected' : '' }}>Damage</option>
-                        <option value="delieverd" {{ $status == 'delieverd' ? 'selected' : '' }}>Delieverd</option>
+                        <option value="delieverd" {{ $status == 'delieverd' ? 'selected' : '' }}>Complete</option>
                     </select>
                 </div>
                 <div class="col-lg-2 col-6 col-md-3">
@@ -122,7 +122,7 @@
                                     </div>
                                 </td>
                                 <td><span
-                                        class="badge rounded-pill alert-{{ getStatusColor($order->order_status) }}">{{ $order->order_status }}</span>
+                                        class="badge rounded-pill alert-{{ getStatusColor($order->order_status) }}">{{ $order->order_status == 'delieverd' ? 'Complete' : $order->order_status }}</span>
                                 </td>
                                 <td>
                                     {{ $order->created_at->format('d-M-y') }}

@@ -4,7 +4,8 @@
         <div class="content-header">
             <div>
                 <h2 class="content-title card-title">Dashboard </h2>
-                <p>Welcome <strong>{{ Auth::guard('admin')->user()->name }}</p> <span>{{ now()->format('d-m-Y - h:iA') }}
+                <p>Welcome <strong>{{ Auth::guard('admin')->user()->name }}</p> <span
+                    class="badge rounded-pill">{{ now()->format('d-m-Y - h:iA') }}
                 </span>
             </div>
             <div>

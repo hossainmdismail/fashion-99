@@ -192,7 +192,7 @@
                             <option value="damage" {{ $order->order_status == 'damage' ? 'selected' : '' }}>Damage
                             </option>
                             <option value="delieverd" {{ $order->order_status == 'delieverd' ? 'selected' : '' }}>
-                                Delieverd
+                                Complete
                             </option>
                         </select>
                         <button type="submit" class="btn btn-primary" name="btn" value="1">Save</button>

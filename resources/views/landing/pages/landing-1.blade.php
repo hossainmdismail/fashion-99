@@ -1423,7 +1423,8 @@
                                         <input type="text"
                                             class="form-control @error('address') is-invalid @enderror "
                                             id="checkout_phone" name="address" value="{{ old('address') }}"
-                                            placeholder="আপনার ঠিকানা">
+                                            placeholder="আপনার ঠিকানা" required
+                                            title="হাউস নং, রোড নং/গ্রাম,থানা, জেলা *">
                                         <label for="checkout_phone" class="font-bd">Address - হাউস নং, রোড নং/গ্রাম,
                                             থানা,
                                             জেলা *</label>
