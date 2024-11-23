@@ -4,7 +4,8 @@
         <div class="content-header">
             <div>
                 <h2 class="content-title card-title">Dashboard </h2>
-                <p>Welcome <strong>{{ Auth::guard('admin')->user()->name }}</p>
+                <p>Welcome <strong>{{ Auth::guard('admin')->user()->name }}</p> <span>{{ now()->format('d-m-Y - h:iA') }}
+                </span>
             </div>
             <div>
                 <a href="{{ route('sitemap') }}" class="btn btn-primary"><i
