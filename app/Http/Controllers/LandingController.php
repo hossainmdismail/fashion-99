@@ -113,6 +113,7 @@ class LandingController extends Controller
 
     public function order(Request $request)
     {
+        // dd(Inventory::find($request->inventory_id)->id);
         $request->validate([
             'name'          => 'required|string|max:255',
             'number'        => ['required', 'regex:/^01[3-9]\d{8}$/'],
@@ -159,14 +160,13 @@ class LandingController extends Controller
                 return back()->with('err', 'Shipping not created!');
             }
 
-
             $packageGrandTotal = collect($this->package)->firstWhere('id', $request->package);
             if (!$packageGrandTotal) {
                 return back();
             }
             $message = ($packageGrandTotal['id'] == 2 ? '<apan style="color:red"> Combo </span>' : '') . $request->message;
 
-            if ($request->quantity > 1) {
+            if ($packageGrandTotal['id'] == 2) {
                 $shippingPrice = 0;
                 $totalPrice = $packageGrandTotal['price'] * $request->quantity;
             } else {
@@ -206,7 +206,7 @@ class LandingController extends Controller
                     // Create order product and quantity
                     $order_product = new OrderProduct();
                     $order_product->order_id    = $order->id;
-                    $order_product->product_id  = $inventory->product->id;
+                    $order_product->product_id  = $inventory->id;
                     $order_product->price       = $packageGrandTotal['price'];
                     $order_product->qnt         = $request->quantity;
                     $order_product->save();

@@ -189,7 +189,7 @@
                             </option>
                             <option value="cancel" {{ $order->order_status == 'cancel' ? 'selected' : '' }}>cancel
                             </option>
-                            <option value="damage" {{ $order->order_status == 'damage' ? 'selected' : '' }}>Damage
+                            <option value="damage" {{ $order->order_status == 'damage' ? 'selected' : '' }}>On hold
                             </option>
                             <option value="delieverd" {{ $order->order_status == 'delieverd' ? 'selected' : '' }}>
                                 Complete
