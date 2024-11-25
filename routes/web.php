@@ -52,6 +52,8 @@ Route::post('/checkout/confirm', [CheckoutController::class, 'checkoutconfirm'])
 
 //Landing
 Route::get('/step/{slugs}', [LandingController::class, 'landingView'])->name('landing.view');
+Route::get('/flow/premium-semi-hoodies/step/premium-semi-hoodies', [LandingController::class, 'one']);
+Route::get('/public/flow/premium-semi-hoodies-2/step/premium-semi-hoodies-2', [LandingController::class, 'two']);
 Route::post('/checkout/landing/confirm', [LandingController::class, 'order'])->name('landing.order');
 
 Route::get('/categories/{slugs}', [ControllersCategoryController::class, 'index'])->name('front.category');

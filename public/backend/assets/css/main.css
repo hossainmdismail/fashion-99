@@ -690,7 +690,7 @@ b {
   padding: 10px 40px;
   color: #ffffff;
   border: none;
-  background-color: #088178;
+  background-color: #000000;
   border-radius: 4px;
 }
 
@@ -3207,7 +3207,7 @@ ul.row, ul.row-sm {
 }
 
 /***************************
-    Page section margin 
+    Page section margin
 ****************************/
 .mtb-0 {
   margin: 0;

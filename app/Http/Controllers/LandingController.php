@@ -82,22 +82,139 @@ class LandingController extends Controller
                 ],
             ];
 
-            // $package = [
-            //     [
-            //         'name' => 'সেমি হুডি সিঙ্গেল',
-            //         'oldprice' => 990,
-            //         'note' => '850',
-            //         'price' => 850
-            //     ],
-            //     [
-            //         'name' => 'সেমি হুডি সিঙ্গেল',
-            //         'oldprice' => 1980,
-            //         'note' => 'নিজের মতো রঙ বাছাই করতে নোটে লিখে দিন',
-            //         'price' => 1600
-            //     ]
-            // ];
+            return view('landing.pages.landing-default', [
+                'product' => $product,
+                'related' => $relatedProduct,
+                'availableColors' => $availableColors,  // Pass colors and sizes to the view
+                'config'  => $config,
+                'shippings' => $shipping,
+                'packages' => $this->package,
+                'fbEvent' => $fbEvent,
+            ]);
+        }
 
+        return abort(404, 'Product not found');
+    }
+
+    public function one()
+    {
+        $slug = 'premium-semi-hoodies';
+        $product = Product::where('slugs', $slug)->first();
+
+        if ($product) {
+            $config = Config::first();
+            $shipping = Shipping::get();
+            $relatedProduct = null;
+            if ($product->category) {
+                $relatedProduct = Product::where('category_id', $product->category->id)->get();
+            }
+
+            $availableColors = [];
+            if ($product->attributes->isNotEmpty()) {
+                $availableColors = $product->attributes->groupBy('color_id')->map(function ($items) {
+                    // Get the first item in the group to fetch color and image details
+                    $color = $items->first()->color;
+                    $colorImage = $items->first()->image ?? 'path_to_default_image.jpg'; // Provide default image if null
+
+                    return [
+                        'id' => $color->id,              // Color ID
+                        'name' => $color->name,          // Color name
+                        'code' => $color->code,          // Color code (for display)
+                        'image' => $colorImage,          // Image for the color
+                        'inventory_id' => $items->first()->id,  // Inventory ID for the first color-size combination
+                        'sizes' => $items->map(function ($item) {
+                            return [
+                                'inventory_id' => $item->id,       // Specific Inventory ID for this size
+                                'size_id' => $item->size->id ?? null,
+                                'size_name' => $item->size->name ?? 'N/A',
+                                'stock' => $item->qnt,            // Stock for this color-size combination
+                            ];
+                        }),
+                    ];
+                })->values(); // Use values() to get a numeric array
+
+                // Convert collection to array to ensure it's usable in JSON
+                $availableColors = $availableColors->toArray();
+            }
+
+
+            // Prepare data for Meta Pixel
+            $fbEvent = [
+                'event' => 'ViewContent',
+                'data' => [
+                    'content_ids' => $product->id,
+                    'content_type' => $product->category ? $product->category->category_name : 'Unknown',
+                    'value' => $product->getFinalPrice(), // Total value of all products in view
+                    'currency' => 'BDT',
+                ],
+            ];
             return view('landing.pages.landing-1', [
+                'product' => $product,
+                'related' => $relatedProduct,
+                'availableColors' => $availableColors,  // Pass colors and sizes to the view
+                'config'  => $config,
+                'shippings' => $shipping,
+                'packages' => $this->package,
+                'fbEvent' => $fbEvent,
+            ]);
+        }
+
+        return abort(404, 'Product not found');
+    }
+
+    public function two()
+    {
+        $slug = 'premium-semi-hoodies';
+        $product = Product::where('slugs', $slug)->first();
+
+        if ($product) {
+            $config = Config::first();
+            $shipping = Shipping::get();
+            $relatedProduct = null;
+            if ($product->category) {
+                $relatedProduct = Product::where('category_id', $product->category->id)->get();
+            }
+
+            $availableColors = [];
+            if ($product->attributes->isNotEmpty()) {
+                $availableColors = $product->attributes->groupBy('color_id')->map(function ($items) {
+                    // Get the first item in the group to fetch color and image details
+                    $color = $items->first()->color;
+                    $colorImage = $items->first()->image ?? 'path_to_default_image.jpg'; // Provide default image if null
+
+                    return [
+                        'id' => $color->id,              // Color ID
+                        'name' => $color->name,          // Color name
+                        'code' => $color->code,          // Color code (for display)
+                        'image' => $colorImage,          // Image for the color
+                        'inventory_id' => $items->first()->id,  // Inventory ID for the first color-size combination
+                        'sizes' => $items->map(function ($item) {
+                            return [
+                                'inventory_id' => $item->id,       // Specific Inventory ID for this size
+                                'size_id' => $item->size->id ?? null,
+                                'size_name' => $item->size->name ?? 'N/A',
+                                'stock' => $item->qnt,            // Stock for this color-size combination
+                            ];
+                        }),
+                    ];
+                })->values(); // Use values() to get a numeric array
+
+                // Convert collection to array to ensure it's usable in JSON
+                $availableColors = $availableColors->toArray();
+            }
+
+
+            // Prepare data for Meta Pixel
+            $fbEvent = [
+                'event' => 'ViewContent',
+                'data' => [
+                    'content_ids' => $product->id,
+                    'content_type' => $product->category ? $product->category->category_name : 'Unknown',
+                    'value' => $product->getFinalPrice(), // Total value of all products in view
+                    'currency' => 'BDT',
+                ],
+            ];
+            return view('landing.pages.landing-2', [
                 'product' => $product,
                 'related' => $relatedProduct,
                 'availableColors' => $availableColors,  // Pass colors and sizes to the view
@@ -118,7 +235,7 @@ class LandingController extends Controller
             'name'          => 'required|string|max:255',
             'number'        => ['required', 'regex:/^01[3-9]\d{8}$/'],
             'shipping'      => 'required',
-            'address'       => 'required',
+            'address'       => ['required', 'regex:/[a-zA-Z]/', 'string', 'min:5'],
             'package' => 'required',
             'email'         => 'nullable|email',
         ], [
