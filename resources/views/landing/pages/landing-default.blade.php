@@ -1420,12 +1420,13 @@
 
                                 <div class="col-md-12">
                                     <div class="form-floating my-3">
-                                        <input type="text"
+                                        <input type="address"
                                             class="form-control @error('address') is-invalid @enderror "
-                                            id="checkout_phone" name="address" value="{{ old('address') }}"
-                                            placeholder="আপনার ঠিকানা" required
+                                            id="checkout_address" name="address" value="{{ old('address') }}"
+                                            placeholder="আপনার ঠিকানা" required autocomplete="street-address"
                                             title="হাউস নং, রোড নং/গ্রাম,থানা, জেলা *">
-                                        <label for="checkout_phone" class="font-bd">Address - হাউস নং, রোড নং/গ্রাম,
+                                        <label for="checkout_address" class="font-bd">Address - হাউস নং, রোড
+                                            নং/গ্রাম,
                                             থানা,
                                             জেলা *</label>
                                     </div>

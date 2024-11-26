@@ -86,6 +86,7 @@ Route::middleware(['admin'])->prefix('euphoriadmin')->group(function () {
 
     // Route::post('/csv/download', [AdminOrder::class, 'csvDownload'])->name('csv.download');
     Route::post('/csv/download', [AdminOrder::class, 'xlsxDownload'])->name('csv.download');
+    Route::post('/change/order/status', [AdminOrder::class, 'changeStatus'])->name('change.order.status');
     Route::post('/campaign/product', [CampaignProduct::class, 'destroy'])->name('campaign.product');
     // attributes
     Route::group(['prefix' => 'attr'], function () {

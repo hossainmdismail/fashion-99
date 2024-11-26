@@ -15,10 +15,43 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class AdminOrder extends Controller
 {
-    public function order()
+    public function order(Request $request)
     {
-        return view('backend.order.index');
+        // Start the query, joining users table
+        $query = Order::query()->join('users', 'users.id', '=', 'orders.user_id');
+        $perPage = 20;
+
+        // Search filter for order_id, user name, or user number
+        if (!empty($request->search)) {
+            $query->where(function ($q) use ($request) {
+                $q->where('orders.order_id', 'like', '%' . $request->search . '%')
+                    ->orWhere('users.name', 'like', '%' . $request->search . '%')
+                    ->orWhere('users.number', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        if (!empty($request->perPage)) {
+            $perPage = $request->perPage;
+        }
+        // Filter by date
+        if (!empty($request->date)) {
+            $query->whereDate('orders.created_at', $request->date);
+        }
+
+        // Filter by status
+        if ($request->status !== null && $request->status !== '') {
+            $query->where('orders.order_status', $request->status);
+        }
+
+        // Select fields from both orders and users tables, and paginate
+        $orders = $query->select('orders.*', 'users.name as user_name', 'users.number as user_phone')
+            ->orderBy('orders.id', 'DESC')
+            ->paginate($perPage)
+            ->withQueryString();
+
+        return view('backend.order.index', compact('orders'));
     }
+
 
     public function orderView($id)
     {
@@ -36,7 +69,6 @@ class AdminOrder extends Controller
 
     public function orderViewModify(Request $request)
     {
-        //dd($request->all());
         $request->validate([
             'btn'       => 'required',
             'id'        => 'required',
@@ -53,21 +85,6 @@ class AdminOrder extends Controller
         $order->admin_message   = $request->notes;
         $order->save();
         return back()->with('succ', 'updated');
-
-        // if ($request->btn == 1 && $request->status != null && $order) {
-        //     $order->order_status    = $request->status;
-        //     $order->admin_message   = $request->notes;
-        //     $order->save();
-        //     return back()->with('succ', 'updated');
-        // } elseif ($request->btn == 2 && $order) {
-        //     $data = [
-        //         'data' => $order,
-        //         'logo' => $image,
-        //     ];
-        //     $pdf = Pdf::loadView('pdf.invoice', $data);
-        //     return $pdf->download('invoice.pdf');
-        // }
-        // return back();
     }
 
     public function csvDownload(Request $request)
@@ -151,13 +168,21 @@ class AdminOrder extends Controller
 
     public function xlsxDownload(Request $request)
     {
-        $ids = $request->status;
+        $ids = $request->checkValue;
 
-        if (!is_array($ids)) {
+        // Check if `checkValue` is provided and is a non-empty string
+        if (empty($ids) || !is_string($ids)) {
             return back()->with('error', 'Invalid input for order IDs');
         }
 
-        $orderIds = array_map('intval', $ids);
+        // Convert the comma-separated string into an array of integers
+        $orderIds = array_map('intval', explode(',', $ids));
+
+        // Validate the array
+        if (empty($orderIds) || !is_array($orderIds)) {
+            return back()->with('error', 'Invalid input for order IDs');
+        }
+
         $orders = Order::whereIn('id', $orderIds)->get();
 
         // Create new Spreadsheet object
@@ -204,5 +229,23 @@ class AdminOrder extends Controller
         return response()->download($temp_file, $fileName, [
             'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         ])->deleteFileAfterSend(true);
+    }
+
+    public function changeStatus(Request $request)
+    {
+        $request->validate([
+            'updateStatus' => 'required|string',
+            'checkValue' => 'required|string',
+        ]);
+
+        $orderIds = explode(',', $request->checkValue);
+        $newStatus = $request->updateStatus;
+        $updatedOrders = Order::whereIn('id', $orderIds)->update(['order_status' => $newStatus]);
+
+        if ($updatedOrders > 0) {
+            return back()->with('succ', "{$updatedOrders} orders have been updated to '{$newStatus}' status.");
+        } else {
+            return back()->with('err', 'No orders were updated. Please check the selected orders.');
+        }
     }
 }

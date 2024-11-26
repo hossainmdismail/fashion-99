@@ -831,7 +831,8 @@
                 </div>
                 <div class="col-lg-5">
                     <h1 class="product-single__name"
-                        style="font-family: 'Anek Bangla', sans-serif; font-weight: 700;">{{ $product->name }}</h1>
+                        style="font-family: 'Anek Bangla', sans-serif; font-weight: 700;">Stay Warm, Stay Stylish – The
+                        Perfect Semi-Hoodie for You</h1>
                     <div class="product-single__rating">
                         <div class="reviews-group d-flex">
                             <svg class="review-star" viewBox="0 0 9 9" xmlns="http://www.w3.org/2000/svg">
@@ -1420,10 +1421,10 @@
 
                                 <div class="col-md-12">
                                     <div class="form-floating my-3">
-                                        <input type="text"
+                                        <input type="address"
                                             class="form-control @error('address') is-invalid @enderror "
                                             id="checkout_phone" name="address" value="{{ old('address') }}"
-                                            placeholder="আপনার ঠিকানা" required
+                                            placeholder="আপনার ঠিকানা" required autocomplete="street-address"
                                             title="হাউস নং, রোড নং/গ্রাম,থানা, জেলা *">
                                         <label for="checkout_phone" class="font-bd">Address - হাউস নং, রোড নং/গ্রাম,
                                             থানা,

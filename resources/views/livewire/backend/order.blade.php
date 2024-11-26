@@ -105,7 +105,7 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th><input type="checkbox" class="form-check-input" wire:model="selectAll"
+                            <th><input type="checkbox" class="form-check-input" id="checkAll" wire:model="selectAll"
                                     title="Select All" /></th>
 
                             <th scope="col">Name</th>
@@ -121,7 +121,7 @@
                         @foreach ($orders as $order)
                             <tr @if ($order->notification == 1) style="background: #6de9ed2b;" @endif>
                                 <td>
-                                    <input class="form-check-input" type="checkbox" wire:model="check"
+                                    <input class="form-check-input" name="status[]" type="checkbox" wire:model="check"
                                         value="{{ $order->id }}"
                                         :checked="{{ in_array($order->id, $check) ? 'true' : 'false' }}" />
                                 </td>
@@ -179,14 +179,16 @@
     </div>
 </form>
 
-{{-- <script>
+<script>
     document.addEventListener('DOMContentLoaded', function() {
         const checkAll = document.getElementById('checkAll');
         const checkboxes = document.querySelectorAll('input[name="status[]"]');
         checkAll.addEventListener('click', function() {
+            console.log(checkboxes);
+
             checkboxes.forEach((checkbox) => {
                 checkbox.checked = checkAll.checked;
             });
         });
     });
-</script> --}}
+</script>
