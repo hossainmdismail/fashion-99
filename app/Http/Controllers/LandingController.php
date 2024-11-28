@@ -235,7 +235,7 @@ class LandingController extends Controller
             'name'          => 'required|string|max:255',
             'number'        => ['required', 'regex:/^01[3-9]\d{8}$/'],
             'shipping'      => 'required',
-            'address'       => ['required', 'regex:/[a-zA-Z]/', 'string', 'min:5'],
+            'address'       => 'required|string',
             'package' => 'required',
             'email'         => 'nullable|email',
         ], [
