@@ -86,8 +86,8 @@
                                 {{ request()->has('status') && request('status') == 'damage' ? 'selected' : '' }}>
                                 On Hold
                             </option>
-                            <option value="delivered"
-                                {{ request()->has('status') && request('status') == 'delivered' ? 'selected' : '' }}>
+                            <option value="delieverd"
+                                {{ request()->has('status') && request('status') == 'delieverd' ? 'selected' : '' }}>
                                 Complete
                             </option>
                         </select>

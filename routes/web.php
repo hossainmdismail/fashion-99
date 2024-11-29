@@ -81,6 +81,7 @@ Route::middleware(['admin'])->prefix('euphoriadmin')->group(function () {
     Route::get('/order', [AdminOrder::class, 'order'])->name('admin.order');
     Route::post('/order/payment', [AdminOrder::class, 'payment'])->name('add.payment');
     Route::get('/order/view/{id}', [AdminOrder::class, 'orderView'])->name('admin.order.view');
+    Route::get('/order/edit/{id}', [AdminOrder::class, 'orderEdit'])->name('admin.order.edit');
     Route::post('/order/view/modify', [AdminOrder::class, 'orderViewModify'])->name('admin.order.modify');
     Route::get('/order/history/{id}', [AdminOrder::class, 'orderHistory'])->name('admin.order.history');
 

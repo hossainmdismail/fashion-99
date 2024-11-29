@@ -67,6 +67,17 @@ class AdminOrder extends Controller
         ]);
     }
 
+    public function orderEdit($id)
+    {
+        $order = Order::findOrFail($id);
+
+        return response()->json([
+            'html' => view('backend.order.edit', [
+                'order' => $order
+            ])->render()
+        ]);
+    }
+
     public function orderViewModify(Request $request)
     {
         $request->validate([

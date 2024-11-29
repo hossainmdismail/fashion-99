@@ -107,6 +107,24 @@
         </div>
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="editOrder" tabindex="-1" aria-labelledby="editOrderLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editOrderLabel">Edit Order</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Content will be dynamically injected here -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
     {{-- image modal --}}
     <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -163,6 +181,13 @@
                 <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Add payment
                 </button>
+                <button type="button" class="btn btn-primary" id="editOrderButton" data-order-id="{{ $order->id }}">
+                    Edit
+                    <div class="spinner-border text-light pl-2" style="display: none" id="editLoading" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </button>
+
                 <a class="btn btn-danger" href="{{ route('admin.order') }}">Back</a>
             </div>
         </div>
@@ -377,41 +402,56 @@
 
 @section('script')
     <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
         let printButton = document.getElementById('printButton');
         let invoiceBody = document.getElementById('sk_print').innerHTML;
         let printDisable = document.getElementsByClassName('printDisable');
         let printEnable = document.getElementsByClassName('printEnable');
 
         printButton.addEventListener("click", function(x) {
-            // Hide elements with the class 'printDisable' for screen view
             for (let i = 0; i < printDisable.length; i++) {
                 printDisable[i].style.display = 'none';
             }
 
-            // Show elements with the class 'printEnable' for screen view
             for (let i = 0; i < printEnable.length; i++) {
                 printEnable[i].style.display = 'block';
             }
 
-            // Save the original document's HTML
             var originalContents = document.body.innerHTML;
-
-            // Replace the body's HTML with the div's HTML
             document.body.innerHTML = invoiceBody;
-
-            // Print the div's contents
             window.print();
-
-            // Restore the original document's HTML
             document.body.innerHTML = originalContents;
-
-            // Optionally reattach event listeners if necessary
-            // Alternatively, reload the page to reattach event listeners
             window.location.reload();
         });
 
         function showImage(src) {
             document.getElementById('modalImage').src = src;
         }
+
+        $(document).on('click', '#editOrderButton', function() {
+            const orderId = $(this).data('order-id');
+            let loading = $('#editLoading');
+
+            loading.show();
+            $.ajax({
+                url: `/euphoriadmin/order/edit/${orderId}`,
+                method: 'GET',
+                success: function(response) {
+                    loading.hide();
+                    $('#editOrder .modal-body').html(response.html);
+                    // Show the modal
+                    $('#editOrder').modal('show');
+                },
+                error: function(xhr) {
+                    console.log(xhr);
+
+                    alert('Failed to load data. Please try again.');
+                }
+            });
+        });
     </script>
 @endsection
