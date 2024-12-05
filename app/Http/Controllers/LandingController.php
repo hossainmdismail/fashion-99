@@ -10,6 +10,7 @@ use App\Models\Shipping;
 use App\Models\Inventory;
 use App\Models\OrderProduct;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class LandingController extends Controller
 {
@@ -305,6 +306,7 @@ class LandingController extends Controller
 
 
                 try {
+                    DB::beginTransaction();
                     //Create new order
                     $order = new Order();
                     $order->user_id             = $userId;
@@ -327,12 +329,15 @@ class LandingController extends Controller
                     $order_product->price       = $packageGrandTotal['price'];
                     $order_product->qnt         = $request->quantity;
                     $order_product->save();
+                    // Commit the transaction if everything goes well
+                    DB::commit();
 
                     return redirect()->route('thankyou', $order->order_id)->with([
                         'order_id' => $order->order_id,
                         'fbEvent' => $fbEvent,
                     ]);
                 } catch (\Throwable $th) {
+                    DB::rollBack();
                     return back()->with('err', "Try again latter");
                 }
             }
