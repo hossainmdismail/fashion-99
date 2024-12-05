@@ -60,7 +60,6 @@ class AdminOrder extends Controller
         $order->notification = 0;
         $order->save();
 
-        dd($order->products);
         return view('backend.order.view', [
             'order'  => $order,
             'config' => $config,
