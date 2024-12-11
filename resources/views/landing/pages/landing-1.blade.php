@@ -1400,6 +1400,9 @@
                                             max="20" class="qnt-control__number text-center">
                                         <div class="qnt-control__increase" onclick="updateQuantity(1)">+</div>
                                     </div>
+                                    @error('quantity')
+                                        <div class="text-danger font-bd">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -1655,13 +1658,6 @@
             }
         }
 
-
-        // Add change event listener to all package radio buttons
-        // document.querySelectorAll('input[name="package"]').forEach(function(radio) {
-        //     radio.addEventListener('change', function() {
-        //         updatePackageGrandTotal(); // Call the function when a package is selected
-        //     });
-        // });
         document.querySelectorAll('input[name="package"]').forEach(function(radio) {
             radio.addEventListener('change', function() {
                 updatePackageGrandTotal(); // Update subtotal
@@ -1752,23 +1748,6 @@
             }
         }
 
-
-        // function updateGrandTotal() {
-        //     var subtotal = parseFloat(document.querySelector('.checkout-total').textContent);
-        //     var shippingPrice = parseFloat(document.querySelector('input[name="shipping"]:checked').getAttribute(
-        //         'data-price')) || 0;
-        //     var quantity = parseInt(document.querySelector('input[name="quantity"]').value);
-
-        //     // Set shipping charge to 0 if quantity is more than 2
-        //     if (quantity > 1) {
-        //         shippingPrice = 0;
-        //     }
-
-        //     var grandTotal = subtotal + shippingPrice;
-
-        //     document.querySelector('.checkout-grandtotal').textContent = grandTotal.toFixed(2) + ' ৳';
-        //     document.querySelector('.shipping-charge').textContent = shippingPrice.toFixed(2) + ' ৳';
-        // }
         function updateGrandTotal() {
             // Get the subtotal from the checkout total
             var subtotal = parseFloat(document.querySelector('.checkout-total').textContent) || 0;

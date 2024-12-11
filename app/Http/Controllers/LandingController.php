@@ -237,8 +237,9 @@ class LandingController extends Controller
             'number'        => ['required', 'regex:/^01[3-9]\d{8}$/'],
             'shipping'      => 'required',
             'address'       => 'required|string',
-            'package' => 'required',
+            'package'       => 'required',
             'email'         => 'nullable|email',
+            'quantity'      => 'required|integer|max:2'
         ], [
             'name.required'     => 'নাম অবশ্যই প্রদান করতে হবে।',
             'name.string'       => 'নাম অবশ্যই একটি স্ট্রিং হতে হবে।',
@@ -248,6 +249,8 @@ class LandingController extends Controller
             'shipping.required' => 'শিপিং এর জন্য অবশ্যই একটি অপশন নির্বাচন করতে হবে।',
             'address.required'  => 'ঠিকানা অবশ্যই প্রদান করতে হবে।',
             'email.email'       => 'ইমেলটি একটি বৈধ ইমেল ঠিকানা হতে হবে।',
+            'quantity.required' => 'পরিমাণ অবশ্যই প্রদান করতে হবে।',
+            'quantity.max'      => 'আপনি সর্বাধিক ২টি আইটেম অর্ডার করতে পারবেন।'
         ]);
 
         //If product exists
@@ -338,7 +341,7 @@ class LandingController extends Controller
                     ]);
                 } catch (\Throwable $th) {
                     DB::rollBack();
-                    return back()->with('err', "Try again latter");
+                    return back()->with('err', "নেটওয়ার্কের জন্য অর্ডার দেওয়া হয়নি, দয়া করে অবার অর্ডার করুন।");
                 }
             }
         }

@@ -1400,6 +1400,9 @@
                                             max="20" class="qnt-control__number text-center">
                                         <div class="qnt-control__increase" onclick="updateQuantity(1)">+</div>
                                     </div>
+                                    @error('quantity')
+                                        <div class="text-danger font-bd">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 

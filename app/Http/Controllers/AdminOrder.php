@@ -52,7 +52,6 @@ class AdminOrder extends Controller
         return view('backend.order.index', compact('orders'));
     }
 
-
     public function orderView($id)
     {
         $config = Config::first();
