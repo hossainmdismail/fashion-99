@@ -362,37 +362,38 @@
                                         Status: <span style="width: fit-content;font-size: 12px"
                                             class="badge badge-sm rounded-pill alert-{{ getStatusColor($order->order_status) }} text-success">
                                             {{ $order->order_status }} </span> --}}
-                                </div>
-                                </p>
-                                {{-- <a href="#">Download info</a> --}}
-                        </div>
-                        </article>
-                    </div> <!-- col// -->
-                    <div class="row">
-                        <div class="box shadow-sm bg-light">
-                            <h6 class="mb-15">Payment info</h6>
-                            <p
-                                class="badge rounded-pill alert-{{ $order->payment_status == 'cancel' ? 'danger' : 'success' }}">
-                                {{ $order->payment_status }}</p>
-                            @if ($order->payment)
-                                @foreach ($order->payment as $value)
-                                    <hr>
-                                    <p>
-                                        {{ $value->payment_type }} : {{ $value->transaction_id }} <br>
-                                        Paid : <span style="font-weight: 800;"> ৳ {{ $value->price }}</span> <br>
-                                        <span
-                                            style="font-size: 12px">{{ $value->created_at->format('D M d - g:i A') }}</span>
                                     </p>
-                                @endforeach
-                            @endif
+                                </div>
+                                {{-- <a href="#">Download info</a> --}}
+                            </article>
                         </div>
-                        <div class="h-25 pt-4">
-                            <div class="mb-3">
-                                <label>Admin Message</label>
-                                <textarea class="form-control" name="notes" id="notes" placeholder="Type some note">{{ $order->admin_message }}</textarea>
+                        <div class="row">
+                            <div class="box shadow-sm bg-light">
+                                <h6 class="mb-15">Payment info</h6>
+                                <p
+                                    class="badge rounded-pill alert-{{ $order->payment_status == 'cancel' ? 'danger' : 'success' }}">
+                                    {{ $order->payment_status }}</p>
+                                @if ($order->payment)
+                                    @foreach ($order->payment as $value)
+                                        <hr>
+                                        <p>
+                                            {{ $value->payment_type }} : {{ $value->transaction_id }} <br>
+                                            Paid : <span style="font-weight: 800;"> ৳ {{ $value->price }}</span> <br>
+                                            <span
+                                                style="font-size: 12px">{{ $value->created_at->format('D M d - g:i A') }}</span>
+                                        </p>
+                                    @endforeach
+                                @endif
                             </div>
-                        </div>
+                            <div class="h-25 pt-4">
+                                <div class="mb-3">
+                                    <label>Admin Message</label>
+                                    <textarea class="form-control" name="notes" id="notes" placeholder="Type some note">{{ $order->admin_message }}</textarea>
+                                </div>
+                            </div>
+                        </div> <!-- col// -->
                     </div> <!-- col// -->
+
                 </div> <!-- card-body end// -->
             </div>
         </div> <!-- card end// -->
