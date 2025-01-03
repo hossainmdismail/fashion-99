@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c5a02f5fe462a91247a3e1e234dcb485",
+    "content-hash": "fe99f534a0b1147ad68c5048b66e7240",
     "packages": [
         {
             "name": "artesaos/seotools",
@@ -720,6 +720,75 @@
                 }
             ],
             "time": "2023-10-06T06:47:41+00:00"
+        },
+        {
+            "name": "enan/pathao-courier",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/enuenan/pathao-courier.git",
+                "reference": "9fde7704e7d350b2aa4a4899e5f7bf175d51f0a2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/enuenan/pathao-courier/zipball/9fde7704e7d350b2aa4a4899e5f7bf175d51f0a2",
+                "reference": "9fde7704e7d350b2aa4a4899e5f7bf175d51f0a2",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^7.8",
+                "illuminate/contracts": "^6.0|^7.0|^8.0|^9.0|^10.0|^11.0",
+                "php": "^8.1"
+            },
+            "require-dev": {
+                "larastan/larastan": "^2.0.1",
+                "laravel/pint": "^1.0",
+                "nunomaduro/collision": "^7.8",
+                "orchestra/testbench": "^8.8",
+                "pestphp/pest": "^2.20",
+                "pestphp/pest-plugin-arch": "^2.0",
+                "pestphp/pest-plugin-laravel": "^2.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "PathaoCourier": "Enan\\PathaoCourier\\Facades\\PathaoCourier"
+                    },
+                    "providers": [
+                        "Enan\\PathaoCourier\\PathaoCourierServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Enan\\PathaoCourier\\": "src/",
+                    "Enan\\PathaoCourier\\Database\\Factories\\": "database/factories/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Moammer Farshid Enan",
+                    "email": "emoammerfershid@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A complete Laravel package for Pathao Courier",
+            "homepage": "https://github.com/enan/pathao-courier",
+            "keywords": [
+                "Moammer Farshid Enan",
+                "laravel",
+                "pathao-courier"
+            ],
+            "support": {
+                "issues": "https://github.com/enuenan/pathao-courier/issues",
+                "source": "https://github.com/enuenan/pathao-courier/tree/v1.0.1"
+            },
+            "time": "2024-09-12T04:11:52+00:00"
         },
         {
             "name": "fruitcake/php-cors",

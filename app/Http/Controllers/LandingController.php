@@ -273,6 +273,9 @@ class LandingController extends Controller
                 }
                 $userId = $userCreated->id;
             } else {
+                if ($user->is_blocked == 1) {
+                    return abort(500, 'You are blocked');
+                }
                 $userId = $user->id;
             }
 

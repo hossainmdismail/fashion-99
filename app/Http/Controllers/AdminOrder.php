@@ -9,9 +9,13 @@ use App\Models\OrderPayment;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Support\Facades\Response;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use Enan\PathaoCourier\Facades\PathaoCourier;
+use Enan\PathaoCourier\Requests\PathaoUserSuccessRateRequest;
+use Illuminate\Support\Facades\Auth;
 
 class AdminOrder extends Controller
 {
@@ -54,24 +58,38 @@ class AdminOrder extends Controller
 
     public function orderView($id)
     {
+        // dd(Auth::guard('admin')->user()->role == 'superAdmin');
         $config = Config::first();
         $order = Order::find($id);
         $order->notification = 0;
+
+        if ($order->employee_id == null && Auth::guard('admin')->user()->role == 'employee') {
+            $order->employee_id = Auth::guard('admin')->user()->id;
+        }
         $order->save();
 
-        return view('backend.order.view', [
-            'order'  => $order,
-            'config' => $config,
-        ]);
+        if (Auth::guard('admin')->user()->role == 'employee') {
+            return view('backend.order.employee', [
+                'order'  => $order,
+                'config' => $config,
+            ]);
+        } else {
+            return view('backend.order.view', [
+                'order'  => $order,
+                'config' => $config,
+            ]);
+        }
     }
 
     public function orderEdit($id)
     {
         $order = Order::findOrFail($id);
+        // $pathaoCities = PathaoCourier::GET_AREAS();
 
         return response()->json([
             'html' => view('backend.order.edit', [
-                'order' => $order
+                'order' => $order,
+                // 'cities' => $pathaoCities,
             ])->render()
         ]);
     }
@@ -157,6 +175,25 @@ class AdminOrder extends Controller
 
     public function orderHistory($user_id)
     {
+
+        // dd($pataho);
+        $pathao = [];
+
+        //get the user
+        $user = User::find($user_id);
+
+        //get pathao information
+        if ($user && $user->number) {
+            $request = new PathaoUserSuccessRateRequest([
+                'phone' => $user->number
+            ]);
+            $patahoData = PathaoCourier::GET_USER_SUCCESS_RATE($request);
+            $pathao = $patahoData;
+        }
+
+        // dd($pathao);
+
+
         $data = Order::where('user_id', $user_id)->orderBy('id', 'DESC')->get();
 
         $totalCancelledOrders = Order::where('user_id', $user_id)
@@ -172,6 +209,7 @@ class AdminOrder extends Controller
             'purchase' => $data->sum('price'),
             'green' => $totalConfirmedOrders,
             'red' => $totalCancelledOrders,
+            'pathao' => $pathao
         ]);
     }
 

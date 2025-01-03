@@ -24,6 +24,11 @@ class Order extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    function employee()
+    {
+        return $this->belongsTo(Admin::class, 'employee_id');
+    }
+
     function shipping()
     {
         return $this->belongsTo(Shipping::class, 'shipping_id');

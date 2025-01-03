@@ -161,7 +161,7 @@
                                 <th scope="col">Name</th>
                                 <th scope="col">Contact</th>
                                 <th scope="col">Total</th>
-                                <th scope="col">Health</th>
+                                <th scope="col">Employee</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Date</th>
                                 <th scope="col" class="text-end">Action</th>
@@ -180,27 +180,39 @@
                                     </td>
                                     <td>
                                         {{ $order->user ? $order->user->number : 'Null' }}<br>
-                                        {{ $order->user ? $order->user->email : 'Null' }}
+                                        @if ($order->user)
+                                            <span
+                                                class="badge rounded-pill alert-{{ $order->user->is_blocked == 1 ? 'danger' : '' }}">
+                                                {{ $order->user->is_blocked == 1 ? 'Blocked' : '' }}</span>
+                                        @endif
                                     </td>
-                                    <td>{{ $order->price }} Tk</td>
+                                    <td>{{ number_format($order->price, 0) }} Tk</td>
                                     <td>
-                                        @php
-                                            $orderHealth = $order->health($order->user_id);
-                                            $progressBarColor =
-                                                $orderHealth >= 80
-                                                    ? 'bg-success'
-                                                    : ($orderHealth >= 50
-                                                        ? 'bg-warning'
-                                                        : 'bg-danger');
-                                        @endphp
-                                        <div class="progress">
-                                            <div class="progress-bar {{ $progressBarColor }}" role="progressbar"
-                                                style="width: {{ $orderHealth }}%; font-size:10px;"
-                                                aria-valuenow="{{ $orderHealth }}" aria-valuemin="0"
-                                                aria-valuemax="100">
-                                                {{ $orderHealth }}%
+                                        @if ($order->employee)
+                                            <span
+                                                class="badge rounded-pill alert-secondary">{{ $order->employee->name }}</span>
+                                        @else
+                                            @php
+                                                $orderHealth = $order->health($order->user_id);
+                                                $progressBarColor =
+                                                    $orderHealth >= 80
+                                                        ? 'bg-success'
+                                                        : ($orderHealth >= 50
+                                                            ? 'bg-warning'
+                                                            : 'bg-danger');
+                                            @endphp
+                                            <div class="progress">
+                                                <div class="progress-bar {{ $progressBarColor }}" role="progressbar"
+                                                    style="width: {{ $orderHealth }}%; font-size:10px;"
+                                                    aria-valuenow="{{ $orderHealth }}" aria-valuemin="0"
+                                                    aria-valuemax="100">
+                                                    {{ $orderHealth }}%
+                                                </div>
                                             </div>
-                                        </div>
+                                        @endif
+
+                                        <br>
+
                                     </td>
                                     <td><span
                                             class="badge rounded-pill alert-{{ getStatusColor($order->order_status) }}">{{ getStatusLabel($order->order_status) }}</span>

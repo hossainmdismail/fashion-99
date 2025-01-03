@@ -32,6 +32,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\Frontend\ProfileController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\ThemesController;
+use App\Http\Controllers\UserController;
 
 //Frontend
 Auth::routes();
@@ -98,6 +99,7 @@ Route::middleware(['admin'])->prefix('euphoriadmin')->group(function () {
         Route::resource('/color', AttrColorController::class);
     });
     Route::resource('/category', CategoryController::class);
+    Route::resource('/user', UserController::class);
     Route::resource('/banner', BannerController::class);
     Route::resource('/config', ConfigController::class);
     Route::resource('/customlink', CustomLinkController::class);

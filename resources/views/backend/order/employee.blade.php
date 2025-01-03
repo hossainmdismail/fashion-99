@@ -55,7 +55,7 @@
 @section('content')
 
 
-    <!-- Payment Modal -->
+    <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -107,7 +107,7 @@
         </div>
     </div>
 
-    <!-- Edit Modal -->
+    <!-- Modal -->
     <div class="modal fade" id="editOrder" tabindex="-1" aria-labelledby="editOrderLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
@@ -120,6 +120,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
                 </div>
             </div>
         </div>
@@ -177,9 +178,12 @@
             <div>
                 <a href="{{ route('admin.order.history', $order->user_id) }}" type="submit" class="btn btn-secondary"
                     name="btn" value="1">History</a>
-                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Add payment
-                </button>
+                @if (Auth::guard('admin')->user()->id == $order->employee_id)
+                    <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">
+                        Add payment
+                    </button>
+                @endif
                 <button type="button" class="btn btn-primary" id="editOrderButton" data-order-id="{{ $order->id }}">
                     Edit
                     <div class="spinner-border text-light pl-2" style="display: none" id="editLoading" role="status">
@@ -219,7 +223,9 @@
                                 Complete
                             </option>
                         </select>
-                        <button type="submit" class="btn btn-primary" name="btn" value="1">Save</button>
+                        @if (Auth::guard('admin')->user()->id == $order->employee_id)
+                            <button type="submit" class="btn btn-primary" name="btn" value="1">Save</button>
+                        @endif
                         <a class="btn btn-secondary print ms-2" name="btn" value="2" id="printButton"><i
                                 class="icon material-icons md-print"></i></a>
                     </div>

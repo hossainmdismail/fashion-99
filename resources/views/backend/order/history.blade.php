@@ -131,12 +131,36 @@
                     </div>
                 </div>
             </div>
-            {{-- <div>
-                    <h2 class="content-title card-title">History of Esmail</h2>
+            <div class="row ">
+                <div class="col-md-4">
+                    <div class="card card-body mb-4">
+                        <article class="icontext">
+                            {{-- <span class="icon icon-sm rounded-circle bg-primary-light"> --}}
+                            <img src="{{ asset('backend/assets/imgs/pathao.png') }}" width="65"
+                                style="margin-right: 1rem" alt="">
+                            {{-- </span> --}}
+                            @if ($pathao)
+                                <div class="text">
+                                    <h6 class="mb-1 card-title text-secondary">Total Delivery :
+                                        {{ $pathao['data']['customer']['total_delivery'] }}</h6>
+                                    <h6 class="mb-1 card-titl text-success">Success :
+                                        {{ $pathao['data']['customer']['successful_delivery'] }}</h6>
+                                    <h6 class="mb-1 card-title text-secondary">Fraud Count :
+                                        {{ $pathao['data']['fraud_count'] }}</h6>
+                                </div>
+                            @endif
+                        </article>
+                        <div class="progress mt-3">
+                            <div class="progress-bar" role="progressbar"
+                                style="width: {{ $pathao['data']['success_rate'] }}%;"
+                                aria-valuenow="{{ $pathao['data']['success_rate'] }}" aria-valuemin="0"
+                                aria-valuemax="100">
+                                {{ $pathao['data']['success_rate'] }}%
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <a class="btn btn-danger" href="{{ route('admin.order') }}">Back</a>
-                </div> --}}
+            </div>
             {{-- </div> --}}
             <div class="card" id="xx">
                 <div class="card-body">

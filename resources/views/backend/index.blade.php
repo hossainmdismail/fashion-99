@@ -25,7 +25,7 @@
         <header class="main-header style-2 navbar">
             <div class="col-brand">
                 <a href="index.html" class="brand-wrap">
-                    <img src="assets/imgs/theme/logo.svg" class="logo" alt="Evara Dashboard">
+                    <img src="assets/imgs/theme/logo.svg" class="logo" alt="Synex Dashbaord">
                 </a>
             </div>
             <div class="col-nav">
