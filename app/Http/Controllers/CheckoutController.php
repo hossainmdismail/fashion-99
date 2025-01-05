@@ -77,7 +77,14 @@ class CheckoutController extends Controller
             'address'   => 'required',
             'email'     => 'nullable|email',
         ], [
-            'number.regex' => 'Please enter a valid Bangladeshi phone number.'
+            'name.required'     => 'নাম অবশ্যই প্রদান করতে হবে।',
+            'name.string'       => 'নাম অবশ্যই একটি স্ট্রিং হতে হবে।',
+            'name.max'          => 'নামের দৈর্ঘ্য সর্বাধিক ২৫৫ অক্ষর হতে পারে।',
+            'number.required'   => 'ফোন নম্বর অবশ্যই প্রদান করতে হবে।',
+            'number.regex'      => 'আপনার নাম্বার টি সঠিক হয়নি দয়া করে ১১টি ডিজিট দিন | 0191-2096479',
+            'shipping.required' => 'শিপিং এর জন্য অবশ্যই একটি অপশন নির্বাচন করতে হবে।',
+            'address.required'  => 'ঠিকানা অবশ্যই প্রদান করতে হবে।',
+            'email.email'       => 'ইমেলটি একটি বৈধ ইমেল ঠিকানা হতে হবে।',
         ]);
 
         $user = User::where('number', $request->number)->orWhere('email', $request->email)->first();

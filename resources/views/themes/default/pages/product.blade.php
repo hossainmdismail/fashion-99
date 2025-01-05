@@ -281,12 +281,25 @@
                                 <div class="qty-control__increase" onclick="updateQuantity(1)">+</div>
                             </div>
 
-                            <button type="submit" class="btn btn-primary btn-addtocart" data-aside="cartDrawer">
+                            <button type="submit" name="btn" value="1" class="btn btn-primary btn-addtocart"
+                                data-aside="cartDrawer">
                                 Add to Cart
                                 <div class="spinner-border add-to-cart-loader" role="status" style="display:none;">
                                     <span class="sr-only"></span>
                                 </div>
                             </button>
+                        </div>
+
+                        <div class="product-single__addtocart">
+
+                            <a href="https://m.me/euphoriaknit" target="_blank"
+                                class="btn btn-primary messanger btn-custom w-100 text-uppercase font-bd"
+                                type="submit">মেসেঞ্জারে
+                                অর্ডার করুন</a>
+                            <a href="https://wa.me/+8801811994026" target="_blank"
+                                class="btn btn-primary whatsapp btn-custom w-100 text-uppercase font-bd"
+                                type="submit">হোয়াটসঅ্যাপে
+                                অর্ডার করুন</a>
                         </div>
                     </form>
                     <div class="product-single__addtolinks">

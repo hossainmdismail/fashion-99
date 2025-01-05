@@ -402,6 +402,15 @@ progress {
     font-family: 'Anek Bangla', sans-serif !important;
     word-spacing: 2px;
 }
+.btn.btn-custom.w-100 {
+    color: #222222;
+    background-color: #e7e7e7;
+    border-color: #a9a9a900;
+    box-shadow: none;
+    padding: 7px 0 7px 0;
+    font-size: 13px;
+    font-weight: 600;
+}
 .lead {
   font-size: 1.25rem;
   font-weight: 300; }
@@ -14675,11 +14684,17 @@ textarea.form-control-lg {
     margin-left: 0.5rem; }
 .product-single__short-desc {
   margin-bottom: 2.1875rem; }
-.product-single__addtocart {
-  display: flex;
-  align-items: center;
-  gap: 1.25rem;
-  margin-bottom: 2.1875rem; }
+  .product-single__addtocart {
+    display: flex;
+    align-items: center;
+    gap: .60rem;
+    margin-bottom: 2.1875rem;}
+    .whatsapp{
+        background-color: #38be61 !important;
+    }
+    .messanger{
+        background-color: #019CF7 !important;
+    }
   .product-single__addtocart .qty-control {
     min-width: 7.25rem; }
     .product-single__addtocart .qty-control__number {

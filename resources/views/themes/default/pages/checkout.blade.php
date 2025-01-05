@@ -45,9 +45,9 @@
         }
 
         /* .custom-radio-card .service-duration {
-                            font-size: 14px;
-                            color: #7a7a7a;
-                        } */
+                                                                                font-size: 14px;
+                                                                                color: #7a7a7a;
+                                                                            } */
 
         .custom-radio-card .service-price {
             font-size: 14px;
@@ -231,26 +231,28 @@
 
                                     <div class="form-floating my-3">
                                         <input type="text" class="form-control @error('name') is-invalid @enderror "
-                                            id="checkout_name" placeholder="Name" value="{{ old('name') }}"
-                                            name="name">
-                                        <label for="checkout_name">Name*</label>
+                                            id="checkout_name" placeholder="Name" value="{{ old('name') }}" name="name"
+                                            required>
+                                        <label for="checkout_name" class="font-bd">আপনার নাম *</label>
                                     </div>
                                     @error('name')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="col-md-6">
+                                {{-- <div class="col-md-6">
                                     <div class="form-floating my-3">
                                         <input type="email" class="form-control" id="checkout_eamil" placeholder="Email"
                                             name="email" value="{{ old('email') }}">
                                         <label for="checkout_eamil">Email</label>
                                     </div>
-                                </div>
-                                <div class="col-md-12">
+                                </div> --}}
+                                <div class="col-md-6">
                                     <div class="form-floating my-3">
                                         <input type="phone" class="form-control @error('number') is-invalid @enderror"
-                                            id="checkout_number" placeholder="Number *" name="number" {{ old('number') }}>
-                                        <label for="checkout_number">Number*</label>
+                                            id="checkout_number" placeholder="Number *" name="number"
+                                            pattern="01[3-9][0-9]{8}" title="অনুগ্রহ করে একটি বৈধ বাংলাদেশের ফোন নম্বর দিন।"
+                                            required value="{{ old('number') }}">
+                                        <label for="checkout_number" class="font-bd">আপনার মোবাইল নাম্বার *</label>
                                     </div>
                                     @error('number')
                                         <div class="text-danger">{{ $message }}</div>
@@ -261,9 +263,11 @@
                                     <div class="form-floating mt-3 mb-3">
                                         <input type="text" class="form-control @error('address') is-invalid @enderror "
                                             name="address" id="checkout_street_address" placeholder="Street Address *"
-                                            {{ old('address') }}>
-                                        <label for="checkout_company_name">Address* (<span style="font-size: 12px">থানা/জেলা
-                                            </span>)</label>
+                                            value="{{ old('address') }}" required>
+                                        <label for="checkout_company_name" class="font-bd">Address - হাউস নং, রোড
+                                            নং/গ্রাম,
+                                            থানা,
+                                            জেলা *</label>
                                     </div>
                                     @error('address')
                                         <div class="text-danger">{{ $message }}</div>
@@ -274,7 +278,7 @@
                             <div class="col-md-12">
                                 <div class="mt-3">
                                     <textarea class="form-control form-control_gray" placeholder="Order Notes (optional)" name="message" cols="30"
-                                        rows="4"></textarea>
+                                        rows="4">{{ old('message') }}</textarea>
                                 </div>
                             </div>
 
@@ -354,7 +358,7 @@
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-checkout">PLACE ORDER</button>
+                                <button type="submit" class="btn btn-primary">PLACE ORDER</button>
                             </div>
                         </div>
                     </div>
