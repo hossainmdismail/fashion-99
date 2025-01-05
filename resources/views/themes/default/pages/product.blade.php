@@ -283,6 +283,13 @@
 
                             <button type="submit" name="btn" value="1" class="btn btn-primary btn-addtocart"
                                 data-aside="cartDrawer">
+                                Buy Now
+                                <div class="spinner-border add-to-cart-loader" role="status" style="display:none;">
+                                    <span class="sr-only"></span>
+                                </div>
+                            </button>
+                            <button type="submit" name="btn" value="2" class="btn btn-primary btn-addtocart"
+                                data-aside="cartDrawer">
                                 Add to Cart
                                 <div class="spinner-border add-to-cart-loader" role="status" style="display:none;">
                                     <span class="sr-only"></span>
@@ -653,17 +660,20 @@
                 document.querySelector('input[name="quantity"]').value = newQuantity;
             }
         }
-
         $('form[name="addtocart-form"]').on('submit', function(e) {
             e.preventDefault();
 
             $('.add-to-cart-loader').show();
+
+            // Capture the clicked button's value
+            const btnValue = $('button[type="submit"][name="btn"]:focus').val();
 
             let formData = {
                 _token: $('input[name="_token"]').val(),
                 color: $('input[name="color"]:checked').val(),
                 inventory_id: $('input[name="inventory_id"]:checked').val(),
                 quantity: $('input[name="quantity"]').val(),
+                btn: btnValue, // Include the button value in the formData
             };
 
             $.ajax({
@@ -671,18 +681,26 @@
                 type: 'POST',
                 data: formData,
                 success: function(response) {
+                    // Load cart data
                     loadCartData();
 
-                    $('.alert-message').text('Product added to cart successfully!');
-                    $('.js-open-aside[data-aside="cartDrawer"]').trigger('click');
-                    // Trigger Meta Pixel Add to Cart event
-                    fbq('track', 'AddToCart', {
-                        content_ids: [formData.inventory_id], // Pass inventory ID
-                        content_type: 'product',
-                        value: response.price, // Ensure the backend returns the price
-                        currency: 'BDT',
-                        quantity: formData.quantity // Pass the quantity
-                    });
+                    if (btnValue === '1') {
+                        // Redirect to checkout for "Buy Now"
+                        window.location.href = '{{ route('checkout') }}';
+                    } else if (btnValue === '2') {
+                        // Handle "Add to Cart"
+                        $('.alert-message').text('Product added to cart successfully!');
+                        $('.js-open-aside[data-aside="cartDrawer"]').trigger('click');
+
+                        // Trigger Meta Pixel Add to Cart event
+                        fbq('track', 'AddToCart', {
+                            content_ids: [formData.inventory_id], // Pass inventory ID
+                            content_type: 'product',
+                            value: response.price, // Ensure the backend returns the price
+                            currency: 'BDT',
+                            quantity: formData.quantity, // Pass the quantity
+                        });
+                    }
                 },
                 error: function(xhr, status, error) {
                     console.error('Error adding product to cart:', error);
@@ -690,7 +708,7 @@
                 },
                 complete: function() {
                     $('.add-to-cart-loader').hide();
-                }
+                },
             });
         });
     </script>
