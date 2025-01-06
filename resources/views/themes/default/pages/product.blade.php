@@ -229,17 +229,17 @@
                             @endif
                         @endif
                     </div>
-                    {{-- <div class="product-single__short-desc d-none">
+                    <div class="product-single__short-desc d-none">
                         <p>{{ $product->short_description }}</p>
-                        <ul>
+                        {{-- <ul>
                             @if ($product->services)
                                 @foreach ($product->services as $service)
                                     <li class="mb-10"><i class="fa fa-bullseye mr-5"></i>
                                         {{ $service->service ? $service->service->message : null }}</li>
                                 @endforeach
                             @endif
-                        </ul>
-                    </div> --}}
+                        </ul> --}}
+                    </div>
                     <div class="product-single__short-desc">
                         <img src="{{ asset('review/table.png') }}" loading="lazy" alt="">
                     </div>
