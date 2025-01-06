@@ -229,7 +229,7 @@
                             @endif
                         @endif
                     </div>
-                    <div class="product-single__short-desc d-none">
+                    <div class="product-single__short-desc">
                         <p>{{ $product->short_description }}</p>
                         {{-- <ul>
                             @if ($product->services)
