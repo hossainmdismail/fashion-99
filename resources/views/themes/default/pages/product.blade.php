@@ -229,7 +229,7 @@
                             @endif
                         @endif
                     </div>
-                    <div class="product-single__short-desc">
+                    {{-- <div class="product-single__short-desc d-none">
                         <p>{{ $product->short_description }}</p>
                         <ul>
                             @if ($product->services)
@@ -239,13 +239,16 @@
                                 @endforeach
                             @endif
                         </ul>
+                    </div> --}}
+                    <div class="product-single__short-desc">
+                        <img src="{{ asset('review/table.png') }}" loading="lazy" alt="">
                     </div>
                     <form name="addtocart-form">
                         @csrf
                         <div class="product-single__swatches">
 
                             <!-- Colors -->
-                            <div class="product-swatch color-swatches">
+                            <div class="product-swatch color-swatches d-none">
                                 <label>Color</label>
                                 <div class="swatch-list">
                                     @foreach ($availableColors as $index => $color)
