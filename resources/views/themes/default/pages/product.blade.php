@@ -230,7 +230,7 @@
                         @endif
                     </div>
                     <div class="product-single__short-desc">
-                        <p>{{ $product->short_description }}</p>
+                        <p class="font-bd">{!! $product->short_description !!}</p>
                         {{-- <ul>
                             @if ($product->services)
                                 @foreach ($product->services as $service)
