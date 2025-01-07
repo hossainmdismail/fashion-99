@@ -45,9 +45,9 @@
         }
 
         /* .custom-radio-card .service-duration {
-                                                                                                                    font-size: 14px;
-                                                                                                                    color: #7a7a7a;
-                                                                                                                } */
+                                                                                                                        font-size: 14px;
+                                                                                                                        color: #7a7a7a;
+                                                                                                                    } */
 
         .custom-radio-card .service-price {
             font-size: 14px;
@@ -371,10 +371,13 @@
         $(document).ready(function() {
             loadCheckoutData();
 
-            let firstShippingRadio = document.querySelector('input[name="shipping"]');
+            let shippingRadios = document.querySelectorAll('input[name="shipping"]');
+            let secondShippingRadio = shippingRadios[1]; // Select the second radio button (index 1)
 
-            if (firstShippingRadio) {
-                firstShippingRadio.checked = true;
+            console.log(secondShippingRadio);
+
+            if (secondShippingRadio) {
+                secondShippingRadio.checked = true;
 
                 let checkSubtotalInterval = setInterval(() => {
                     let subtotalText = $('.checkout-total').text().replace(' Tk', '').trim();
@@ -383,7 +386,7 @@
                     if (!isNaN(subtotal)) {
                         clearInterval(checkSubtotalInterval);
 
-                        let shippingPrice = parseFloat(firstShippingRadio.getAttribute('data-price'));
+                        let shippingPrice = parseFloat(secondShippingRadio.getAttribute('data-price'));
                         let grandTotal = subtotal + shippingPrice;
 
                         $('.shipping-fee').text(shippingPrice + ' Tk');
@@ -392,12 +395,13 @@
                 }, 100); // Check every 100ms
             }
 
+
             document.querySelectorAll('input[name="shipping"]').forEach(function(radio) {
                 radio.addEventListener('change', function(event) {
                     let selectedRadio = event.target;
                     let shippingPrice = parseFloat(selectedRadio.getAttribute('data-price'));
                     let subtotal = parseFloat($('.checkout-total').text().replace(' Tk', '')
-                .trim());
+                        .trim());
 
                     if (!isNaN(subtotal) && !isNaN(shippingPrice)) {
                         let grandTotal = subtotal + shippingPrice;
