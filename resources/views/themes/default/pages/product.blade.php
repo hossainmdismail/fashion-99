@@ -246,7 +246,6 @@
                     <form name="addtocart-form">
                         @csrf
                         <div class="product-single__swatches">
-
                             <!-- Colors -->
                             <div class="product-swatch color-swatches d-none">
                                 <label>Color</label>
@@ -273,16 +272,21 @@
                                     <!-- Sizes for the selected color will be injected here -->
                                 </div>
                             </div>
+
+                            <div class="product-swatch text-swatches product-single__addtocart">
+                                <label>Quantity</label>
+                                <div class="qty-control position-relative">
+                                    <input type="number" name="quantity" value="1" min="1"
+                                        class="qty-control__number text-center">
+                                    <div class="qty-control__reduce" onclick="updateQuantity(-1)">-</div>
+                                    <div class="qty-control__increase" onclick="updateQuantity(1)">+</div>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- Quantity -->
                         <div class="product-single__addtocart">
-                            <div class="qty-control position-relative">
-                                <input type="number" name="quantity" value="1" min="1"
-                                    class="qty-control__number text-center">
-                                <div class="qty-control__reduce" onclick="updateQuantity(-1)">-</div>
-                                <div class="qty-control__increase" onclick="updateQuantity(1)">+</div>
-                            </div>
+
 
                             <button type="submit" name="btn" value="1" class="btn btn-primary btn-addtocart"
                                 data-aside="cartDrawer">

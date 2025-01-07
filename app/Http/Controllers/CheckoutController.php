@@ -87,9 +87,13 @@ class CheckoutController extends Controller
             'email.email'       => 'ইমেলটি একটি বৈধ ইমেল ঠিকানা হতে হবে।',
         ]);
 
-        $user = User::where('number', $request->number)->orWhere('email', $request->email)->first();
+        // $user = User::where('number', $request->number)->orWhere('email', $request->email)->first();
+        $user = User::where('number', $request->number)->first();
         $shipping = Shipping::find($request->shipping);
         $cookieData = CookieSD::data();
+        if ($cookieData['total'] == 0) {
+            return redirect()->route('shop')->with('err', 'No items in cart!');
+        }
 
         $orderID = str_pad(Order::max('id') + 1, 5, '0', STR_PAD_LEFT);
         $userId = null;
@@ -102,6 +106,9 @@ class CheckoutController extends Controller
             }
             $userId = $userCreated->id;
         } else {
+            if ($user->is_blocked == 1) {
+                return abort(500, 'You are blocked');
+            }
             $userId = $user->id;
         }
         if (!$shipping) {

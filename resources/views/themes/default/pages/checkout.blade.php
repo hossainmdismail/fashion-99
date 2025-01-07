@@ -45,9 +45,9 @@
         }
 
         /* .custom-radio-card .service-duration {
-                                                                                font-size: 14px;
-                                                                                color: #7a7a7a;
-                                                                            } */
+                                                                                                                    font-size: 14px;
+                                                                                                                    color: #7a7a7a;
+                                                                                                                } */
 
         .custom-radio-card .service-price {
             font-size: 14px;
@@ -281,10 +281,47 @@
                                         rows="4">{{ old('message') }}</textarea>
                                 </div>
                             </div>
-
-
-
+                            <h5 class="pt-4">SHIPPING AREA</h5>
+                            <div class="frb-group">
+                                {{-- @foreach ($shippings as $key => $shipping)
+                                    <div class="frb frb-primary">
+                                        <input type="radio" id="shipping-{{ $key + 1 }}" name="shipping"
+                                            value="{{ $shipping->id }}" data-price="{{ $shipping->price }}"
+                                            class="@error('shipping') is-invalid @enderror"
+                                            {{ old('shipping') == $shipping->id ? 'checked' : '' }}>
+                                        <!-- Add 'is-invalid' class if there's an error -->
+                                        <label for="shipping-{{ $key + 1 }}">
+                                            <span class="frb-title">{{ $shipping->name }}</span>
+                                            <span class="frb-description shipping-price">{{ $shipping->price }}
+                                                {{ __('messages.currency') }}</span>
+                                        </label>
+                                    </div>
+                                @endforeach --}}
+                                @foreach ($shippings as $key => $shipping)
+                                    <div class="custom-radio-card">
+                                        <input type="radio" id="shipping-{{ $key + 1 }}" name="shipping"
+                                            value="{{ $shipping->id }}" data-price="{{ $shipping->price }}"
+                                            class="@error('shipping') is-invalid @enderror"
+                                            {{ old('shipping') == $shipping->id ? 'checked' : '' }}>
+                                        <label for="shipping-{{ $key + 1 }}" class="custom-label">
+                                            <div class="card-content">
+                                                <div class="service-title">{{ $shipping->name }}</div>
+                                                <div class="service-price">{{ $shipping->price }}
+                                                    {{ __('messages.currency') }}</div>
+                                            </div>
+                                            <div class="checkmark">
+                                                <span>&#10003;</span>
+                                            </div>
+                                        </label>
+                                    </div>
+                                @endforeach
+                                <!-- Show error message -->
+                                @error('shipping')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
                         </div>
+
                         <div class="checkout__totals-wrapper">
                             <div class="sticky-content">
                                 <div class="checkout__totals">
@@ -317,48 +354,9 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <h5 class="pt-4">SHIPPING AREA</h5>
-                                <div class="frb-group">
-                                    {{-- @foreach ($shippings as $key => $shipping)
-                                        <div class="frb frb-primary">
-                                            <input type="radio" id="shipping-{{ $key + 1 }}" name="shipping"
-                                                value="{{ $shipping->id }}" data-price="{{ $shipping->price }}"
-                                                class="@error('shipping') is-invalid @enderror"
-                                                {{ old('shipping') == $shipping->id ? 'checked' : '' }}>
-                                            <!-- Add 'is-invalid' class if there's an error -->
-                                            <label for="shipping-{{ $key + 1 }}">
-                                                <span class="frb-title">{{ $shipping->name }}</span>
-                                                <span class="frb-description shipping-price">{{ $shipping->price }}
-                                                    {{ __('messages.currency') }}</span>
-                                            </label>
-                                        </div>
-                                    @endforeach --}}
-                                    @foreach ($shippings as $key => $shipping)
-                                        <div class="custom-radio-card">
-                                            <input type="radio" id="shipping-{{ $key + 1 }}" name="shipping"
-                                                value="{{ $shipping->id }}" data-price="{{ $shipping->price }}"
-                                                class="@error('shipping') is-invalid @enderror"
-                                                {{ old('shipping') == $shipping->id ? 'checked' : '' }}>
-                                            <label for="shipping-{{ $key + 1 }}" class="custom-label">
-                                                <div class="card-content">
-                                                    <div class="service-title">{{ $shipping->name }}</div>
-                                                    <div class="service-price">{{ $shipping->price }}
-                                                        {{ __('messages.currency') }}</div>
-                                                </div>
-                                                <div class="checkmark">
-                                                    <span>&#10003;</span>
-                                                </div>
-                                            </label>
-                                        </div>
-                                    @endforeach
-
-
-                                    <!-- Show error message -->
-                                    @error('shipping')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                <div class="d-grid gap-2">
+                                    <button type="submit" class="btn btn-primary font-bd">অর্ডার করুন</button>
                                 </div>
-                                <button type="submit" class="btn btn-primary">PLACE ORDER</button>
                             </div>
                         </div>
                     </div>
@@ -371,18 +369,39 @@
 @section('script')
     <script>
         $(document).ready(function() {
-
             loadCheckoutData();
+
+            let firstShippingRadio = document.querySelector('input[name="shipping"]');
+
+            if (firstShippingRadio) {
+                firstShippingRadio.checked = true;
+
+                let checkSubtotalInterval = setInterval(() => {
+                    let subtotalText = $('.checkout-total').text().replace(' Tk', '').trim();
+                    let subtotal = parseFloat(subtotalText);
+
+                    if (!isNaN(subtotal)) {
+                        clearInterval(checkSubtotalInterval);
+
+                        let shippingPrice = parseFloat(firstShippingRadio.getAttribute('data-price'));
+                        let grandTotal = subtotal + shippingPrice;
+
+                        $('.shipping-fee').text(shippingPrice + ' Tk');
+                        $('.checkout-grandtotal').text(grandTotal.toFixed(2) + ' Tk');
+                    }
+                }, 100); // Check every 100ms
+            }
 
             document.querySelectorAll('input[name="shipping"]').forEach(function(radio) {
                 radio.addEventListener('change', function(event) {
                     let selectedRadio = event.target;
                     let shippingPrice = parseFloat(selectedRadio.getAttribute('data-price'));
-                    let subtotal = parseFloat($('.checkout-total').text().replace(' Tk', ''));
+                    let subtotal = parseFloat($('.checkout-total').text().replace(' Tk', '')
+                .trim());
 
                     if (!isNaN(subtotal) && !isNaN(shippingPrice)) {
                         let grandTotal = subtotal + shippingPrice;
-                        $('.shipping-fee').text(shippingPrice + 'Tk');
+                        $('.shipping-fee').text(shippingPrice + ' Tk');
                         $('.checkout-grandtotal').text(grandTotal.toFixed(2) + ' Tk');
                     } else {
                         console.error(
@@ -390,7 +409,6 @@
                     }
                 });
             });
-
         });
     </script>
 @endsection

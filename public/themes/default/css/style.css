@@ -14782,7 +14782,7 @@ textarea.form-control-lg {
     color: #767676;
     text-transform: uppercase; }
 .product-single__details-tab {
-  margin: 6.25rem auto 2.375rem;
+  margin: 2.25rem auto 2.375rem;
   max-width: 58.125rem; }
   .product-single__details-tab > .nav-tabs {
     justify-content: center;
@@ -15503,7 +15503,7 @@ button.js-add-wishlist.active .flaticon.flaticon-heart, a.add-to-wishlist.active
 
 .checkout-form {
   display: flex;
-  gap: 3.625rem; }
+  gap: 2.625rem; }
   @media (max-width: 1199.98px) {
     .checkout-form {
       flex-direction: column; } }
@@ -15513,7 +15513,7 @@ button.js-add-wishlist.active .flaticon.flaticon-heart, a.add-to-wishlist.active
     .checkout-form .billing-info__wrapper .form-floating > label, .checkout-form .billing-info__wrapper .form-label-fixed > .form-label {
       color: #767676; }
   .checkout-form .checkout__totals-wrapper .sticky-content {
-    padding-top: 3.125rem; }
+    padding-top: 0.125rem; }
   .checkout-form .checkout__totals-wrapper .btn-checkout {
     width: 100%;
     height: 3.75rem;
