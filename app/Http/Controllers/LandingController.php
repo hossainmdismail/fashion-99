@@ -18,16 +18,16 @@ class LandingController extends Controller
         [
             'id' => 1,
             'name' => '১পিস সেমি হুডি ',
-            'oldprice' => 990,
+            'oldprice' => 980,
             'note' => '',
-            'price' => 850
+            'price' => 735
         ],
         [
             'id' => 2,
             'name' => '২পিস কম্বো সেমি হুডি',
             'oldprice' => 1980,
             'note' => 'নিজের মতো রঙ বাছাই করতে নোটে লিখে দিন',
-            'price' => 1599
+            'price' => 1399
         ]
     ];
 

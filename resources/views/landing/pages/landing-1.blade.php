@@ -880,9 +880,9 @@
                             <h3 class="font-bd"
                                 style="font-size: 18px;font-weight: 600;color: #004EAB;line-height: 26px;">
                                 ১ পিসের রেগুলার মূল্য <span
-                                    style="color: #565656;text-decoration: line-through;">990</span>
+                                    style="color: #565656;text-decoration: line-through;">980</span>
                                 টাকা
-                                <span style="color: #a82c2c">অফার মূল্য মাত্র <span style="color: #b81d1d">850</span>
+                                <span style="color: #a82c2c">অফার মূল্য মাত্র <span style="color: #b81d1d">735</span>
                                     টাকা</span>
                             </h3>
                         </div>
@@ -900,7 +900,7 @@
                                 2 পিসের রেগুলার মূল্য <span
                                     style="color: #565656;text-decoration: line-through;">1980</span>
                                 টাকা
-                                <span style="color: #a82c2c">অফার মূল্য মাত্র <span style="color: #b81d1d">1599</span>
+                                <span style="color: #a82c2c">অফার মূল্য মাত্র <span style="color: #b81d1d">1399</span>
                                     টাকা</span>
                             </h3>
                         </div>
