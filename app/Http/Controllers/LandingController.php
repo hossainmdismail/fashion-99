@@ -291,8 +291,10 @@ class LandingController extends Controller
             $message = ($packageGrandTotal['id'] == 2 ? '<apan style="color:red"> Combo </span>' : '') . $request->message;
 
             if ($packageGrandTotal['id'] == 2) {
-                $shippingPrice = 0;
-                $totalPrice = $packageGrandTotal['price'] * $request->quantity;
+                // $shippingPrice = 0;
+                // $totalPrice = $packageGrandTotal['price'] * $request->quantity;
+                $shippingPrice = $shipping->price;
+                $totalPrice = ($packageGrandTotal['price'] * $request->quantity) + $shipping->price;
             } else {
                 $shippingPrice = $shipping->price;
                 $totalPrice = ($packageGrandTotal['price'] * $request->quantity) + $shipping->price;

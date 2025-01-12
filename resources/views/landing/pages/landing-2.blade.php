@@ -1755,44 +1755,12 @@
             }
         }
 
-
-        // function updateGrandTotal() {
-        //     var subtotal = parseFloat(document.querySelector('.checkout-total').textContent);
-        //     var shippingPrice = parseFloat(document.querySelector('input[name="shipping"]:checked').getAttribute(
-        //         'data-price')) || 0;
-        //     var quantity = parseInt(document.querySelector('input[name="quantity"]').value);
-
-        //     // Set shipping charge to 0 if quantity is more than 2
-        //     if (quantity > 1) {
-        //         shippingPrice = 0;
-        //     }
-
-        //     var grandTotal = subtotal + shippingPrice;
-
-        //     document.querySelector('.checkout-grandtotal').textContent = grandTotal.toFixed(2) + ' ৳';
-        //     document.querySelector('.shipping-charge').textContent = shippingPrice.toFixed(2) + ' ৳';
-        // }
         function updateGrandTotal() {
-            // Get the subtotal from the checkout total
             var subtotal = parseFloat(document.querySelector('.checkout-total').textContent) || 0;
-
-            // Get the selected shipping price
             var shippingPrice = parseFloat(document.querySelector('input[name="shipping"]:checked')?.getAttribute(
                 'data-price')) || 0;
-
-            // Get the selected package and its price
-            var selectedPackage = document.querySelector('input[name="package"]:checked');
-            var packagePrice = selectedPackage ? parseFloat(selectedPackage.dataset.price) : 0;
-
-            // Set shipping to 0 if package price is more than 1000
-            if (packagePrice > 1000) {
-                shippingPrice = 0;
-            }
-
-            // Calculate the grand total
             var grandTotal = subtotal + shippingPrice;
 
-            // Update the grand total and shipping charge in the UI
             document.querySelector('.checkout-grandtotal').textContent = grandTotal.toFixed(2) + ' ৳';
             document.querySelector('.shipping-charge').textContent = shippingPrice.toFixed(2) + ' ৳';
         }
