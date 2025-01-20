@@ -99,7 +99,7 @@ class LandingController extends Controller
 
     public function one()
     {
-        $slug = 'premium-semi-hoodies';
+        $slug = 'winter-exclusive';
         $product = Product::where('slugs', $slug)->first();
 
         if ($product) {
