@@ -12,6 +12,11 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\OrderProduct;
 use Illuminate\Support\Facades\Cookie;
+use Esign\ConversionsApi\Facades\ConversionsApi;
+use FacebookAds\Object\ServerSide\Event;
+use FacebookAds\Object\ServerSide\UserData;
+use FacebookAds\Object\ServerSide\CustomData;
+use Illuminate\Support\Str;
 
 class CheckoutController extends Controller
 {
@@ -31,6 +36,36 @@ class CheckoutController extends Controller
 
         // Fetch cart details
         $cartData = CookieSD::data(); // Assuming this fetches the cart details
+
+        // Generate unique event ID for deduplication
+        $eventId = Str::uuid();
+
+        // Prepare user data for Meta Conversions API
+        $userData = (new UserData())
+            ->setClientIpAddress(request()->ip())
+            ->setClientUserAgent(request()->header('User-Agent'))
+            ->setEmail(auth()->check() ? auth()->user()->email : null);
+
+        // Prepare custom data for Meta Conversions API
+        $customData = (new CustomData())
+            ->setContentIds(collect($cartData['products'])->pluck('id')->toArray()) // Pass product IDs
+            ->setContentType('product')
+            ->setValue($cartData['price']) // Total price of the cart
+            ->setCurrency('BDT')
+            ->setNumItems($cartData['total']); // Number of items in the cart
+
+        // Create InitiateCheckout event for Meta Conversions API
+        $event = (new Event())
+            ->setEventName('InitiateCheckout')
+            ->setEventTime(time())
+            ->setUserData($userData)
+            ->setCustomData($customData)
+            ->setEventSourceUrl(url()->current())
+            ->setEventId($eventId);
+
+        // Send event to Meta Conversions API
+        ConversionsApi::addEvent($event);
+        ConversionsApi::sendEvents();
 
         // Prepare data for Meta Pixel
         $fbEvent = [
@@ -150,6 +185,30 @@ class CheckoutController extends Controller
                     'currency' => 'BDT',
                 ],
             ];
+
+            $eventId = Str::uuid();
+
+            $userData = (new UserData())
+                ->setClientIpAddress($request->ip())
+                ->setClientUserAgent($request->header('User-Agent'))
+                ->setEmail($request->email ?? null);
+
+            $customData = (new CustomData())
+                ->setContentIds(collect($cookieData['products'])->pluck('id')->toArray()) // Pass product IDs
+                ->setContentType('product_group')
+                ->setValue($cookieData['price'] + $shipping->price)
+                ->setCurrency('BDT');
+
+            $event = (new Event())
+                ->setEventName('Purchase')
+                ->setEventTime(time())
+                ->setUserData($userData)
+                ->setCustomData($customData)
+                ->setEventSourceUrl(url()->current())
+                ->setEventId($eventId);
+
+            ConversionsApi::addEvent($event);
+            ConversionsApi::sendEvents();
 
             Cookie::queue(Cookie::forget('product_data'));
 

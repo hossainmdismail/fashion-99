@@ -6,9 +6,14 @@ use App\Models\Theme;
 use App\Models\Config;
 use App\Models\Product;
 use App\Helpers\CookieSD;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Facades\SEOTools;
+use FacebookAds\Object\ServerSide\Event;
+use FacebookAds\Object\ServerSide\UserData;
+use Esign\ConversionsApi\Facades\ConversionsApi;
+use FacebookAds\Object\ServerSide\CustomData;
 
 class ProductController extends Controller
 {
@@ -80,6 +85,33 @@ class ProductController extends Controller
                 ],
             ];
 
+            // Generate Unique Event ID for Deduplication
+            $eventId = Str::uuid();
+
+            // Prepare Meta Conversions API Data
+            $userData = (new UserData())
+                ->setClientIpAddress(request()->ip())
+                ->setClientUserAgent(request()->header('User-Agent'))
+                ->setEmail(auth()->check() ? auth()->user()->email : null);
+
+            $customData = (new CustomData())
+                ->setContentIds([$product->id])
+                ->setContentType($product->category ? $product->category->category_name : 'Unknown')
+                ->setValue($product->getFinalPrice())
+                ->setCurrency('BDT');
+
+            $event = (new Event())
+                ->setEventName('ViewContent')
+                ->setEventTime(time())
+                ->setUserData($userData)
+                ->setCustomData($customData)
+                ->setEventSourceUrl(url()->current())
+                ->setEventId($eventId);
+
+            // Send the event to Meta Conversions API
+            ConversionsApi::addEvent($event);
+            ConversionsApi::sendEvents();
+
             return view("themes.$themeSlug.pages.product", [
                 'product' => $product,
                 'related' => $relatedProduct,
@@ -101,6 +133,28 @@ class ProductController extends Controller
 
         try {
             CookieSD::addToCookie($request->inventory_id, $request->quantity);
+
+            $eventId = Str::uuid();
+            $userData = (new UserData())
+                ->setClientIpAddress($request->ip())
+                ->setClientUserAgent($request->header('User-Agent'))
+                ->setEmail(auth()->check() ? auth()->user()->email : null);
+
+            $customData = (new CustomData())
+                ->setContentIds($request->inventory_id)
+                ->setContentType('product')
+                ->setCurrency('BDT');
+
+            $event = (new Event())
+                ->setEventName('AddToCart')
+                ->setEventTime(time())
+                ->setUserData($userData)
+                ->setCustomData($customData)
+                ->setEventSourceUrl(url()->current())
+                ->setEventId($eventId);
+
+            ConversionsApi::addEvent($event);
+            ConversionsApi::sendEvents();
         } catch (\Exception $e) {
             return back()->with('err', 'Warning: ' . $e->getMessage());
         }
@@ -118,6 +172,7 @@ class ProductController extends Controller
 
         $cartData = CookieSD::data();
         $products = $cartData['products'] ?? [];
+
 
         return response()->json([
             'html' => view("themes.$slug.component.cart-productlist", compact('products'))->render(),

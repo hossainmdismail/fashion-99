@@ -133,7 +133,7 @@
             </div>
             <div class="row ">
                 <div class="col-md-4">
-                    @if ($pathao)
+                    @if ($pathao && isset($pathao['data']['customer']))
                         <div class="card card-body mb-4">
                             <article class="icontext">
                                 <img src="{{ asset('backend/assets/imgs/pathao.png') }}" width="65"
